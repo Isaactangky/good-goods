@@ -1,0 +1,30 @@
+.container {
+  width: 800px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  .image-container {
+    height: 80px;
+    width: 80px;
+    img {
+      width: 100%;
+    }
+  }
+  .info-container {
+    flex-grow: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    row-gap: 1rem;
+    .category {
+      text-align: end;
+    }
+    .title {
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+    .review {
+      grid-column: 1/3;
+    }
+  }
+}

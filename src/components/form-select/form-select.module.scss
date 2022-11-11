@@ -1,0 +1,18 @@
+.group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .category-select {
+    width: 150px;
+    height: 30px;
+    padding-left: 5px;
+    color: grey;
+    border: none;
+    border-bottom: 1px solid gray;
+    background-color: none;
+  }
+  label {
+    padding: 10px 10px 10px 5px;
+    font-size: 12px;
+  }
+}
