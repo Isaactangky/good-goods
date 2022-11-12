@@ -17,10 +17,10 @@ const Navigation = () => {
           <Link className={styles.nav_link} to="/new">
             Share
           </Link>
-          <Link className={styles.nav_link} to="/goods">
+          <Link className={styles.nav_link} to="/post">
             Goods
           </Link>
-          <Link className={styles.nav_link} to="/reports">
+          <Link className={styles.nav_link} to="/community">
             Community
           </Link>
         </div>

@@ -1,27 +1,38 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { PostsContext } from "../../context/posts/posts.contex";
 import Button, { BUTTON_TYPES } from "../button/button.component";
-
 import FormInput from "../form-input/form-input.component";
 import FormSelect from "../form-select/form-select.component";
 import styles from "./new-post-form.module.scss";
+import { v4 as uuid } from "uuid";
 const defaultFormFields = {
   name: "",
   category: "Food",
   imageUrl: "",
-  review: "",
+  description: "",
 };
+
 const CATEGORIES = ["Food", "Beauty", "Clothing", "Health"];
+
 const NewPostForm = () => {
+  const { addPost } = useContext(PostsContext);
   const [formFields, setFormFields] = useState(defaultFormFields);
-  const { name, category, imageUrl, review } = formFields;
+  const { name, category, imageUrl, description } = formFields;
+  const clearFormField = () => setFormFields(defaultFormFields);
   const onChangeHandler = (event) => {
     const { name, value } = event.target;
-
     setFormFields({ ...formFields, [name]: value });
   };
-  console.log(formFields);
+
+  const addNewPost = (e) => {
+    e.preventDefault();
+    const newPost = { ...formFields, id: uuid() };
+    console.log(newPost);
+    addPost(newPost);
+    clearFormField();
+  };
   return (
-    <form className={styles["new-post-form"]}>
+    <form className={styles["new-post-form"]} onSubmit={addNewPost}>
       <FormInput
         label="name"
         type="text"
@@ -46,10 +57,10 @@ const NewPostForm = () => {
         required
       />
       <FormInput
-        label="review"
+        label="description"
         type="text"
-        name="review"
-        value={review}
+        name="description"
+        value={description}
         onChange={onChangeHandler}
         required
       />
