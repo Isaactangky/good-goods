@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const post = require("../../controllers/post");
+const catchAsync = require("../../utils/catch-async.utils");
+
 router
   .route("/")
   /**
@@ -9,13 +11,13 @@ router
    * @access  Public
    */
 
-  .get(post.index)
+  .get(catchAsync(post.index))
   /**
    * @route   POST api/posts
    * @desc    Create a post
    * @access  Public
    */
-  .post(post.createPost);
+  .post(catchAsync(post.createPost));
 
 router
   .route("/:id")
@@ -24,12 +26,12 @@ router
    * @desc    Get a post
    * @access  Public
    */
-  .get(post.getPost)
+  .get(catchAsync(post.getPost))
   /**
    * @route   DELETE api/post/:id
    * @desc    Delete a post
    * @access  Public
    */
-  .delete(post.deletePost);
+  .delete(catchAsync(post.deletePost));
 
 module.exports = router;

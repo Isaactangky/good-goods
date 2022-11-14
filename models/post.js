@@ -1,4 +1,3 @@
-const { text } = require("express");
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
@@ -14,6 +13,10 @@ const PostSchema = Schema({
   },
   category: {
     type: String,
+  },
+  date: {
+    type: Date,
+    default: Date.now,
   },
 });
 

@@ -4,9 +4,10 @@ import Button, { BUTTON_TYPES } from "../button/button.component";
 import FormInput from "../form-input/form-input.component";
 import FormSelect from "../form-select/form-select.component";
 import styles from "./new-post-form.module.scss";
-import { v4 as uuid } from "uuid";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 const defaultFormFields = {
-  name: "",
+  title: "",
   category: "Food",
   imageUrl: "",
   description: "",
@@ -15,29 +16,37 @@ const defaultFormFields = {
 const CATEGORIES = ["Food", "Beauty", "Clothing", "Health"];
 
 const NewPostForm = () => {
+  const navigate = useNavigate();
   const { addPost } = useContext(PostsContext);
   const [formFields, setFormFields] = useState(defaultFormFields);
-  const { name, category, imageUrl, description } = formFields;
+  const { title, category, imageUrl, description } = formFields;
   const clearFormField = () => setFormFields(defaultFormFields);
   const onChangeHandler = (event) => {
     const { name, value } = event.target;
     setFormFields({ ...formFields, [name]: value });
   };
 
-  const addNewPost = (e) => {
+  const addNewPost = async (e) => {
     e.preventDefault();
-    const newPost = { ...formFields, id: uuid() };
-    console.log(newPost);
-    addPost(newPost);
-    clearFormField();
+    const newPost = { ...formFields };
+    try {
+      const res = await axios.post("http://localhost:5000/api/post", newPost);
+      const { _id } = res.data;
+      addPost(res.data);
+      clearFormField();
+      navigate(`/post/${_id}`);
+    } catch (error) {
+      console.log(error);
+    }
+    // console.log(newPost);
   };
   return (
     <form className={styles["new-post-form"]} onSubmit={addNewPost}>
       <FormInput
-        label="name"
+        label="title"
         type="text"
-        name="name"
-        value={name}
+        name="title"
+        value={title}
         onChange={onChangeHandler}
         required
       />

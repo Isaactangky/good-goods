@@ -10,7 +10,7 @@ const Home = () => {
       <div className={styles["posts-container"]}>
         <h2>Fresh Posts</h2>
         {posts.map((post) => (
-          <PostPreview key={post.id} post={post} />
+          <PostPreview key={post._id} post={post} />
         ))}
       </div>
       <div className={styles["other-info-container"]}></div>
