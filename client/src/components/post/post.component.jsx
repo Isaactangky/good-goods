@@ -1,25 +1,18 @@
-import { useParams } from "react-router-dom";
+import { useFormAction, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styles from "./post.module.scss";
 import axios from "axios";
+import { fetchPostStart } from "../../store/posts/posts.action";
+import { selectPost } from "../../store/posts/posts.selector";
+import Button, { BUTTON_TYPES } from "../button/button.component";
 const Post = () => {
-  const { id: paramsId } = useParams();
-  const [post, setPost] = useState({});
-
+  const { id } = useParams();
+  // const [post, setPost] = useState({});
+  const post = useSelector(selectPost);
+  const dispatch = useDispatch();
   useEffect(() => {
-    const getPost = async () => {
-      try {
-        const res = await axios.get(
-          `http://localhost:5000/api/post/${paramsId}`
-        );
-        setPost(res.data);
-
-        // setPost(targetPost);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getPost();
+    dispatch(fetchPostStart(id));
   }, []);
 
   // if (!paramsId || post === {}) return <h1>not found</h1>;
@@ -31,6 +24,10 @@ const Post = () => {
         <img src={post.imageUrl} alt={`${post.title} image`} />
       </div>
       <p>{post.description}</p>
+      <div className={styles["button-container"]}>
+        <Button buttonType={BUTTON_TYPES.OUTLINE}>Edit</Button>
+        <Button>Delete</Button>
+      </div>
     </div>
   );
 };

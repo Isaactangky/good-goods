@@ -1,11 +1,19 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { PostsContext } from "../../context/posts/posts.contex";
 import Button, { BUTTON_TYPES } from "../button/button.component";
 import FormInput from "../form-input/form-input.component";
 import FormSelect from "../form-select/form-select.component";
 import styles from "./new-post-form.module.scss";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import {
+  createPostStart,
+  createPostReset,
+} from "../../store/posts/posts.action";
+import {
+  selectIsSucceeded,
+  selectPost,
+} from "../../store/posts/posts.selector";
 const defaultFormFields = {
   title: "",
   category: "Food",
@@ -17,10 +25,11 @@ const CATEGORIES = ["Food", "Beauty", "Clothing", "Health"];
 
 const NewPostForm = () => {
   const navigate = useNavigate();
-  const { addPost } = useContext(PostsContext);
+  const dispatch = useDispatch();
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { title, category, imageUrl, description } = formFields;
   const clearFormField = () => setFormFields(defaultFormFields);
+
   const onChangeHandler = (event) => {
     const { name, value } = event.target;
     setFormFields({ ...formFields, [name]: value });
@@ -29,17 +38,13 @@ const NewPostForm = () => {
   const addNewPost = async (e) => {
     e.preventDefault();
     const newPost = { ...formFields };
-    try {
-      const res = await axios.post("http://localhost:5000/api/post", newPost);
-      const { _id } = res.data;
-      addPost(res.data);
-      clearFormField();
-      navigate(`/post/${_id}`);
-    } catch (error) {
-      console.log(error);
-    }
+    const { _id } = await dispatch(createPostStart(newPost));
+    navigate(`/post/${_id}`);
+    // clearFormField();
+
     // console.log(newPost);
   };
+
   return (
     <form className={styles["new-post-form"]} onSubmit={addNewPost}>
       <FormInput
