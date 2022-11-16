@@ -1,9 +1,11 @@
-import { useFormAction, useParams } from "react-router-dom";
+import { useFormAction, useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./post.module.scss";
-import axios from "axios";
-import { fetchPostStart } from "../../store/posts/posts.action";
+import {
+  fetchPostStartAsync,
+  deletePostStartAsync,
+} from "../../store/posts/posts.action";
 import { selectPost } from "../../store/posts/posts.selector";
 import Button, { BUTTON_TYPES } from "../button/button.component";
 const Post = () => {
@@ -11,10 +13,17 @@ const Post = () => {
   // const [post, setPost] = useState({});
   const post = useSelector(selectPost);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   useEffect(() => {
-    dispatch(fetchPostStart(id));
+    if (!post || post._id !== id) dispatch(fetchPostStartAsync(id));
   }, []);
-
+  const onDeleteHandler = async () => {
+    const res = await dispatch(deletePostStartAsync(id));
+    if (res) navigate("/");
+  };
+  const onEditHandler = () => {
+    navigate(`/post/${id}/edit`);
+  };
   // if (!paramsId || post === {}) return <h1>not found</h1>;
   return (
     <div className={styles["container"]}>
@@ -25,8 +34,10 @@ const Post = () => {
       </div>
       <p>{post.description}</p>
       <div className={styles["button-container"]}>
-        <Button buttonType={BUTTON_TYPES.OUTLINE}>Edit</Button>
-        <Button>Delete</Button>
+        <Button onClick={onEditHandler} buttonType={BUTTON_TYPES.OUTLINE}>
+          Edit
+        </Button>
+        <Button onClick={onDeleteHandler}>Delete</Button>
       </div>
     </div>
   );

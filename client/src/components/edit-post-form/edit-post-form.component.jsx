@@ -1,46 +1,53 @@
 import { useState, useContext, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { PostsContext } from "../../context/posts/posts.contex";
 import Button, { BUTTON_TYPES } from "../button/button.component";
 import FormInput from "../form-input/form-input.component";
 import FormSelect from "../form-select/form-select.component";
-import styles from "./new-post-form.module.scss";
-import { useNavigate } from "react-router-dom";
-import { createPostStart } from "../../store/posts/posts.action";
-
-const defaultFormFields = {
-  title: "",
-  category: "Food",
-  imageUrl: "",
-  description: "",
-};
+import { useNavigate, useParams } from "react-router-dom";
+import {
+  updatePostStartAsync,
+  fetchPostStartAsync,
+} from "../../store/posts/posts.action";
+import {
+  selectIsSucceeded,
+  selectPost,
+} from "../../store/posts/posts.selector";
 
 const CATEGORIES = ["Food", "Beauty", "Clothing", "Health"];
 
-const NewPostForm = () => {
+const EditPostForm = () => {
+  const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [formFields, setFormFields] = useState(defaultFormFields);
+  const post = useSelector(selectPost);
+  console.log("post", post);
+  const [formFields, setFormFields] = useState(post);
   const { title, category, imageUrl, description } = formFields;
-  const clearFormField = () => setFormFields(defaultFormFields);
+  console.log(formFields);
+  useEffect(() => {
+    (async () => {
+      if (!post || post._id !== id) {
+        await dispatch(fetchPostStartAsync(id));
+        setFormFields((prev) => post);
+        console.log("2");
+      }
+    })();
+  }, []);
 
   const onChangeHandler = (event) => {
     const { name, value } = event.target;
     setFormFields({ ...formFields, [name]: value });
   };
 
-  const addNewPost = async (e) => {
+  const updatePost = async (e) => {
     e.preventDefault();
     const newPost = { ...formFields };
-    const { _id } = await dispatch(createPostStart(newPost));
-    navigate(`/post/${_id}`);
-    // clearFormField();
-
-    // console.log(newPost);
+    const data = await dispatch(updatePostStartAsync(id, newPost));
+    navigate(`/post/${data._id}`);
   };
 
   return (
-    <form className={styles["new-post-form"]} onSubmit={addNewPost}>
+    <form onSubmit={updatePost}>
       <FormInput
         label="title"
         type="text"
@@ -77,4 +84,4 @@ const NewPostForm = () => {
   );
 };
 
-export default NewPostForm;
+export default EditPostForm;

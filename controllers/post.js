@@ -20,7 +20,6 @@ module.exports.getPost = async (req, res, next) => {
 
   const post = await Post.findById(id);
   if (!post) throw new Error("No post found");
-  console.log("post", post);
   res.status(200).json(post);
 };
 
@@ -29,4 +28,25 @@ module.exports.deletePost = async (req, res, next) => {
   const post = await Post.findByIdAndDelete(id);
   if (!post) throw new Error("No post found");
   res.status(200).json({ success: true });
+};
+
+module.exports.updatePost = async (req, res) => {
+  const { id } = req.params;
+  console.log(id, req.body);
+  const post = await Post.findByIdAndUpdate(id, { ...req.body }, { new: true });
+
+  // campground.images.push(...images);
+  // if (req.body.deleteImages) {
+  //   for (let img of req.body.deleteImages) {
+  //     await cloudinary.uploader.destroy(img);
+  //   }
+  //   await campground.updateOne({
+  //     $pull: { images: { filename: { $in: req.body.deleteImages } } },
+  //   });
+  // }
+  await post.save();
+  console.log("post");
+  console.log(post);
+  // req.flash("success", "Successfully updated campground");
+  res.status(200).json(post);
 };

@@ -6,6 +6,15 @@ export const POSTS_INITIAL_STATE = {
   isLoading: false,
   error: null,
 };
+const removePostFromPosts = (posts, removedPost) => {
+  return posts.filter((post) => post._id !== removedPost._id);
+};
+const updatePostsAfterUpdatePost = (posts, newPost) => {
+  return posts.reduce((acc, cur) => {
+    if (cur._id === newPost._id) return [...acc, newPost];
+    return [...acc, cur];
+  }, []);
+};
 
 export const postsReducer = (state = POSTS_INITIAL_STATE, action) => {
   const { type } = action;
@@ -13,6 +22,8 @@ export const postsReducer = (state = POSTS_INITIAL_STATE, action) => {
     case POSTS_ACTION_TYPES.FETCH_POSTS_START:
     case POSTS_ACTION_TYPES.FETCH_POST_START:
     case POSTS_ACTION_TYPES.CREATE_POST_START:
+    case POSTS_ACTION_TYPES.DELETE_POST_START:
+    case POSTS_ACTION_TYPES.UPDATE_POST_START:
       return {
         ...state,
         isLoading: true,
@@ -32,12 +43,29 @@ export const postsReducer = (state = POSTS_INITIAL_STATE, action) => {
     case POSTS_ACTION_TYPES.CREATE_POST_SUCCEEDED:
       return {
         ...state,
+        posts: [...state.posts, action.payload],
         post: action.payload,
+        isLoading: false,
       };
-
+    case POSTS_ACTION_TYPES.DELETE_POST_SUCCEEDED:
+      return {
+        ...state,
+        posts: removePostFromPosts(state.posts, action.payload),
+        post: null,
+        isLoading: false,
+      };
+    case POSTS_ACTION_TYPES.UPDATE_POST_SUCCEEDED:
+      return {
+        ...state,
+        posts: updatePostsAfterUpdatePost(state.posts, action.payload),
+        post: action.payload,
+        isLoading: false,
+      };
     case POSTS_ACTION_TYPES.FETCH_POST_FAILED:
     case POSTS_ACTION_TYPES.FETCH_POST_FAILED:
     case POSTS_ACTION_TYPES.CREATE_POST_FAILED:
+    case POSTS_ACTION_TYPES.DELETE_POST_FAILED:
+    case POSTS_ACTION_TYPES.UPDATE_POST_FAILED:
       return {
         ...state,
         error: action.payload,

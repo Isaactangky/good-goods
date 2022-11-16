@@ -32,6 +32,12 @@ router
    * @desc    Delete a post
    * @access  Public
    */
-  .delete(catchAsync(post.deletePost));
+  .delete(catchAsync(post.deletePost))
+  /**
+   * @route   PUT api/post/:id
+   * @desc    Update a post
+   * @access  Public
+   */
+  .put(catchAsync(post.updatePost));
 
 module.exports = router;
