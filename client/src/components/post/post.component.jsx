@@ -8,6 +8,17 @@ import {
 } from "../../store/posts/posts.action";
 import { selectPost } from "../../store/posts/posts.selector";
 import Button, { BUTTON_TYPES } from "../button/button.component";
+import Reviews from "../reviews/reviews.component";
+const reviews = [
+  {
+    _id: 12344,
+    rating: 3,
+    userName: "Jack",
+    content: "I dont like it",
+    date: "Jan 2010",
+  },
+];
+
 const Post = () => {
   const { id } = useParams();
   // const [post, setPost] = useState({});
@@ -39,6 +50,7 @@ const Post = () => {
         </Button>
         <Button onClick={onDeleteHandler}>Delete</Button>
       </div>
+      <Reviews reviews={reviews} />
     </div>
   );
 };

@@ -3,6 +3,8 @@ const app = express();
 const mongoose = require("mongoose");
 const cors = require("cors");
 const post = require("./routes/api/post");
+const review = require("./routes/api/review");
+
 const { dbUrl } = require("./config");
 mongoose.connect(dbUrl, {
   useNewUrlParser: true,
@@ -22,6 +24,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors({ origin: "http://localhost:3000" }));
 
 app.use("/api/post", post);
+app.use("/api/post/:id/reviews", review);
 
 app.use((err, req, res, next) => {
   const { statusCode = 400 } = err;

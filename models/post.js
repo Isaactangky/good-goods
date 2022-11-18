@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-
-const PostSchema = Schema({
+const Review = require("./review");
+const postSchema = Schema({
   title: {
     type: String,
   },
@@ -18,6 +18,19 @@ const PostSchema = Schema({
     type: Date,
     default: Date.now,
   },
+  reviews: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Review",
+    },
+  ],
+});
+postSchema.post("findOneAndDelete", async (post) => {
+  if (post) {
+    await Review.deleteMany({
+      _id: { $in: post.reviews },
+    });
+  }
 });
 
-module.exports = mongoose.model("post", PostSchema);
+module.exports = mongoose.model("post", postSchema);
