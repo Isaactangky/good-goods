@@ -50,7 +50,7 @@ const Post = () => {
         </Button>
         <Button onClick={onDeleteHandler}>Delete</Button>
       </div>
-      <Reviews reviews={reviews} />
+      {post && <Reviews reviews={post.reviews} />}
     </div>
   );
 };

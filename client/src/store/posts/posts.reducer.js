@@ -1,3 +1,4 @@
+import { AddReviewButton } from "../../components/add-review-form/add-review-form.styles";
 import { POSTS_ACTION_TYPES } from "./posts.types";
 
 export const POSTS_INITIAL_STATE = {
@@ -15,6 +16,18 @@ const updatePostsAfterUpdatePost = (posts, newPost) => {
     return [...acc, cur];
   }, []);
 };
+const AddReview = (post, newReview) => {
+  return {
+    ...post,
+    reviews: [newReview, ...post.reviews],
+  };
+};
+const deleteReview = (post, deletedReviewId) => {
+  return {
+    ...post,
+    reviews: post.reviews.filter((review) => review._id !== deletedReviewId),
+  };
+};
 
 export const postsReducer = (state = POSTS_INITIAL_STATE, action) => {
   const { type } = action;
@@ -24,10 +37,13 @@ export const postsReducer = (state = POSTS_INITIAL_STATE, action) => {
     case POSTS_ACTION_TYPES.CREATE_POST_START:
     case POSTS_ACTION_TYPES.DELETE_POST_START:
     case POSTS_ACTION_TYPES.UPDATE_POST_START:
+    case POSTS_ACTION_TYPES.CREATE_REVIEW_START:
+    case POSTS_ACTION_TYPES.DELETE_REVIEW_START:
       return {
         ...state,
         isLoading: true,
       };
+
     case POSTS_ACTION_TYPES.FETCH_POSTS_SUCCEEDED:
       return {
         ...state,
@@ -61,11 +77,25 @@ export const postsReducer = (state = POSTS_INITIAL_STATE, action) => {
         post: action.payload,
         isLoading: false,
       };
+    case POSTS_ACTION_TYPES.CREATE_REVIEW_SUCCEEDED:
+      return {
+        ...state,
+        post: AddReview(state.post, action.payload),
+        isLoading: false,
+      };
+    case POSTS_ACTION_TYPES.DELETE_REVIEW_SUCCEEDED:
+      return {
+        ...state,
+        post: deleteReview(state.post, action.payload),
+        isLoading: false,
+      };
     case POSTS_ACTION_TYPES.FETCH_POST_FAILED:
     case POSTS_ACTION_TYPES.FETCH_POST_FAILED:
     case POSTS_ACTION_TYPES.CREATE_POST_FAILED:
     case POSTS_ACTION_TYPES.DELETE_POST_FAILED:
     case POSTS_ACTION_TYPES.UPDATE_POST_FAILED:
+    case POSTS_ACTION_TYPES.CREATE_REVIEW_FAILED:
+    case POSTS_ACTION_TYPES.DELETE_REVIEW_FAILED:
       return {
         ...state,
         error: action.payload,

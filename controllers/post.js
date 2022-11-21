@@ -1,7 +1,7 @@
 const Post = require("../models/post");
 
 module.exports.index = async (req, res) => {
-  const posts = await Post.find();
+  const posts = await Post.find().sort({ date: -1 });
   // if (!posts) throw new Error("No Posts!");
   res.json(posts);
 };
@@ -17,8 +17,11 @@ module.exports.createPost = async (req, res, next) => {
 
 module.exports.getPost = async (req, res, next) => {
   const id = req.params.id;
+  const post = await Post.findById(id).populate({
+    path: "reviews",
+    options: { sort: { date: -1 } },
+  });
 
-  const post = await Post.findById(id);
   if (!post) throw new Error("No post found");
   res.status(200).json(post);
 };

@@ -8,9 +8,9 @@ const Reviews = ({ reviews }) => {
       <AddReviewForm />
       <Title>Reviews</Title>
       <ReviewsContainer>
-        {reviews.map((review) => (
-          <Review key={review._id} review={review} />
-        ))}
+        {reviews && reviews.length
+          ? reviews.map((review) => <Review key={review._id} review={review} />)
+          : null}
       </ReviewsContainer>
     </Container>
   );
