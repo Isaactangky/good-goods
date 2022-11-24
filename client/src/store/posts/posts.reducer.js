@@ -1,4 +1,3 @@
-import { AddReviewButton } from "../../components/add-review-form/add-review-form.styles";
 import { POSTS_ACTION_TYPES } from "./posts.types";
 
 export const POSTS_INITIAL_STATE = {

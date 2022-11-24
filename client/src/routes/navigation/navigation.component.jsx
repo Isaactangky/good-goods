@@ -2,10 +2,14 @@ import styles from "./navigation.module.scss";
 import { Outlet, Link, useNavigate } from "react-router-dom";
 import { Fragment } from "react";
 import Button from "../../components/button/button.component";
+import { useDispatch } from "react-redux";
+import { signInStartAsync } from "../../store/user/user.action";
 const Navigation = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const onClickHandler = () => {
-    navigate("/auth");
+    // navigate("/auth");
+    dispatch(signInStartAsync());
   };
   return (
     <Fragment>

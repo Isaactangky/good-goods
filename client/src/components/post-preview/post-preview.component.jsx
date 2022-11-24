@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import styles from "./post-preview.module.scss";
 const PostPreview = ({ post }) => {
   const { _id, title, imageUrl, description, category } = post;
+  if (!description || !title) return;
   return (
     <Link to={`/post/${_id}`} className={styles["container"]}>
       {/* <div > */}

@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const post = require("../../controllers/post");
 const catchAsync = require("../../utils/catch-async.utils");
-
+const { isLoggedIn } = require("../../middleware");
 router
   .route("/")
   /**
@@ -17,7 +17,7 @@ router
    * @desc    Create a post
    * @access  Public
    */
-  .post(catchAsync(post.createPost));
+  .post(isLoggedIn, catchAsync(post.createPost));
 
 router
   .route("/:id")
@@ -32,12 +32,12 @@ router
    * @desc    Delete a post
    * @access  Public
    */
-  .delete(catchAsync(post.deletePost))
+  .delete(isLoggedIn, catchAsync(post.deletePost))
   /**
    * @route   PUT api/post/:id
    * @desc    Update a post
    * @access  Public
    */
-  .put(catchAsync(post.updatePost));
+  .put(isLoggedIn, catchAsync(post.updatePost));
 
 module.exports = router;

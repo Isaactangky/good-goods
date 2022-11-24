@@ -8,11 +8,15 @@ import NewPost from "./routes/new-post/new-post.component";
 import PostsHome from "./routes/posts-home/posts-home.component";
 import Posts from "./components/posts/posts.component";
 import { fetchPostsStartAsync } from "./store/posts/posts.action";
+import { fetchAuthStatus } from "./store/user/user.action";
 
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchPostsStartAsync());
+  }, []);
+  useEffect(() => {
+    dispatch(fetchAuthStatus());
   }, []);
   return (
     <Routes>
