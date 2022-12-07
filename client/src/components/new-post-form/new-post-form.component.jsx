@@ -32,8 +32,8 @@ const NewPostForm = () => {
   const addNewPost = async (e) => {
     e.preventDefault();
     const newPost = { ...formFields };
-    const { _id } = await dispatch(createPostStart(newPost));
-    navigate(`/post/${_id}`);
+    await dispatch(createPostStart(newPost));
+    // navigate(`/post/${_id}`);
     // clearFormField();
 
     // console.log(newPost);

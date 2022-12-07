@@ -6,8 +6,8 @@ export const POSTS_INITIAL_STATE = {
   isLoading: false,
   error: null,
 };
-const removePostFromPosts = (posts, removedPost) => {
-  return posts.filter((post) => post._id !== removedPost._id);
+const removePostFromPosts = (posts, removedPostId) => {
+  return posts.filter((post) => post._id !== removedPostId);
 };
 const updatePostsAfterUpdatePost = (posts, newPost) => {
   return posts.reduce((acc, cur) => {
@@ -66,7 +66,7 @@ export const postsReducer = (state = POSTS_INITIAL_STATE, action) => {
       return {
         ...state,
         posts: removePostFromPosts(state.posts, action.payload),
-        post: null,
+        // post: null,
         isLoading: false,
       };
     case POSTS_ACTION_TYPES.UPDATE_POST_SUCCEEDED:

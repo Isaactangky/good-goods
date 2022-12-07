@@ -6,14 +6,16 @@ import App from "./App";
 import { BrowserRouter, Router } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
+import history from "./history";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter>
-        {/* <BrowserRouter location={history.location} navigator={history}> */}
-        {/* <Router history={history}> */}
+      {/* <BrowserRouter> */}
+      {/* <BrowserRouter location={history.location} navigator={history}> */}
+      <BrowserRouter history={history}>
         <App />
+        {/* </BrowserRouter> */}
       </BrowserRouter>
     </Provider>
   </React.StrictMode>

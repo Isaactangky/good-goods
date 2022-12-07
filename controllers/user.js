@@ -25,20 +25,15 @@ module.exports.register = async (req, res) => {
         .json({ success: false, msg: "User already exist" });
     const user = new User({ username, email });
     const registeredUser = await User.register(user, password);
-    console.log(registeredUser);
 
     req.login(registeredUser, (err) => {
       if (err) throw err;
-      // req.flash("success", `Welcome to YelpCamp, ${registeredUser.username}`);
-      // res.redirect("/campgrounds");
-      const { username, password, email } = registeredUser;
-      res
-        .status(200)
-        .json({ success: true, user: { username, password, email } });
+      const { username, email } = registeredUser;
+      res.status(200).json({ success: true, user: { username, email } });
       // res.redirect("/");
     });
   } catch (error) {
-    res.status(200).json({ success: false, error });
+    res.status(400).json({ success: false, error });
   }
 };
 
@@ -46,7 +41,6 @@ module.exports.login = async (req, res) => {
   try {
     const { username, email, _id } = req.user;
     res.status(200).json({ success: true, user: { username, email, _id } });
-    // res.redirect(`${process.env.CLIENT_BASE_URL}`);
   } catch (error) {
     res.status(400).json({ success: false, error });
   }

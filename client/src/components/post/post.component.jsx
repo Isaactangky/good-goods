@@ -6,23 +6,15 @@ import {
   fetchPostStartAsync,
   deletePostStartAsync,
 } from "../../store/posts/posts.action";
-import { selectPost } from "../../store/posts/posts.selector";
+import { selectIsLoading, selectPost } from "../../store/posts/posts.selector";
 import Button, { BUTTON_TYPES } from "../button/button.component";
 import Reviews from "../reviews/reviews.component";
-const reviews = [
-  {
-    _id: 12344,
-    rating: 3,
-    userName: "Jack",
-    content: "I dont like it",
-    date: "Jan 2010",
-  },
-];
 
 const Post = () => {
   const { id } = useParams();
   // const [post, setPost] = useState({});
   const post = useSelector(selectPost);
+  const isLoading = useSelector(selectIsLoading);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   useEffect(() => {
@@ -35,7 +27,7 @@ const Post = () => {
   const onEditHandler = () => {
     navigate(`/post/${id}/edit`);
   };
-  // if (!paramsId || post === {}) return <h1>not found</h1>;
+  if (isLoading) return <h1>not found</h1>;
   return (
     <div className={styles["container"]}>
       <h1 className={styles.title}>{post.title}</h1>

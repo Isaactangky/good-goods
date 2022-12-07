@@ -1,15 +1,25 @@
 import styles from "./navigation.module.scss";
 import { Outlet, Link, useNavigate } from "react-router-dom";
 import { Fragment } from "react";
-import Button from "../../components/button/button.component";
-import { useDispatch } from "react-redux";
-import { signInStartAsync } from "../../store/user/user.action";
+import Button, { BUTTON_TYPES } from "../../components/button/button.component";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  signInStartAsync,
+  signOutStartAsync,
+} from "../../store/user/user.action";
+import { selectUser } from "../../store/user/user.selector";
 const Navigation = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const onClickHandler = () => {
+  const user = useSelector(selectUser);
+  const signIn = () => {
+    navigate("/auth");
+    // dispatch(signInStartAsync());
+  };
+
+  const signOut = () => {
     // navigate("/auth");
-    dispatch(signInStartAsync());
+    dispatch(signOutStartAsync());
   };
   return (
     <Fragment>
@@ -29,7 +39,13 @@ const Navigation = () => {
           </Link>
         </div>
         <div className={styles.login_container}>
-          <Button onClick={onClickHandler}>Sign In</Button>
+          {user ? (
+            <Button onClick={signOut} buttonType={BUTTON_TYPES.OUTLINE}>
+              Sign Out
+            </Button>
+          ) : (
+            <Button onClick={signIn}>Sign In</Button>
+          )}
         </div>
       </div>
       <Outlet />

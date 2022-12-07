@@ -9,6 +9,7 @@ import PostsHome from "./routes/posts-home/posts-home.component";
 import Posts from "./components/posts/posts.component";
 import { fetchPostsStartAsync } from "./store/posts/posts.action";
 import { fetchAuthStatus } from "./store/user/user.action";
+import Authentication from "./routes/authentication/authentication.component";
 
 function App() {
   const dispatch = useDispatch();
@@ -26,6 +27,7 @@ function App() {
 
         <Route path="post/*" element={<PostsHome />} />
         <Route path="community" element={<h1>Community Route</h1>} />
+        <Route path="auth" element={<Authentication />} />
       </Route>
     </Routes>
   );

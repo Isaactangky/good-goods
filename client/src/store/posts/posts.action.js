@@ -1,7 +1,7 @@
 import { createAction } from "../../utils/createAction.utils";
 import { POSTS_ACTION_TYPES } from "./posts.types";
 import axios from "axios";
-
+import history from "../../history";
 export const fetchPostsStartAsync = () => async (dispatch) => {
   dispatch(createAction(POSTS_ACTION_TYPES.FETCH_POSTS_START));
   try {
@@ -29,8 +29,10 @@ export const createPostStart = (newPost) => async (dispatch) => {
       `http://localhost:5000/api/post`,
       newPost
     );
+    const id = data._id;
     dispatch(createAction(POSTS_ACTION_TYPES.CREATE_POST_SUCCEEDED, data));
-    return data;
+    history.push(`post/${id}`);
+    // return data;
   } catch (error) {
     dispatch(createAction(POSTS_ACTION_TYPES.CREATE_POST_FAILED, error));
   }
@@ -42,7 +44,7 @@ export const deletePostStartAsync = (id) => async (dispatch) => {
   try {
     const { data } = await axios.delete(`http://localhost:5000/api/post/${id}`);
     dispatch(createAction(POSTS_ACTION_TYPES.DELETE_POST_SUCCEEDED, id));
-    console.log(data);
+    // history.push("/");
     return data.success;
   } catch (error) {
     dispatch(createAction(POSTS_ACTION_TYPES.DELETE_POST_FAILED, error));
@@ -88,7 +90,9 @@ export const deleteReviewStartAsync =
       const { data } = await axios.delete(
         `http://localhost:5000/api/post/${postId}/reviews/${reviewId}`
       );
-      dispatch(createAction(POSTS_ACTION_TYPES.DELETE_REVIEW_SUCCEEDED, reviewId));
+      dispatch(
+        createAction(POSTS_ACTION_TYPES.DELETE_REVIEW_SUCCEEDED, reviewId)
+      );
       return data;
     } catch (error) {
       dispatch(createAction(POSTS_ACTION_TYPES.DELETE_REVIEW_FAILED, error));
