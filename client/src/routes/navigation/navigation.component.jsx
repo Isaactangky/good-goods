@@ -3,10 +3,7 @@ import { Outlet, Link, useNavigate } from "react-router-dom";
 import { Fragment } from "react";
 import Button, { BUTTON_TYPES } from "../../components/button/button.component";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  signInStartAsync,
-  signOutStartAsync,
-} from "../../store/user/user.action";
+import { signOutStartAsync } from "../../store/user/user.action";
 import { selectUser } from "../../store/user/user.selector";
 const Navigation = () => {
   const dispatch = useDispatch();
@@ -32,8 +29,9 @@ const Navigation = () => {
             Share
           </Link>
           <Link className={styles.nav_link} to="/post">
-            Goods
+            Explore
           </Link>
+
           <Link className={styles.nav_link} to="/community">
             Community
           </Link>

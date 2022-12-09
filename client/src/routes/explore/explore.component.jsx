@@ -1,8 +1,9 @@
-import { Routes, Route } from "react-router-dom";
-import Post from "../../components/post/post.component";
 import Posts from "../../components/posts/posts.component";
+import Post from "../../components/post/post.component";
 import EditPost from "../edit-post/edit-post.component";
-const PostsHome = () => {
+import { Routes, Route } from "react-router-dom";
+const Explore = () => {
+  // const posts = useSelector(selectPosts);
   return (
     <Routes>
       <Route index element={<Posts />} />
@@ -11,4 +12,4 @@ const PostsHome = () => {
     </Routes>
   );
 };
-export default PostsHome;
+export default Explore;

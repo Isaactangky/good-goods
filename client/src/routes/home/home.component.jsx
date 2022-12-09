@@ -1,21 +1,22 @@
-import { useSelector } from "react-redux";
-import styles from "./home.module.scss";
-import PostPreview from "../../components/post-preview/post-preview.component";
-import { selectPosts } from "../../store/posts/posts.selector";
-import Button from "../../components/button/button.component";
+import { Link } from "react-router-dom";
 const Home = () => {
-  const posts = useSelector(selectPosts);
   return (
-    <div className={styles["page-wrapper"]}>
-      <div className={styles["posts-container"]}>
-        <h2>Fresh Posts</h2>
-
-        {posts.map((post) => (
-          <PostPreview key={post._id} post={post} />
-        ))}
+    <main className="px-3  text-center d-flex flex-column  bg-black">
+      <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+        <h1>Good Goods</h1>
+        <p className="lead px-auto">
+          Welcome to Good Goods! <br />
+          Jump right in and explore our many product recommendations. <br />
+          Feel free to share some of your own and comment on others!
+        </p>
+        <Link
+          to="/post"
+          className="btn btn-lg btn-secondary font-weight-bold border-white bg-white"
+        >
+          Find Goods
+        </Link>
       </div>
-      <div className={styles["other-info-container"]}></div>
-    </div>
+    </main>
   );
 };
 export default Home;
