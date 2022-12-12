@@ -4,13 +4,9 @@ const { Schema } = mongoose;
 const reviewSchema = Schema({
   content: String,
   rating: Number,
-  // author: {
-  //   type: Schema.Types.ObjectId,
-  //   ref: "User",
-  // },
   author: {
-    type: String,
-    default: "Anonymous",
+    type: Schema.Types.ObjectId,
+    ref: "user",
   },
   date: {
     type: Date,

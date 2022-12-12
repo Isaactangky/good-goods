@@ -2,20 +2,20 @@ const express = require("express");
 const router = express.Router();
 const post = require("../../controllers/post");
 const catchAsync = require("../../utils/catch-async.utils");
-const { isLoggedIn } = require("../../middleware");
+const { isLoggedIn, isAuthor } = require("../../middleware/auth");
 router
   .route("/")
   /**
-   * @route   GET api/posts
+   * @route   GET api/post
    * @desc    Get All posts
    * @access  Public
    */
 
   .get(catchAsync(post.index))
   /**
-   * @route   POST api/posts
+   * @route   POST api/post
    * @desc    Create a post
-   * @access  Public
+   * @access  Private
    */
   .post(isLoggedIn, catchAsync(post.createPost));
 
@@ -30,14 +30,14 @@ router
   /**
    * @route   DELETE api/post/:id
    * @desc    Delete a post
-   * @access  Public
+   * @access  Private
    */
-  .delete(isLoggedIn, catchAsync(post.deletePost))
+  .delete(isLoggedIn, isAuthor, catchAsync(post.deletePost))
   /**
    * @route   PUT api/post/:id
    * @desc    Update a post
-   * @access  Public
+   * @access  Private
    */
-  .put(isLoggedIn, catchAsync(post.updatePost));
+  .put(isLoggedIn, isAuthor, catchAsync(post.updatePost));
 
 module.exports = router;

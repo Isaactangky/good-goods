@@ -4,9 +4,12 @@ module.exports.createReview = async (req, res) => {
   const { id } = req.params;
   const post = await Post.findById(id);
   const newReview = new Review(req.body);
+  newReview.author = req.user.id;
+  const savedReview = await newReview.save();
+  if (!savedReview) throw new Error("Something went wrong saving the review");
   post.reviews.push(newReview);
-  await Promise.all([newReview.save(), post.save()]);
-
+  const savedPost = await post.save();
+  if (!savedPost) throw new Error("Something went wrong saving the post");
   res.status(200).json(newReview);
 };
 

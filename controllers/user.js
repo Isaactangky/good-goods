@@ -1,50 +1,70 @@
 const User = require("../models/user");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
+const JWT_SECRET = process.env.JWT_SECRET || "notagoodsecret";
+const { JWT_TOKEN_EXPIRATION } = require("../config");
 module.exports.index = async (req, res) => {
-  // res.json({ name: 123 });
-  if (req.isAuthenticated()) {
-    //req.user._doc
-    console.log(req.user);
-    res.status(200).json({ isLoggedIn: true, user: req.user });
-  } else {
-    res.status(401).json({ isLoggedIn: false, user: null });
-  }
+  const { user } = req;
+  const foundUser = await User.findById(user.id).select("-password");
+  if (!foundUser) throw new Error("User dose not exist");
+  res.json(foundUser);
 };
 module.exports.register = async (req, res) => {
-  try {
-    const { username, password, email } = req.body;
-    console.log(req.body);
-    if (!username || !password || !email)
-      return res
-        .status(400)
-        .json({ success: false, msg: "Please fill in all the fields" });
-    // check for existing user
-    const foundUser = await User.findOne({ email });
-    if (foundUser)
-      return res
-        .status(400)
-        .json({ success: false, msg: "User already exist" });
-    const user = new User({ username, email });
-    const registeredUser = await User.register(user, password);
+  const { username, password, email } = req.body;
+  if (!username || !password || !email)
+    throw new Error("Please fill in all fields");
 
-    req.login(registeredUser, (err) => {
-      if (err) throw err;
-      const { username, email } = registeredUser;
-      res.status(200).json({ success: true, user: { username, email } });
-      // res.redirect("/");
-    });
-  } catch (error) {
-    res.status(400).json({ success: false, error });
-  }
+  // check for existing user
+  const foundUser = await User.findOne({ email });
+  if (foundUser) throw new Error("User already exist");
+  // Create salt & hash
+  const salt = await bcrypt.genSalt(10);
+  if (!salt) throw new Error("Something went wrong with Bcrypt.");
+  const hash = await bcrypt.hash(password, salt);
+  if (!hash) throw new Error("Something went wrong hashing the password.");
+  const user = new User({ username, email, password: hash });
+  const savedUser = await user.save();
+  if (!savedUser) throw new Error("Something went wrong saving new user.");
+  // sign token
+  const token = jwt.sign({ id: savedUser._id }, JWT_SECRET, {
+    expiresIn: JWT_TOKEN_EXPIRATION,
+  }); // 1day
+  res.status(200).json({
+    token,
+    user: {
+      id: savedUser._id,
+      username: savedUser.username,
+      email: savedUser.email,
+    },
+  });
 };
 
 module.exports.login = async (req, res) => {
-  try {
-    const { username, email, _id } = req.user;
-    res.status(200).json({ success: true, user: { username, email, _id } });
-  } catch (error) {
-    res.status(400).json({ success: false, error });
-  }
+  const { password, email } = req.body;
+  if (!password || !email) throw new Error("Please fill in all fields");
+
+  // Check existing user
+  const foundUser = await User.findOne({ email });
+  if (!foundUser) throw new Error("Invalid email or password");
+  // Check password
+  const isMatch = await bcrypt.compare(password, foundUser.password);
+  if (!isMatch) throw new Error("Invalid email or password");
+
+  // Valid password
+  const token = jwt.sign({ id: foundUser._id }, JWT_SECRET, {
+    expiresIn: JWT_TOKEN_EXPIRATION,
+  }); // 1day
+  res.status(200).json({
+    token,
+    user: {
+      id: foundUser._id,
+      username: foundUser.username,
+      email: foundUser.email,
+    },
+  });
 };
+
+// TODO
 module.exports.logout = async (req, res) => {
   req.logout(function (error) {
     if (error) {
