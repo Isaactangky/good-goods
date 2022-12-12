@@ -36,10 +36,8 @@ module.exports.getPost = async (req, res) => {
 
 module.exports.deletePost = async (req, res) => {
   const id = req.params.id;
-  console.log(id);
-  const post = await Post.findById(id);
-  // const post = await Post.findByIdAndDelete(id);
-  // if (!post) throw new Error("No post found");
+  const post = await Post.findByIdAndDelete(id);
+  if (!post) throw new Error("No post found");
   res.status(200).json(post);
 };
 

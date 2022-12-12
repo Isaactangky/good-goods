@@ -5,8 +5,9 @@ import Button, { BUTTON_TYPES } from "../button/button.component";
 import FormInput from "../form-input/form-input.component";
 import FormSelect from "../form-select/form-select.component";
 import styles from "./new-post-form.module.scss";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 import { createPostStart } from "../../store/posts/posts.action";
+import { selectIsAuthenticated } from "../../store/user/user.selector";
 
 const defaultFormFields = {
   title: "",
@@ -23,6 +24,7 @@ const NewPostForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { title, category, imageUrl, description } = formFields;
   const clearFormField = () => setFormFields(defaultFormFields);
+  const isAuthenticated = useSelector(selectIsAuthenticated);
 
   const onChangeHandler = (event) => {
     const { name, value } = event.target;
@@ -38,7 +40,9 @@ const NewPostForm = () => {
 
     // console.log(newPost);
   };
-
+  if (!isAuthenticated) {
+    return <Navigate to="/auth" />;
+  }
   return (
     <form className={styles["new-post-form"]} onSubmit={addNewPost}>
       <FormInput

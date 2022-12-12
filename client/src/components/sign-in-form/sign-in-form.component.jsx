@@ -1,22 +1,23 @@
 import FormInput from "../form-input/form-input.component";
 import Button, { BUTTON_TYPES } from "../button/button.component";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./sign-in-form.styles.scss";
 
-import { useDispatch } from "react-redux";
-// import {
-//   googleSignInStart,
-//   emailSignInStart,
-// } from "../../store/user/user.action";
+import { useDispatch, useSelector } from "react-redux";
+
 import { useNavigate } from "react-router-dom";
 import { signInStartAsync } from "../../store/user/user.action";
+import { clearError } from "../../store/error/error.action";
+import { selectError } from "../../store/error/error.selector";
 const defaultFormFields = {
-  username: "",
+  email: "",
   password: "",
 };
 const SignInForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
-  const { username, password } = formFields;
+  const [message, setMessage] = useState(null);
+  const { email, password } = formFields;
+  const error = useSelector(selectError);
   const resetFormFields = () => setFormFields(defaultFormFields);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -31,22 +32,35 @@ const SignInForm = () => {
     event.preventDefault();
     // dispatch(signInStartAsync((email, password)));
 
-    const data = await dispatch(signInStartAsync({ username, password }));
+    const data = await dispatch(signInStartAsync({ email, password }));
 
     resetFormFields();
-    if (data.success) navigate("/");
+    // if (data.success) navigate("/");
   };
+  useEffect(() => {
+    if (error.id === "LOGIN_ERROR") {
+      setMessage(error.message.message);
+    } else {
+      setMessage(null);
+    }
+  }, [error]);
+  useEffect(() => {
+    return () => {
+      dispatch(clearError());
+    };
+  }, []);
   return (
     <div className="sign-in-container">
       <h2>Already have an account?</h2>
       <span>Sign in with your email and password</span>
+
       <form onSubmit={handleSubmit}>
         <FormInput
-          label="Username/Email"
+          label="Email"
           type="text"
           required
-          name="username"
-          value={username}
+          name="email"
+          value={email}
           onChange={handleChange}
         />
         <FormInput
@@ -57,6 +71,11 @@ const SignInForm = () => {
           value={password}
           onChange={handleChange}
         />
+        {message ? (
+          <div className="alert alert-danger bg-white border-white p-0 ">
+            {message}
+          </div>
+        ) : null}
         <div className="buttons-container">
           <Button type="submit">Sign In</Button>
           {/* <Button

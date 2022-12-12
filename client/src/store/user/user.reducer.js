@@ -1,31 +1,35 @@
 import { USER_ACTION_TYPES } from "./user.types";
 
 export const USER_INITIAL_STATE = {
+  token: localStorage.getItem("token"),
   user: null,
   isLoading: false,
-  error: null,
+  isAuthenticated: false,
 };
 
 export const userReducer = (state = USER_INITIAL_STATE, action) => {
   const { type } = action;
   switch (type) {
-    case USER_ACTION_TYPES.FETCH_AUTH_STATUS:
-      return {
-        ...state,
-        user: action.payload,
-      };
-    case USER_ACTION_TYPES.USER_REGISTER_START:
-    case USER_ACTION_TYPES.USER_SIGN_IN_START:
-    case USER_ACTION_TYPES.USER_SIGN_OUT_START:
+    case USER_ACTION_TYPES.USER_LOADING:
       return {
         ...state,
         isLoading: true,
       };
-    case USER_ACTION_TYPES.USER_REGISTER_SUCCEEDED:
-    case USER_ACTION_TYPES.USER_SIGN_IN_SUCCEEDED:
+    case USER_ACTION_TYPES.FETCH_AUTH_STATUS:
       return {
         ...state,
+        isAuthenticated: true,
+        isLoading: false,
         user: action.payload,
+      };
+
+    case USER_ACTION_TYPES.USER_REGISTER_SUCCEEDED:
+    case USER_ACTION_TYPES.USER_SIGN_IN_SUCCEEDED:
+      localStorage.setItem("token", action.payload.token);
+      return {
+        ...state,
+        ...action.payload,
+        isAuthenticated: true,
         isLoading: false,
       };
     case USER_ACTION_TYPES.USER_SIGN_OUT_SUCCEEDED:
@@ -36,9 +40,14 @@ export const userReducer = (state = USER_INITIAL_STATE, action) => {
       };
     case USER_ACTION_TYPES.USER_REGISTER_FAILED:
     case USER_ACTION_TYPES.USER_SIGN_IN_FAILED:
+    case USER_ACTION_TYPES.USER_LOGOUT:
+    case USER_ACTION_TYPES.FETCH_AUTH_ERROR:
+      localStorage.removeItem("token");
       return {
         ...state,
-        error: action.payload,
+        token: null,
+        user: null,
+        isAuthenticated: false,
         isLoading: false,
       };
 

@@ -8,16 +8,15 @@ import NewPost from "./routes/new-post/new-post.component";
 import Home from "./routes/home/home.component";
 import Posts from "./components/posts/posts.component";
 import { fetchPostsStartAsync } from "./store/posts/posts.action";
-import { fetchAuthStatus } from "./store/user/user.action";
+import { fetchAuthStatusAsync } from "./store/user/user.action";
 import Authentication from "./routes/authentication/authentication.component";
-
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchPostsStartAsync());
   }, []);
   useEffect(() => {
-    dispatch(fetchAuthStatus());
+    dispatch(fetchAuthStatusAsync());
   }, []);
   return (
     <Routes>
