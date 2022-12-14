@@ -31,6 +31,7 @@ const postSchema = Schema({
     ref: "user",
   },
 });
+// delete reviews after deleting a post
 postSchema.post("findOneAndDelete", async (post) => {
   if (post) {
     await Review.deleteMany({

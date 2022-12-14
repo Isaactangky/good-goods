@@ -7,18 +7,24 @@ import {
   deletePostStartAsync,
 } from "../../store/posts/posts.action";
 import { selectIsLoading, selectPost } from "../../store/posts/posts.selector";
+import {
+  selectUser,
+  selectIsAuthenticated,
+} from "../../store/user/user.selector";
 import Button, { BUTTON_TYPES } from "../button/button.component";
 import Reviews from "../reviews/reviews.component";
 
 const Post = () => {
   const { id } = useParams();
-  // const [post, setPost] = useState({});
   const post = useSelector(selectPost);
   const isLoading = useSelector(selectIsLoading);
+  const user = useSelector(selectUser);
+  const isAuthenticated = useSelector(selectIsAuthenticated);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   useEffect(() => {
-    if (!post || post._id !== id) dispatch(fetchPostStartAsync(id));
+    dispatch(fetchPostStartAsync(id));
   }, []);
   const onDeleteHandler = async () => {
     const res = await dispatch(deletePostStartAsync(id));
@@ -36,12 +42,14 @@ const Post = () => {
         <img src={post.imageUrl} alt={`${post.title} image`} />
       </div>
       <p>{post.description}</p>
-      <div className={styles["button-container"]}>
-        <Button onClick={onEditHandler} buttonType={BUTTON_TYPES.OUTLINE}>
-          Edit
-        </Button>
-        <Button onClick={onDeleteHandler}>Delete</Button>
-      </div>
+      {isAuthenticated && post.author && user._id === post.author._id ? (
+        <div className={styles["button-container"]}>
+          <Button onClick={onEditHandler} buttonType={BUTTON_TYPES.OUTLINE}>
+            Edit
+          </Button>
+          <Button onClick={onDeleteHandler}>Delete</Button>
+        </div>
+      ) : null}
       {post && <Reviews reviews={post.reviews} />}
     </div>
   );

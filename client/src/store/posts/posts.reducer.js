@@ -4,7 +4,6 @@ export const POSTS_INITIAL_STATE = {
   posts: [],
   post: {},
   isLoading: false,
-  error: null,
 };
 const removePostFromPosts = (posts, removedPostId) => {
   return posts.filter((post) => post._id !== removedPostId);
@@ -31,13 +30,7 @@ const deleteReview = (post, deletedReviewId) => {
 export const postsReducer = (state = POSTS_INITIAL_STATE, action) => {
   const { type } = action;
   switch (type) {
-    case POSTS_ACTION_TYPES.FETCH_POSTS_START:
-    case POSTS_ACTION_TYPES.FETCH_POST_START:
-    case POSTS_ACTION_TYPES.CREATE_POST_START:
-    case POSTS_ACTION_TYPES.DELETE_POST_START:
-    case POSTS_ACTION_TYPES.UPDATE_POST_START:
-    case POSTS_ACTION_TYPES.CREATE_REVIEW_START:
-    case POSTS_ACTION_TYPES.DELETE_REVIEW_START:
+    case POSTS_ACTION_TYPES.POSTS_LOADING:
       return {
         ...state,
         isLoading: true,
@@ -58,7 +51,7 @@ export const postsReducer = (state = POSTS_INITIAL_STATE, action) => {
     case POSTS_ACTION_TYPES.CREATE_POST_SUCCEEDED:
       return {
         ...state,
-        posts: [...state.posts, action.payload],
+        posts: [action.payload, ...state.posts],
         post: action.payload,
         isLoading: false,
       };
@@ -97,7 +90,6 @@ export const postsReducer = (state = POSTS_INITIAL_STATE, action) => {
     case POSTS_ACTION_TYPES.DELETE_REVIEW_FAILED:
       return {
         ...state,
-        error: action.payload,
         isLoading: false,
       };
     default:

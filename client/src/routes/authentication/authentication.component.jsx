@@ -1,4 +1,4 @@
-import SignUpForm from "../../components/sign-up-form/sign-up-form.component";
+import RegisterForm from "../../components/register-form/register-form.component";
 import SignInForm from "../../components/sign-in-form/sign-in-form.component";
 import { AuthenticationContainer } from "./authentication.styles.jsx";
 import { Navigate } from "react-router-dom";
@@ -18,7 +18,7 @@ const Authentication = () => {
 
       <AuthenticationContainer>
         <SignInForm />
-        <SignUpForm />
+        <RegisterForm />
       </AuthenticationContainer>
     </Fragment>
   );

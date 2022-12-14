@@ -1,12 +1,13 @@
 import { useState } from "react";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Button, { BUTTON_TYPES } from "../button/button.component";
 import { AddReviewButton } from "./add-review-form.styles";
 import { createReviewStartAsync } from "../../store/posts/posts.action";
 import { useParams } from "react-router-dom";
 import FormTextarea from "../form-textarea/form-textarea.component";
 import FormRangeInput from "../form-range-input/form-range-input.component";
+import { selectIsAuthenticated } from "../../store/user/user.selector";
 const defaultFormFields = {
   rating: 1,
   content: "",
@@ -14,6 +15,7 @@ const defaultFormFields = {
 const AddReviewForm = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const isAuthenticated = useSelector(selectIsAuthenticated);
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { rating, content } = formFields;
   const resetFormFields = () => setFormFields(defaultFormFields);
@@ -30,6 +32,9 @@ const AddReviewForm = () => {
       [name]: value,
     }));
   };
+  if (!isAuthenticated) {
+    return <h5>Login to comment</h5>;
+  }
   return (
     <form onSubmit={createReview}>
       <FormRangeInput

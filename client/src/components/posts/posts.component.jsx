@@ -1,10 +1,15 @@
 import styles from "./posts.module.scss";
+import { useEffect } from "react";
 import PostPreview from "../post-preview/post-preview.component";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { selectPosts } from "../../store/posts/posts.selector";
-
+import { fetchPostsStartAsync } from "../../store/posts/posts.action";
 const Posts = () => {
   // return <h1>This is Posts route</h1>;
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchPostsStartAsync());
+  }, []);
   const posts = useSelector(selectPosts);
   return (
     <div className={styles["page-wrapper"]}>

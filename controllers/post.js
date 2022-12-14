@@ -1,6 +1,6 @@
 const Post = require("../models/post");
 module.exports.index = async (req, res) => {
-  const posts = await Post.find().sort({ date: -1 });
+  const posts = await Post.find().sort({ date: -1 }).limit(30);
   // if (!posts) throw new Error("No Posts!");
   res.json(posts);
 };
@@ -23,6 +23,9 @@ module.exports.getPost = async (req, res) => {
   const post = await Post.findById(id)
     .populate({
       path: "reviews",
+      populate: {
+        path: "author",
+      },
       options: { sort: { date: -1 } },
     })
     .populate({

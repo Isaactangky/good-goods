@@ -10,13 +10,17 @@ module.exports.createReview = async (req, res) => {
   post.reviews.push(newReview);
   const savedPost = await post.save();
   if (!savedPost) throw new Error("Something went wrong saving the post");
-  res.status(200).json(newReview);
+  const populatedReview = await Review.populate(savedReview, {
+    path: "author",
+    select: "-password",
+  });
+  res.status(200).json(populatedReview);
 };
 
 module.exports.deleteReview = async (req, res) => {
   const { id, reviewId } = req.params;
   const review = await Review.findByIdAndDelete(reviewId);
-  const post = await Post.findByIdAndUpdate(id, {
+  await Post.findByIdAndUpdate(id, {
     $pull: { reviews: reviewId },
   });
   res.status(200).json(review);

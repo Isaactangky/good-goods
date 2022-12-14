@@ -12,9 +12,7 @@ import { fetchAuthStatusAsync } from "./store/user/user.action";
 import Authentication from "./routes/authentication/authentication.component";
 function App() {
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(fetchPostsStartAsync());
-  }, []);
+
   useEffect(() => {
     dispatch(fetchAuthStatusAsync());
   }, []);

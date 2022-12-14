@@ -1,36 +1,36 @@
 import styled from "styled-components";
 
 export const ReviewContainer = styled.div`
-  margin: 1rem 0rem;
-  opacity: 0.8;
+  margin: 5px 0rem;
+
   padding: 10px;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
 `;
 export const InfoContainer = styled.div`
   display: flex;
   align-itmes: center;
-
+  jusitify-content: center;
   gap: 2rem;
 `;
 
-export const UserName = styled.div`
-  font-weight: bold;
+export const Username = styled.span`
+  font-weight: 700;
   opacity: 1;
-
-  ${"" /* display: inline-block; */}
+  display: block;
+`;
+export const Date = styled.span`
+  opacity: 0.6;
+  display: block;
 `;
 export const Rating = styled.p`
+  margin: 1px 0px;
   span {
   }
 `;
-export const Date = styled.div`
-  font-size: 0.8rem;
-`;
 
 export const Content = styled.p`
-  grid-area: "content";
+  margin: 5px 0px;
 `;
 
 export const FunctionalityContainer = styled.div`
@@ -45,4 +45,5 @@ export const FunctionalityButton = styled.button`
   background: none;
   border: none;
   cursor: pointer;
+  opacity: 0.6;
 `;

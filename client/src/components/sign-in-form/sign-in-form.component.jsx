@@ -28,11 +28,10 @@ const SignInForm = () => {
     const { name, value } = event.target;
     setFormFields({ ...formFields, [name]: value });
   };
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    // dispatch(signInStartAsync((email, password)));
-
-    const data = await dispatch(signInStartAsync({ email, password }));
+    setMessage("");
+    dispatch(signInStartAsync({ email, password }));
 
     resetFormFields();
     // if (data.success) navigate("/");

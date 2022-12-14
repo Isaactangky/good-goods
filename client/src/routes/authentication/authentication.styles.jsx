@@ -7,6 +7,7 @@ export const UserErrorMessage = styled.p`
   font-weight: 700;
 `;
 export const AuthenticationContainer = styled.div`
+  padding-top: 120px;
   width: 900px;
   display: flex;
   justify-content: space-between;
