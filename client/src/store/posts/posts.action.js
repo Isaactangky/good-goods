@@ -41,26 +41,33 @@ export const fetchPostStartAsync = (id) => async (dispatch) => {
 };
 
 export const createPostStart = (newPost) => async (dispatch, getState) => {
+  console.log("new post");
+  console.log(newPost);
   dispatch(createAction(POSTS_ACTION_TYPES.POSTS_LOADING));
   try {
-    const body = newPost;
+    const config = tokenConfig(getState);
+    config.headers["Content-Type"] = "multipart/form-data";
+    // config.headers["Content-Type"] = undefined;
+
     const { data } = await axios.post(
       `http://localhost:5000/api/post`,
-      body,
-      tokenConfig(getState)
+      newPost,
+      config
     );
-    // const id = data._id;
+    // // const id = data._id;
+    console.log(data);
     dispatch(createAction(POSTS_ACTION_TYPES.CREATE_POST_SUCCEEDED, data));
     // history.push(`post/${id}`);
     // return data;
   } catch (error) {
-    dispatch(
-      setError(
-        error.response.data,
-        error.response.status,
-        ERROR_IDS.CREATE_POST_ERROR
-      )
-    );
+    console.log(error);
+    // dispatch(
+    //   setError(
+    //     error.response.data,
+    //     error.response.status,
+    //     ERROR_IDS.CREATE_POST_ERROR
+    //   )
+    // );
     dispatch(createAction(POSTS_ACTION_TYPES.CREATE_POST_FAILED));
   }
 };

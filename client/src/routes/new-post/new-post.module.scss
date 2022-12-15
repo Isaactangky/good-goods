@@ -1,11 +1,20 @@
+.title {
+  text-align: center;
+  color: white;
+  padding: 1rem;
+  width: 100%;
+  background-color: orangered;
+}
 .new_post_container {
   width: 500px;
-  border: 2px solid gray;
-  border-radius: 5px;
+  border: 1px solid rgba(128, 128, 128, 0.364);
+  box-shadow: 2px 2px 5px rgba(128, 128, 128, 0.364);
+  border-radius: 20px;
+  overflow: hidden;
   margin: auto;
-  margin-top: 5rem;
   margin-top: 150px;
-  padding: 2rem 0;
+  padding-bottom: 2rem;
+
   display: flex;
   flex-direction: column;
   align-items: center;

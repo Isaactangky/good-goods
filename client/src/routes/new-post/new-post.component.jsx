@@ -3,7 +3,8 @@ import styles from "./new-post.module.scss";
 const NewPost = () => {
   return (
     <div className={styles.new_post_container}>
-      <h2>Share you product</h2>
+      <h2 className={styles.title}>Share you product</h2>
+
       <NewPostForm />
     </div>
   );
