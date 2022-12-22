@@ -1,14 +1,37 @@
-import { Wrapper, NavBar } from "./navigation.styles.js";
+import { useState, useEffect, useRef } from "react";
+import {
+  NavBar,
+  NavHeader,
+  Container,
+  LinksAuthContainer,
+  Links,
+  AuthContainer,
+  LinksAuth,
+} from "./navigation.styles.js";
 import { Outlet, Link, useNavigate } from "react-router-dom";
 import { Fragment } from "react";
 import Button, { BUTTON_TYPES } from "../../components/button/button.component";
 import { useDispatch, useSelector } from "react-redux";
 import { logOut } from "../../store/user/user.action";
 import { selectUser } from "../../store/user/user.selector";
+import { links } from "../../config.js";
+import { FaBars } from "react-icons/fa";
+
 const Navigation = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector(selectUser);
+  const [showLinks, setShowLinks] = useState(false);
+  const linksContainerRef = useRef(null);
+  const linksRef = useRef(null);
+  useEffect(() => {
+    const linksHeight = linksRef.current.getBoundingClientRect().height;
+    if (showLinks) {
+      linksContainerRef.current.style.height = `${linksHeight}px`;
+    } else {
+      linksContainerRef.current.style.height = "0px";
+    }
+  }, [showLinks]);
   const signIn = () => {
     navigate("/auth");
     // dispatch(signInStartAsync());
@@ -20,47 +43,30 @@ const Navigation = () => {
   };
   return (
     <Fragment>
-      <Wrapper>
-        <NavBar className="navbar navbar-expand-lg navbar-light bg-white ">
-          <div className="container-fluid">
-            <Link className="brand" to="/">
-              G.G
+      <NavBar>
+        <Container>
+          <NavHeader>
+            <Link className="logo" to="/">
+              <span className="brand">G.G</span>
             </Link>
             <button
-              className="navbar-toggler"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#navbarSupportedContent"
+              className="nav-toggle"
+              onClick={() => setShowLinks(!showLinks)}
             >
-              <span className="navbar-toggler-icon"></span>
+              <FaBars />
             </button>
-            <div
-              className="collapse navbar-collapse"
-              id="navbarSupportedContent"
-            >
-              <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                <li className="nav-item">
-                  <Link className="nav-link active" to="/">
-                    Home
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/new">
-                    Share
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/post">
-                    Explore
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/community">
-                    Community
-                  </Link>
-                </li>
-              </ul>
-              <div>
+          </NavHeader>
+
+          <LinksAuthContainer ref={linksContainerRef}>
+            <LinksAuth ref={linksRef}>
+              <Links>
+                {links.map(({ id, url, text }) => (
+                  <li key={id}>
+                    <Link to={url}>{text}</Link>
+                  </li>
+                ))}
+              </Links>
+              <AuthContainer>
                 {user ? (
                   <Button onClick={signOut} buttonType={BUTTON_TYPES.OUTLINE}>
                     Sign Out
@@ -68,11 +74,11 @@ const Navigation = () => {
                 ) : (
                   <Button onClick={signIn}>Sign In</Button>
                 )}
-              </div>
-            </div>
-          </div>
-        </NavBar>
-      </Wrapper>
+              </AuthContainer>
+            </LinksAuth>
+          </LinksAuthContainer>
+        </Container>
+      </NavBar>
       <Outlet />
     </Fragment>
   );

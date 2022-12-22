@@ -6,7 +6,7 @@ export const Wrapper = styled.div`
 
 export const Content = styled.div`
   width: 100%;
-  max-width: var(--maxWidth);
+  max-width: var(--max-width);
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 20rem;

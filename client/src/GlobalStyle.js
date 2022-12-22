@@ -2,7 +2,6 @@ import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
   :root{
-    --maxWidth: 1280px;
     --white: #fff;
     --lightgrey: #eee;
     --medgrey: #353535;
@@ -28,16 +27,24 @@ export const GlobalStyle = createGlobalStyle`
     --radius: 5px;
     --light-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     --dark-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
-    --max-width: 1170px;
+    --max-width: 1280px;
     
   }
   *{
     box-sizing: border-box;
     font-family: "Poppins", sans-serif;
-  }
-  body{
     margin: 0;
     padding: 0;
+  }
+  a{
+  text-decoration: none;
+
+  }
+  ul {
+    list-style-type: none;
+  }
+  body{
+    
     h1{
       font-size: 2rem;
       font-weight: 600;

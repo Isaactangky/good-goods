@@ -1,81 +1,114 @@
 import styled from "styled-components";
 
-export const Wrapper = styled.div`
-  background-color: var(--white);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-bottom: 1px solid var(--lightgrey);
-`;
-
-export const Content = styled.div`
-  width: 100%;
-  max-width: var(--maxWidth);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-  margin: 0 auto;
+export const Container = styled.div`
+  @media screen and (min-width: 800px) {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+  }
 `;
 
 export const NavBar = styled.nav`
-  width: 100%;
-  max-width: var(--maxWidth);
-  background-color: var(--white);
-  font-size: var(--fontS);
-  height: 80px;
+  background: var(--white);
+  box-shadow: var(--light-shadow);
+`;
 
-  .brand {
+export const NavHeader = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+
+  .nav-toggle {
+    font-size: 1.5rem;
+    color: var(--clr-primary-5);
+    background: transparent;
+    border-color: transparent;
+    transition: var(--transition);
+    cursor: pointer;
+  }
+  .nav-toggle:hover {
+    color: var(--clr-primary-1);
+    transform: rotate(90deg);
+  }
+  .logo {
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .logo .brand {
     font-weight: bold;
     color: var(--white);
-    font-size: var(--fontL);
+    font-size: var(--fontM);
     background-color: var(--orangered);
-    padding: 5px;
+    padding: 10px;
     border-radius: 50%;
     border: none;
     cursor: pointer;
-    margin-right: 1rem;
-    :hover {
-      color: var(--white);
+  }
+  @media screen and (min-width: 800px) {
+    padding: 0;
+    .nav-toggle {
+      display: none;
     }
   }
 `;
-/*
-.navigation_container {
-  color: rgba(56, 53, 53, 0.616);
-  width: 100%;
-  height: 80px;
-  padding: 1rem 3rem;
-  background-color: white;
-  border-bottom: 1px rgba(128, 128, 128, 0.4) solid;
-  position: absolute;
-  left: 0;
-  top: 0;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 2rem;
 
-  .logo_container {
-    font-size: 2rem;
-    margin-right: 10rem;
+export const LinksAuthContainer = styled.div`
+  flex-grow: 1;
+  height: 0;
+  overflow: hidden;
+  transition: var(--transition);
+  @media screen and (min-width: 800px) {
+    height: auto !important;
   }
-  .nav_links {
-    // width: 100%;
+`;
+export const LinksAuth = styled.div`
+  @media screen and (min-width: 800px) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+`;
+export const Links = styled.ul`
+  margin: 0;
+  padding: 0;
+  a {
+    color: var(--clr-grey-3);
+    font-size: 1rem;
+    text-transform: capitalize;
+    letter-spacing: var(--spacing);
+    display: block;
+    padding: 0.5rem 1rem;
+    transition: var(--transition);
+  }
+  a:hover {
+    background: var(--clr-primary-8);
+    color: var(--clr-primary-5);
+    padding-left: 1.5rem;
+  }
+  @media screen and (min-width: 800px) {
     display: flex;
     align-items: center;
-    gap: 2rem;
-  }
-  .nav_link {
-    font-size: 1rem;
-    // padding: 1rem;
-    width: 100%;
-    &:hover {
-      color: rgb(244, 92, 37);
+    padding-left: 2rem;
+    a {
+      padding: 0;
+      margin: 0 0.5rem;
+    }
+    a:hover {
+      padding: 0;
+      background: transparent;
     }
   }
-  .login_container {
-    margin-left: auto;
+`;
+
+export const AuthContainer = styled.div`
+  padding: 0.5rem 1rem;
+  @media screen and (min-width: 800px) {
+    display: flex;
   }
-}
-*/
+`;
