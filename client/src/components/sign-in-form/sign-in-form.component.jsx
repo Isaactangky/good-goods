@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { signInStartAsync } from "../../store/user/user.action";
 import { clearError } from "../../store/error/error.action";
 import { selectError } from "../../store/error/error.selector";
+import { selectIsLoadingUser } from "../../store/user/user.selector";
 const defaultFormFields = {
   email: "",
   password: "",
@@ -16,14 +17,13 @@ const defaultFormFields = {
 const SignInForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const [message, setMessage] = useState(null);
+  const isLoading = useSelector(selectIsLoadingUser);
   const { email, password } = formFields;
   const error = useSelector(selectError);
   const resetFormFields = () => setFormFields(defaultFormFields);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const signInWithGoogle = () => {
-    // dispatch(googleSignInStart());
-  };
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormFields({ ...formFields, [name]: value });
@@ -76,14 +76,9 @@ const SignInForm = () => {
           </div>
         ) : null}
         <div className="buttons-container">
-          <Button type="submit">Sign In</Button>
-          {/* <Button
-            type="button"
-            onClick={signInWithGoogle}
-            buttonType={BUTTON_TYPES.BASE}
-          >
-            Google Sign In
-          </Button> */}
+          <Button type="submit" disabled={isLoading}>
+            Sign In
+          </Button>
         </div>
       </form>
     </div>

@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 import Button from "../../components/button/button.component";
-import styles from "./home.module.scss";
+import { Wrapper } from "./home.styles.js";
 const Home = () => {
   return (
-    <main className={styles.home_container}>
+    <Wrapper>
       <h1>Good Goods</h1>
-      <p className="lead px-auto">
+      <p>
         Welcome to Good Goods! <br />
         Jump right in and explore our many product recommendations. <br />
         Feel free to share some of your own and comment on others!
@@ -13,7 +13,7 @@ const Home = () => {
       <Link to="/post">
         <Button>Explore</Button>
       </Link>
-    </main>
+    </Wrapper>
   );
 };
 export default Home;

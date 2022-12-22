@@ -1,4 +1,4 @@
-import styles from "./navigation.module.scss";
+import { Wrapper, NavBar } from "./navigation.styles.js";
 import { Outlet, Link, useNavigate } from "react-router-dom";
 import { Fragment } from "react";
 import Button, { BUTTON_TYPES } from "../../components/button/button.component";
@@ -20,32 +20,59 @@ const Navigation = () => {
   };
   return (
     <Fragment>
-      <div className={styles.navigation_container}>
-        <Link className={styles.logo_container} to="/">
-          GG
-        </Link>
-        <div className={styles.nav_links}>
-          <Link className={styles.nav_link} to="/new">
-            Share
-          </Link>
-          <Link className={styles.nav_link} to="/post">
-            Explore
-          </Link>
-
-          <Link className={styles.nav_link} to="/community">
-            Community
-          </Link>
-        </div>
-        <div className={styles.login_container}>
-          {user ? (
-            <Button onClick={signOut} buttonType={BUTTON_TYPES.OUTLINE}>
-              Sign Out
-            </Button>
-          ) : (
-            <Button onClick={signIn}>Sign In</Button>
-          )}
-        </div>
-      </div>
+      <Wrapper>
+        <NavBar className="navbar navbar-expand-lg navbar-light bg-white ">
+          <div className="container-fluid">
+            <Link className="brand" to="/">
+              G.G
+            </Link>
+            <button
+              className="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarSupportedContent"
+            >
+              <span className="navbar-toggler-icon"></span>
+            </button>
+            <div
+              className="collapse navbar-collapse"
+              id="navbarSupportedContent"
+            >
+              <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                <li className="nav-item">
+                  <Link className="nav-link active" to="/">
+                    Home
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/new">
+                    Share
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/post">
+                    Explore
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/community">
+                    Community
+                  </Link>
+                </li>
+              </ul>
+              <div>
+                {user ? (
+                  <Button onClick={signOut} buttonType={BUTTON_TYPES.OUTLINE}>
+                    Sign Out
+                  </Button>
+                ) : (
+                  <Button onClick={signIn}>Sign In</Button>
+                )}
+              </div>
+            </div>
+          </div>
+        </NavBar>
+      </Wrapper>
       <Outlet />
     </Fragment>
   );

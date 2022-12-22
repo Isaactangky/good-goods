@@ -11,9 +11,10 @@ import {
   selectUser,
   selectIsAuthenticated,
 } from "../../store/user/user.selector";
-import Button, { BUTTON_TYPES } from "../button/button.component";
-import Reviews from "../reviews/reviews.component";
-
+import Button, { BUTTON_TYPES } from "../../components/button/button.component";
+import Reviews from "../../components/reviews/reviews.component";
+import ProductInfo from "../../components/ProductInfo/ProductInfo.component";
+import Spinner from "../../components/Spinner/Spinner.component";
 const Post = () => {
   const { id } = useParams();
   const post = useSelector(selectPost);
@@ -33,15 +34,15 @@ const Post = () => {
   const onEditHandler = () => {
     navigate(`/post/${id}/edit`);
   };
-  if (isLoading) return <h1>not found</h1>;
+  if (isLoading) return <Spinner />;
   return (
     <div className={styles["container"]}>
-      <h1 className={styles.title}>{post.title}</h1>
-      <p>{post.category}</p>
-      <div className={styles["image-container"]}>
-        <img src={post.imageUrl} alt={`${post.title} image`} />
-      </div>
-      <p>{post.description}</p>
+      <ProductInfo
+        title={post.title}
+        description={post.description}
+        category={post.category}
+        images={post.images}
+      />
       {isAuthenticated && post.author && user._id === post.author._id ? (
         <div className={styles["button-container"]}>
           <Button onClick={onEditHandler} buttonType={BUTTON_TYPES.OUTLINE}>

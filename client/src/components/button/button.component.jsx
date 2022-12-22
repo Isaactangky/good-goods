@@ -1,17 +1,20 @@
-import styles from "./button.module.scss";
+import { BaseButton, OutlineButton, ButtonSpinner } from "./button.styles";
 export const BUTTON_TYPES = {
   BASE: "base",
   OUTLINE: "outline",
 };
+const getButton = (buttonType = BUTTON_TYPES.BASE) =>
+  ({
+    [BUTTON_TYPES.BASE]: BaseButton,
+    [BUTTON_TYPES.OUTLINE]: OutlineButton,
+  }[buttonType]);
 
-const Button = ({ children, buttonType, ...otherProps }) => {
+const Button = ({ children, buttonType, disabled, ...otherProps }) => {
+  const ButtonElement = getButton(buttonType);
   return (
-    <button
-      className={`${styles["base"]} ${buttonType ? styles[buttonType] : ""}`}
-      {...otherProps}
-    >
-      {children}
-    </button>
+    <ButtonElement disabled={disabled ? true : false} {...otherProps}>
+      {disabled ? <ButtonSpinner /> : children}
+    </ButtonElement>
   );
 };
 

@@ -1,21 +1,33 @@
 import { Link } from "react-router-dom";
-import styles from "./post-preview.module.scss";
+import {
+  Content,
+  Wrapper,
+  Image,
+  Info,
+  ImageContainer,
+} from "./post-preview.styles.js";
+import NoImage from "../../images/no_image.jpg";
 const PostPreview = ({ post }) => {
-  const { _id, title, imageUrl, description, category } = post;
+  const { _id, title, images, description, category } = post;
   if (!description || !title) return;
   return (
-    <Link to={`/post/${_id}`} className={styles["container"]}>
+    <Wrapper>
       {/* <div > */}
-      <div className={styles["image-container"]}>
-        <img src={imageUrl} alt={title} />
-      </div>
-      <div className={styles["info-container"]}>
-        <span className={styles.title}>{title}</span>
-        <span className={styles.category}>{category}</span>
-        <p className={styles.description}>{description.slice(0, 80)}</p>
-      </div>
-      {/* </div> */}
-    </Link>
+      <Content to={`/post/${_id}`}>
+        <ImageContainer>
+          <Image
+            src={images.length > 0 ? images[0].url : NoImage}
+            alt="preview-image"
+          />
+        </ImageContainer>
+        <Info>
+          <h4>{title}</h4>
+
+          <span className="description">{description.slice(0, 80)}</span>
+          <span className="category">{category}</span>
+        </Info>
+      </Content>
+    </Wrapper>
   );
 };
 
