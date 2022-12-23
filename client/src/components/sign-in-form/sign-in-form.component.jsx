@@ -7,8 +7,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { useNavigate } from "react-router-dom";
 import { signInStartAsync } from "../../store/user/user.action";
-import { clearError } from "../../store/error/error.action";
-import { selectError } from "../../store/error/error.selector";
+// import { clearAlert } from "../../store/alert/alert.action";
+import { selectAlert } from "../../store/alert/alert.selector";
 import { selectIsLoadingUser } from "../../store/user/user.selector";
 const defaultFormFields = {
   email: "",
@@ -19,7 +19,7 @@ const SignInForm = () => {
   const [message, setMessage] = useState(null);
   const isLoading = useSelector(selectIsLoadingUser);
   const { email, password } = formFields;
-  const error = useSelector(selectError);
+  // const error = useSelector(selectAlert);
   const resetFormFields = () => setFormFields(defaultFormFields);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -32,22 +32,21 @@ const SignInForm = () => {
     event.preventDefault();
     setMessage("");
     dispatch(signInStartAsync({ email, password }));
-
     resetFormFields();
     // if (data.success) navigate("/");
   };
-  useEffect(() => {
-    if (error.id === "LOGIN_ERROR") {
-      setMessage(error.message.message);
-    } else {
-      setMessage(null);
-    }
-  }, [error]);
-  useEffect(() => {
-    return () => {
-      dispatch(clearError());
-    };
-  }, []);
+  // useEffect(() => {
+  //   if (error.id === "LOGIN_ERROR") {
+  //     setMessage(error.message.message);
+  //   } else {
+  //     setMessage(null);
+  //   }
+  // }, [error]);
+  // useEffect(() => {
+  //   return () => {
+  //     dispatch(clearAlert());
+  //   };
+  // }, []);
   return (
     <div className="sign-in-container">
       <h2>Already have an account?</h2>
@@ -70,11 +69,11 @@ const SignInForm = () => {
           value={password}
           onChange={handleChange}
         />
-        {message ? (
+        {/* {message ? (
           <div className="alert alert-danger bg-white border-white p-0 ">
             {message}
           </div>
-        ) : null}
+        ) : null} */}
         <div className="buttons-container">
           <Button type="submit" disabled={isLoading}>
             Sign In

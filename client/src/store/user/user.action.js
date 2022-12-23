@@ -1,18 +1,19 @@
 import { USER_ACTION_TYPES } from "./user.types";
 import { createAction } from "../../utils/createAction.utils";
-import { setError } from "../error/error.action";
+import { setError, setSucessAlert } from "../alert/alert.action";
 
 import axios from "axios";
 axios.defaults.withCredentials = true;
 //setup config/headers
 
 export const tokenConfig = (getState) => {
-  const token = getState().user.token;
   const config = {
     headers: {
       "Content-Type": "application/json",
     },
   };
+  const token = getState().user.token;
+
   if (token) config.headers["x-auth-token"] = token;
   return config;
 };
@@ -49,12 +50,16 @@ export const signInStartAsync = (info) => async (dispatch) => {
       body,
       config
     );
-    console.log(data.user);
+    dispatch(setSucessAlert(`Wellcome back! ${data.user.username}`));
     dispatch(createAction(USER_ACTION_TYPES.USER_SIGN_IN_SUCCEEDED, data));
     return data;
   } catch (error) {
     dispatch(
-      setError(error.response.data, error.response.status, "LOGIN_ERROR")
+      setError(
+        error.response.data.message,
+        error.response.status,
+        "LOGIN_ERROR"
+      )
     );
     dispatch(createAction(USER_ACTION_TYPES.USER_SIGN_IN_FAILED, error));
   }
@@ -69,8 +74,7 @@ export const fetchAuthStatusAsync = () => async (dispatch, getState) => {
     );
     dispatch(createAction(USER_ACTION_TYPES.FETCH_AUTH_STATUS, data));
   } catch (error) {
-    console.log(error);
-    dispatch(setError(error.response.data, error.response.status));
+    // dispatch(setError(error.response.data.message, error.response.status));
     dispatch(createAction(USER_ACTION_TYPES.FETCH_AUTH_ERROR));
   }
 };

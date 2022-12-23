@@ -36,12 +36,18 @@ export const Text = styled.div`
 export const Carousel = styled.div`
   border-radius: 10px;
   overflow: hidden;
+
   .image-container {
+    border-radius: 10px;
+    overflow: hidden;
     background-color: var(--medgrey);
+    height: 250px;
+    padding: auto 0;
   }
   img {
-    height: 300px;
+    max-height: 250px;
+    max-width: 100%;
     object-fit: cover;
-    margin: 0 auto;
+    margin: auto;
   }
 `;

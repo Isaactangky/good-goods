@@ -1,12 +1,12 @@
 import { combineReducers } from "redux";
 import { postsReducer } from "./posts/posts.reducer";
 import { userReducer } from "./user/user.reducer";
-import { errorReducer } from "./error/error.reducer";
+import { alertReducer } from "./alert/alert.reducer";
 
 const rootReducer = combineReducers({
   posts: postsReducer,
   user: userReducer,
-  error: errorReducer,
+  alert: alertReducer,
 });
 
 export default rootReducer;

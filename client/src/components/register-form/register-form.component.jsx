@@ -5,10 +5,10 @@ import FormInput from "../form-input/form-input.component";
 import Button, { BUTTON_TYPES } from "../button/button.component";
 import "./register-form.styles.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { selectError } from "../../store/error/error.selector";
+import { selectAlert } from "../../store/alert/alert.selector";
 import { selectIsLoadingUser } from "../../store/user/user.selector";
 import { userRegisterStartAsync } from "../../store/user/user.action";
-import { clearError, setError } from "../../store/error/error.action";
+import { clearAlert, setError } from "../../store/alert/alert.action";
 
 const defaultFormFields = {
   username: "",
@@ -22,7 +22,7 @@ const RegisterForm = () => {
 
   const [formFields, setFormFields] = useState(defaultFormFields);
   const [message, setMessage] = useState("");
-  const error = useSelector(selectError);
+  // const error = useSelector(selectAlert);
   const isLoadingUser = useSelector(selectIsLoadingUser);
   const { username, email, password, confirmPassword } = formFields;
   const resetFormFields = () => {
@@ -34,7 +34,7 @@ const RegisterForm = () => {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    // dispatch(clearError());
+    // dispatch(clearAlert());
     setMessage("");
     if (password !== confirmPassword) {
       dispatch(
@@ -46,20 +46,6 @@ const RegisterForm = () => {
     resetFormFields();
     // if (data.success) navigate("/");
   };
-
-  useEffect(() => {
-    if (error.id === "REGISTER_ERROR") {
-      setMessage(error.message.message);
-    } else {
-      setMessage(null);
-    }
-  }, [error]);
-  useEffect(
-    () => () => {
-      dispatch(clearError());
-    },
-    []
-  );
 
   return (
     <div className="sign-up-container">
@@ -99,11 +85,11 @@ const RegisterForm = () => {
           value={confirmPassword}
           onChange={handleChange}
         />
-        {message ? (
+        {/* {message ? (
           <div className="alert alert-danger bg-white border-white p-0 ">
             {message}
           </div>
-        ) : null}
+        ) : null} */}
         <Button type="submit" buttonType={BUTTON_TYPES.OUTLINE}>
           Sign Up
         </Button>

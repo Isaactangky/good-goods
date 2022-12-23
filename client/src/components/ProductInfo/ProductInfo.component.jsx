@@ -19,15 +19,28 @@ const ProductInfo = ({ title, description, category, images }) => (
             data-bs-ride="carousel"
           >
             <div class="carousel-inner">
-              <div class="carousel-item active image-container ">
-                <img src={NoImage} class="d-block  " alt="product-image" />
-              </div>
-              <div class="carousel-item image-container">
-                <img src={NoImage} class="d-block  " alt="product-image" />
-              </div>
-              <div class="carousel-item image-container">
-                <img src={NoImage} class="d-block " alt="product-image" />
-              </div>
+              {images.length > 0 ? (
+                images.map((image, index) => {
+                  return (
+                    <div
+                      key={index}
+                      class={`carousel-item image-container ${
+                        index === 0 ? "active" : ""
+                      }`}
+                    >
+                      <img
+                        src={image.url}
+                        class="d-block"
+                        alt="product-image"
+                      />
+                    </div>
+                  );
+                })
+              ) : (
+                <div class="carousel-item active image-container ">
+                  <img src={NoImage} class="d-block  " alt="product-image" />
+                </div>
+              )}
             </div>
             {images?.length > 1 && (
               <Fragment>

@@ -1,7 +1,7 @@
 import { createAction } from "../../utils/createAction.utils";
 import { POSTS_ACTION_TYPES } from "./posts.types";
-import { ERROR_IDS } from "../error/error.type";
-import { setError } from "../error/error.action";
+import { ERROR_IDS } from "../alert/alert.type";
+import { setError } from "../alert/alert.action";
 import axios from "axios";
 import history from "../../history";
 import { tokenConfig } from "../user/user.action";
@@ -12,10 +12,11 @@ export const fetchPostsStartAsync = () => async (dispatch) => {
     const res = await axios.get("http://localhost:5000/api/post");
     dispatch(createAction(POSTS_ACTION_TYPES.FETCH_POSTS_SUCCEEDED, res.data));
   } catch (error) {
+    console.log(error);
     dispatch(
       setError(
-        error.response.data,
-        error.response.status,
+        error?.response?.data || "Network Error",
+        error?.response.status || "Network Error",
         ERROR_IDS.FETCH_POSTS_ERROR
       )
     );

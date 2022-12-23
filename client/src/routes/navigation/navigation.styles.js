@@ -40,7 +40,7 @@ export const NavHeader = styled.div`
     justify-content: center;
     align-items: center;
   }
-  .logo .brand {
+  .logo span {
     font-weight: bold;
     color: var(--white);
     font-size: var(--fontM);
@@ -87,7 +87,7 @@ export const Links = styled.ul`
     transition: var(--transition);
   }
   a:hover {
-    background: var(--clr-primary-8);
+    background: var(--clr-primary-9);
     color: var(--clr-primary-5);
     padding-left: 1.5rem;
   }
