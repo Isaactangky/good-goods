@@ -2,12 +2,18 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
-  max-width: 600px;
+  width: 100%;
+
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 10px;
   box-shadow: var(--light-shadow);
+  max-width: 40rem;
+
+  @media screen and (max-width: 800px) {
+    max-width: 25rem;
+  }
   :hover {
     ${
       "" /* background-image: linear-gradient(
@@ -25,41 +31,59 @@ export const Content = styled(Link)`
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  @media screen and (max-width: 800px) {
+    flex-direction: column;
+  }
 `;
 export const Info = styled.div`
-  height: 100px;
+  height: 175px;
+
   padding: 10px 20px;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-
+  ${"" /* justify-content: space-between; */}
+  @media screen and (max-width: 800px) {
+    height: 150px;
+    width: 100%;
+  }
   h4 {
     text-transform: capitalize;
   }
   .description {
     font-size: var(--fontS);
-    justify-self: start;
   }
   .category {
     font-size: var(--fontXS);
     opacity: 0.8;
+    margin-top: auto;
   }
 `;
 
 export const ImageContainer = styled.div`
-  width: 100px;
+  width: 225px;
+  height: 175px;
+
   display: flex;
   justify-content: center;
   align-items: center;
+  @media screen and (max-width: 800px) {
+    height: 200px;
+    width: 100%;
+  }
 `;
 export const Image = styled.img`
-  height: 100px;
-  width: 100px;
+  width: 225px;
+  height: 175px;
   transition: all 0.3s;
   object-fit: cover;
   border-radius: 10px;
   animation: animateThumb 0.5s;
+  @media screen and (max-width: 800px) {
+    height: 200px;
+
+    width: 100%;
+  }
 
   @keyframes animateThumb {
     from {

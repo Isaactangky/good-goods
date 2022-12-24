@@ -8,22 +8,34 @@ export const Content = styled.div`
   width: 100%;
   max-width: var(--max-width);
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 20rem;
+  padding: 0 20px;
+`;
+export const Title = styled.div`
+ @media screen and (max-width: 1200px) {
+    display: flex:
+    justify-content: center;
+    align-items: center;
+    h3{
+      text-align: center;
+    }
+    
+  }
 `;
 export const PostsContainer = styled.div`
-  min-height: 100vh;
-  padding: 0 20px;
-  // border: 1px solid black;
-  display: flex;
-  flex-direction: column;
+  width: 100%;
+  padding-top: 1rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  @media screen and (max-width: 1200px) {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
 
-  gap: 1rem;
   h3 {
     color: var(--darkgrey);
   }
 `;
 export const OtherInfoContainer = styled.div`
-  min-height: 100vh;
   padding: 0 20px;
 `;

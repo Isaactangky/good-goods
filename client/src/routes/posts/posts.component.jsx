@@ -1,9 +1,4 @@
-import {
-  Wrapper,
-  Content,
-  PostsContainer,
-  OtherInfoContainer,
-} from "./posts.styles.js";
+import { Wrapper, Content, PostsContainer, Title } from "./posts.styles.js";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { selectIsLoading, selectPosts } from "../../store/posts/posts.selector";
@@ -22,15 +17,14 @@ const Posts = () => {
   return (
     <Wrapper>
       <Content>
+        <Title>
+          <h3>Fresh Posts</h3>
+        </Title>
         <PostsContainer>
-          <div>
-            <h3>Fresh Posts</h3>
-          </div>
           {posts.map((post) => (
             <PostPreview key={post._id} post={post} />
           ))}
         </PostsContainer>
-        <OtherInfoContainer>123</OtherInfoContainer>
       </Content>
     </Wrapper>
   );
