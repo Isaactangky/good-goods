@@ -1,12 +1,17 @@
 import { useState } from "react";
-
 import { useDispatch, useSelector } from "react-redux";
-import Button, { BUTTON_TYPES } from "../button/button.component";
-import { AddReviewButton } from "./add-review-form.styles";
+import Button, { BUTTON_TYPES } from "../Button/Button.component";
+import {
+  AddReviewButton,
+  StarRatingsContainer,
+  Form,
+} from "./add-review-form.styles";
 import { createReviewStartAsync } from "../../store/posts/posts.action";
 import { useParams } from "react-router-dom";
-import FormTextarea from "../form-textarea/form-textarea.component";
+import FormTextarea from "../FormTextarea/FormTextarea.component";
 import FormRangeInput from "../form-range-input/form-range-input.component";
+import StarRatings from "react-star-ratings";
+
 import { selectIsAuthenticated } from "../../store/user/user.selector";
 const defaultFormFields = {
   rating: 1,
@@ -32,22 +37,32 @@ const AddReviewForm = () => {
       [name]: value,
     }));
   };
+  const changeRating = (newRating, name) => {
+    setFormFields({
+      ...formFields,
+      rating: newRating,
+    });
+  };
   if (!isAuthenticated) {
     return <h5>Login to comment</h5>;
   }
+  console.log(formFields);
   return (
-    <form onSubmit={createReview}>
-      <FormRangeInput
-        type="range"
-        name="rating"
-        id="rating"
-        min="1"
-        max="5"
-        onChange={onChangeHandler}
-        value={rating}
-      />
+    <Form onSubmit={createReview}>
+      <StarRatingsContainer>
+        <StarRatings
+          rating={rating}
+          starRatedColor="orangered"
+          starHoverColor="orange"
+          changeRating={changeRating}
+          numberOfStars={5}
+          name="rating"
+          starDimension="30px"
+        />
+      </StarRatingsContainer>
+
       <FormTextarea
-        row="3"
+        row="5"
         placeholder="What do you think"
         onChange={onChangeHandler}
         value={content}
@@ -55,7 +70,7 @@ const AddReviewForm = () => {
         id="content"
       />
       <Button buttonType={BUTTON_TYPES.OUTLINE}>Comment</Button>
-    </form>
+    </Form>
   );
 };
 

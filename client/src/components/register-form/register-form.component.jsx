@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import FormInput from "../form-input/form-input.component";
-import Button, { BUTTON_TYPES } from "../button/button.component";
+import Button, { BUTTON_TYPES } from "../Button/Button.component";
 import "./register-form.styles.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { selectAlert } from "../../store/alert/alert.selector";

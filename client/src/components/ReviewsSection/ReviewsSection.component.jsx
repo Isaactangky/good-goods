@@ -1,8 +1,11 @@
+import { useSelector } from "react-redux";
+import { selectReviews } from "../../store/posts/posts.selector";
 import AddReviewForm from "../add-review-form/add-review-form.component";
-import Review from "../review/review.component";
-import { ReviewsContainer, Container, Title } from "./reviews.styles";
+import Review from "../Review/Review.component";
+import { ReviewsContainer, Container, Title } from "./ReviewsSection.styles";
 
-const Reviews = ({ reviews }) => {
+const ReviewsSection = () => {
+  const reviews = useSelector(selectReviews);
   return (
     <Container>
       <AddReviewForm />
@@ -16,4 +19,4 @@ const Reviews = ({ reviews }) => {
   );
 };
 
-export default Reviews;
+export default ReviewsSection;

@@ -2,8 +2,8 @@ import { POSTS_ACTION_TYPES } from "./posts.types";
 
 export const POSTS_INITIAL_STATE = {
   posts: [],
-  post: {},
-  isLoading: false,
+  post: { reviews: [] },
+  isLoading: true,
 };
 const removePostFromPosts = (posts, removedPostId) => {
   return posts.filter((post) => post._id !== removedPostId);

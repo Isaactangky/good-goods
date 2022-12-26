@@ -7,7 +7,7 @@ import {
   FunctionalityContainer,
   FunctionalityButton,
   InfoContainer,
-} from "./review.styles";
+} from "./Review.styles";
 import { formatDate } from "../../utils/format.utils";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";

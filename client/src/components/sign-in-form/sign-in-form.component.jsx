@@ -1,5 +1,5 @@
 import FormInput from "../form-input/form-input.component";
-import Button, { BUTTON_TYPES } from "../button/button.component";
+import Button, { BUTTON_TYPES } from "../Button/Button.component";
 import { useEffect, useState } from "react";
 import "./sign-in-form.styles.scss";
 

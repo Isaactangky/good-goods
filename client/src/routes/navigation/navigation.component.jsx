@@ -14,7 +14,7 @@ import { logOut } from "../../store/user/user.action";
 import { selectUser } from "../../store/user/user.selector";
 import { links } from "../../config.js";
 import { FaBars } from "react-icons/fa";
-import Button, { BUTTON_TYPES } from "../../components/button/button.component";
+import Button, { BUTTON_TYPES } from "../../components/Button/Button.component";
 import Alert from "../../components/Alert/Alert.component.jsx";
 import { selectAlert } from "../../store/alert/alert.selector.js";
 

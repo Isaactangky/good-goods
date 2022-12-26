@@ -5,7 +5,7 @@ import {
   Image,
   Info,
   ImageContainer,
-} from "./post-preview.styles.js";
+} from "./PostPreview.styles.js";
 import NoImage from "../../images/no_image.jpg";
 const PostPreview = ({ post }) => {
   const { _id, title, images, description, category } = post;

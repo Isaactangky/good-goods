@@ -1,4 +1,4 @@
-import { Textarea, Container, Label } from "./form-textarea.styles";
+import { Textarea, Container, Label } from "./FormTextarea.styles";
 
 const FormTextarea = ({ label, name, ...otherProps }) => {
   return (

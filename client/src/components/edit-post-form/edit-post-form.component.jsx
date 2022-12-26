@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Button, { BUTTON_TYPES } from "../button/button.component";
+import Button, { BUTTON_TYPES } from "../Button/Button.component";
 import FormInput from "../form-input/form-input.component";
 import FormSelect from "../form-select/form-select.component";
 import { useNavigate, useParams } from "react-router-dom";

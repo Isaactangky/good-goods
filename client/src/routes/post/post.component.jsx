@@ -11,8 +11,8 @@ import {
   selectUser,
   selectIsAuthenticated,
 } from "../../store/user/user.selector";
-import Button, { BUTTON_TYPES } from "../../components/button/button.component";
-import Reviews from "../../components/reviews/reviews.component";
+import Button, { BUTTON_TYPES } from "../../components/Button/Button.component";
+import ReviewsSection from "../../components/ReviewsSection/ReviewsSection.component";
 import ProductInfo from "../../components/ProductInfo/ProductInfo.component";
 import Spinner from "../../components/Spinner/Spinner.component";
 const Post = () => {
@@ -51,7 +51,7 @@ const Post = () => {
           <Button onClick={onDeleteHandler}>Delete</Button>
         </div>
       ) : null}
-      {post && <Reviews reviews={post.reviews} />}
+      {post && <ReviewsSection />}
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import { BaseButton, OutlineButton, ButtonSpinner } from "./button.styles";
+import { BaseButton, OutlineButton, ButtonSpinner } from "./Button.styles";
 export const BUTTON_TYPES = {
   BASE: "base",
   OUTLINE: "outline",

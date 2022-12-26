@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { selectIsLoading, selectPosts } from "../../store/posts/posts.selector";
 import { fetchPostsStartAsync } from "../../store/posts/posts.action";
-import PostPreview from "../../components/post-preview/post-preview.component";
+import PostPreview from "../../components/PostPreview/PostPreview.component";
 import Spinner from "../../components/Spinner/Spinner.component.jsx";
 const Posts = () => {
   // return <h1>This is Posts route</h1>;

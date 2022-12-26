@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Button, { BUTTON_TYPES } from "../button/button.component";
+import Button, { BUTTON_TYPES } from "../Button/Button.component";
 import FormInput from "../form-input/form-input.component";
 import FormSelect from "../form-select/form-select.component";
 import styles from "./new-post-form.module.scss";
 import { useNavigate, Navigate } from "react-router-dom";
-import { createPostStart } from "../../store/posts/posts.action";
+import { createPostStartAsync } from "../../store/posts/posts.action";
 import { selectIsAuthenticated } from "../../store/user/user.selector";
 
 const defaultFormFields = {
@@ -50,7 +50,7 @@ const NewPostForm = () => {
 
     // const newPost = { title, category, description };
     const newPost = { ...formFields, images };
-    dispatch(createPostStart(formData));
+    dispatch(createPostStartAsync(formData));
   };
   if (!isAuthenticated) {
     return <Navigate to="/auth" />;

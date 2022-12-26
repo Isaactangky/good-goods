@@ -24,14 +24,11 @@ export const userRegisterStartAsync = (info) => async (dispatch) => {
       `http://localhost:5000/auth/user/register`,
       info
     );
-    console.log("register data");
-    console.log(data);
+
     dispatch(createAction(USER_ACTION_TYPES.USER_REGISTER_SUCCEEDED, data));
     return data;
   } catch (error) {
-    dispatch(
-      setError(error.response.data, error.response.status, "REGISTER_ERROR")
-    );
+    dispatch(setError(error.response.data, error.response.status));
     dispatch(createAction(USER_ACTION_TYPES.USER_REGISTER_FAILED));
   }
 };
@@ -54,13 +51,7 @@ export const signInStartAsync = (info) => async (dispatch) => {
     dispatch(createAction(USER_ACTION_TYPES.USER_SIGN_IN_SUCCEEDED, data));
     return data;
   } catch (error) {
-    dispatch(
-      setError(
-        error.response.data.message,
-        error.response.status,
-        "LOGIN_ERROR"
-      )
-    );
+    dispatch(setError(error.response.data.message, error.response.status));
     dispatch(createAction(USER_ACTION_TYPES.USER_SIGN_IN_FAILED, error));
   }
 };

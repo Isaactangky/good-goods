@@ -1,6 +1,5 @@
 import { createAction } from "../../utils/createAction.utils";
 import { POSTS_ACTION_TYPES } from "./posts.types";
-import { ERROR_IDS } from "../alert/alert.type";
 import { setError } from "../alert/alert.action";
 import axios from "axios";
 import history from "../../history";
@@ -12,12 +11,10 @@ export const fetchPostsStartAsync = () => async (dispatch) => {
     const res = await axios.get("http://localhost:5000/api/post");
     dispatch(createAction(POSTS_ACTION_TYPES.FETCH_POSTS_SUCCEEDED, res.data));
   } catch (error) {
-    console.log(error);
     dispatch(
       setError(
         error?.response?.data || "Network Error",
-        error?.response.status || "Network Error",
-        ERROR_IDS.FETCH_POSTS_ERROR
+        error?.response?.status || "Network Error"
       )
     );
     dispatch(createAction(POSTS_ACTION_TYPES.FETCH_POSTS_FAILED));
@@ -30,18 +27,12 @@ export const fetchPostStartAsync = (id) => async (dispatch) => {
     const res = await axios.get(`http://localhost:5000/api/post/${id}`);
     dispatch(createAction(POSTS_ACTION_TYPES.FETCH_POST_SUCCEEDED, res.data));
   } catch (error) {
-    dispatch(
-      setError(
-        error.response.data,
-        error.response.status,
-        ERROR_IDS.FETCH_POST_ERROR
-      )
-    );
+    dispatch(setError(error.response.data, error.response.status));
     dispatch(createAction(POSTS_ACTION_TYPES.FETCH_POST_FAILED));
   }
 };
 
-export const createPostStart = (newPost) => async (dispatch, getState) => {
+export const createPostStartAsync = (newPost) => async (dispatch, getState) => {
   console.log("new post");
   console.log(newPost);
   dispatch(createAction(POSTS_ACTION_TYPES.POSTS_LOADING));
@@ -55,20 +46,13 @@ export const createPostStart = (newPost) => async (dispatch, getState) => {
       newPost,
       config
     );
-    // // const id = data._id;
-    console.log(data);
+
     dispatch(createAction(POSTS_ACTION_TYPES.CREATE_POST_SUCCEEDED, data));
     // history.push(`post/${id}`);
     // return data;
   } catch (error) {
     console.log(error);
-    // dispatch(
-    //   setError(
-    //     error.response.data,
-    //     error.response.status,
-    //     ERROR_IDS.CREATE_POST_ERROR
-    //   )
-    // );
+    dispatch(setError(error.response.data, error.response.status));
     dispatch(createAction(POSTS_ACTION_TYPES.CREATE_POST_FAILED));
   }
 };
@@ -85,13 +69,7 @@ export const deletePostStartAsync = (id) => async (dispatch, getState) => {
     // history.push("/");
     // return data.success;
   } catch (error) {
-    dispatch(
-      setError(
-        error.response.data,
-        error.response.status,
-        ERROR_IDS.DELETE_POST_ERROR
-      )
-    );
+    dispatch(setError(error.response.data, error.response.status));
     dispatch(createAction(POSTS_ACTION_TYPES.DELETE_POST_FAILED));
   }
 };
@@ -109,13 +87,7 @@ export const updatePostStartAsync =
       dispatch(createAction(POSTS_ACTION_TYPES.UPDATE_POST_SUCCEEDED, data));
       return data;
     } catch (error) {
-      dispatch(
-        setError(
-          error.response.data,
-          error.response.status,
-          ERROR_IDS.UPDATE_POST_ERROR
-        )
-      );
+      dispatch(setError(error.response.data, error.response.status));
       dispatch(createAction(POSTS_ACTION_TYPES.UPDATE_POST_FAILED));
     }
   };
@@ -135,13 +107,7 @@ export const createReviewStartAsync =
       dispatch(createAction(POSTS_ACTION_TYPES.CREATE_REVIEW_SUCCEEDED, data));
       return data;
     } catch (error) {
-      dispatch(
-        setError(
-          error.response.data,
-          error.response.status,
-          ERROR_IDS.CREATE_REVIEW_ERROR
-        )
-      );
+      dispatch(setError(error.response.data, error.response.status));
       dispatch(createAction(POSTS_ACTION_TYPES.CREATE_REVIEW_FAILED));
     }
   };
@@ -159,13 +125,7 @@ export const deleteReviewStartAsync =
       );
       return data;
     } catch (error) {
-      dispatch(
-        setError(
-          error.response.data,
-          error.response.status,
-          ERROR_IDS.DELETE_REIVEW_ERROR
-        )
-      );
+      dispatch(setError(error.response.data, error.response.status));
       dispatch(createAction(POSTS_ACTION_TYPES.DELETE_REVIEW_FAILED, error));
     }
   };

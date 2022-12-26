@@ -7,7 +7,7 @@ export const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 10px;
+  border-radius: var(--radius);
   box-shadow: var(--light-shadow);
   max-width: 40rem;
 
@@ -77,7 +77,7 @@ export const Image = styled.img`
   height: 175px;
   transition: all 0.3s;
   object-fit: cover;
-  border-radius: 10px;
+  border-radius: var(--radius);
   animation: animateThumb 0.5s;
   @media screen and (max-width: 800px) {
     height: 200px;
