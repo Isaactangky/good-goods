@@ -1,11 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Button, { BUTTON_TYPES } from "../Button/Button.component";
-import {
-  AddReviewButton,
-  StarRatingsContainer,
-  Form,
-} from "./add-review-form.styles";
+import { AddReviewButton, Container, Form } from "./AddReviewForm.styles";
 import { createReviewStartAsync } from "../../store/posts/posts.action";
 import { useParams } from "react-router-dom";
 import FormTextarea from "../FormTextarea/FormTextarea.component";
@@ -22,6 +18,7 @@ const AddReviewForm = () => {
   const dispatch = useDispatch();
   const isAuthenticated = useSelector(selectIsAuthenticated);
   const [formFields, setFormFields] = useState(defaultFormFields);
+  const [isDisplay, setIsDisplay] = useState(false);
   const { rating, content } = formFields;
   const resetFormFields = () => setFormFields(defaultFormFields);
   const createReview = (e) => {
@@ -46,10 +43,18 @@ const AddReviewForm = () => {
   if (!isAuthenticated) {
     return <h5>Login to comment</h5>;
   }
-  console.log(formFields);
   return (
     <Form onSubmit={createReview}>
-      <StarRatingsContainer>
+      <FormTextarea
+        row="10"
+        placeholder="What do you think"
+        onChange={onChangeHandler}
+        value={content}
+        name="content"
+        id="content"
+        onFocus={() => setIsDisplay(true)}
+      />
+      <Container isDisplay={isDisplay}>
         <StarRatings
           rating={rating}
           starRatedColor="orangered"
@@ -57,19 +62,11 @@ const AddReviewForm = () => {
           changeRating={changeRating}
           numberOfStars={5}
           name="rating"
-          starDimension="30px"
+          starDimension="25px"
+          starSpacing="3px"
         />
-      </StarRatingsContainer>
-
-      <FormTextarea
-        row="5"
-        placeholder="What do you think"
-        onChange={onChangeHandler}
-        value={content}
-        name="content"
-        id="content"
-      />
-      <Button buttonType={BUTTON_TYPES.OUTLINE}>Comment</Button>
+        <Button buttonType={BUTTON_TYPES.OUTLINE}>Comment</Button>
+      </Container>
     </Form>
   );
 };

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Button, { BUTTON_TYPES } from "../Button/Button.component";
+import { CATEGORIES } from "../../config";
 import FormInput from "../form-input/form-input.component";
 import FormSelect from "../form-select/form-select.component";
 import styles from "./new-post-form.module.scss";
@@ -13,8 +14,6 @@ const defaultFormFields = {
   category: "Food",
   description: "",
 };
-
-const CATEGORIES = ["Food", "Beauty", "Clothing", "Health"];
 
 const NewPostForm = () => {
   const navigate = useNavigate();
@@ -77,7 +76,7 @@ const NewPostForm = () => {
         onChange={onChangeHandler}
       />
       <div className={styles.file_input_group}>
-        <label for="formFile" className={`form-label ${styles.file_label}`}>
+        <label htmlFor="formFile" className={`form-label ${styles.file_label}`}>
           Upload Images
         </label>
         <input

@@ -5,12 +5,12 @@ import styles from "./post.module.scss";
 import {
   fetchPostStartAsync,
   deletePostStartAsync,
-} from "../../store/posts/posts.action";
-import { selectIsLoading, selectPost } from "../../store/posts/posts.selector";
+} from "../../store/post/post.action";
 import {
-  selectUser,
-  selectIsAuthenticated,
-} from "../../store/user/user.selector";
+  selectIsLoadingPost,
+  selectPost,
+} from "../../store/post/post.selector";
+
 import Button, { BUTTON_TYPES } from "../../components/Button/Button.component";
 import ReviewsSection from "../../components/ReviewsSection/ReviewsSection.component";
 import ProductInfo from "../../components/ProductInfo/ProductInfo.component";
@@ -18,23 +18,15 @@ import Spinner from "../../components/Spinner/Spinner.component";
 const Post = () => {
   const { id } = useParams();
   const post = useSelector(selectPost);
-  const isLoading = useSelector(selectIsLoading);
-  const user = useSelector(selectUser);
-  const isAuthenticated = useSelector(selectIsAuthenticated);
+  const isLoadingPost = useSelector(selectIsLoadingPost);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   useEffect(() => {
     dispatch(fetchPostStartAsync(id));
-  }, []);
-  const onDeleteHandler = async () => {
-    const res = await dispatch(deletePostStartAsync(id));
-    if (res) navigate("/");
-  };
-  const onEditHandler = () => {
-    navigate(`/post/${id}/edit`);
-  };
-  if (isLoading) return <Spinner />;
+  }, [id]);
+
+  if (isLoadingPost) return <Spinner />;
   return (
     <div className={styles["container"]}>
       <ProductInfo
@@ -43,14 +35,7 @@ const Post = () => {
         category={post.category}
         images={post.images}
       />
-      {isAuthenticated && post.author && user._id === post.author._id ? (
-        <div className={styles["button-container"]}>
-          <Button onClick={onEditHandler} buttonType={BUTTON_TYPES.OUTLINE}>
-            Edit
-          </Button>
-          <Button onClick={onDeleteHandler}>Delete</Button>
-        </div>
-      ) : null}
+
       {post && <ReviewsSection />}
     </div>
   );

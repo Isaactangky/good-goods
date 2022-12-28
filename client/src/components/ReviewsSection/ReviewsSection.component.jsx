@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { selectReviews } from "../../store/posts/posts.selector";
-import AddReviewForm from "../add-review-form/add-review-form.component";
+import AddReviewForm from "../AddReviewForm/AddReviewForm.component";
 import Review from "../Review/Review.component";
 import { ReviewsContainer, Container, Title } from "./ReviewsSection.styles";
 
@@ -10,6 +10,7 @@ const ReviewsSection = () => {
     <Container>
       <AddReviewForm />
       <Title>Reviews</Title>
+
       <ReviewsContainer>
         {reviews && reviews.length
           ? reviews.map((review) => <Review key={review._id} review={review} />)

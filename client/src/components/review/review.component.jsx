@@ -8,6 +8,7 @@ import {
   FunctionalityButton,
   InfoContainer,
 } from "./Review.styles";
+import StarRatings from "react-star-ratings";
 import { formatDate } from "../../utils/format.utils";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -33,7 +34,17 @@ const Review = ({ review: { _id, author, date, content, rating } }) => {
         <Date>{formatDate(date)}</Date>
       </InfoContainer>
 
-      <Rating>{rating} stars</Rating>
+      <Rating>
+        <StarRatings
+          rating={rating}
+          starRatedColor="orangered"
+          starHoverColor="orange"
+          numberOfStars={5}
+          name="rating"
+          starDimension="25px"
+          starSpacing="3px"
+        />
+      </Rating>
       <Content>{content}</Content>
 
       <FunctionalityContainer>

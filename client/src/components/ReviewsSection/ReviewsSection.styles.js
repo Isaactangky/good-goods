@@ -1,8 +1,9 @@
 import styled from "styled-components";
 export const Title = styled.h2`
   margin-top: 1rem;
-  ${"" /* padding-bottom: 1rem; */}
-  border-bottom: 1px solid lightgray;
+  padding: 10px;
+
+  border-bottom: 2px solid var(--lightgrey);
 `;
 
 export const Container = styled.div`

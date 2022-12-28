@@ -13,6 +13,10 @@ export const Content = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   border-bottom: 1px solid var(--lightgrey);
+
+  @media screen and (max-width: 800px) {
+    grid-template-columns: 1fr;
+  }
   span {
     font-size: var(--fontXS);
     color: orangered;
@@ -33,21 +37,21 @@ export const Text = styled.div`
   }
 `;
 
-export const Carousel = styled.div`
-  border-radius: 10px;
-  overflow: hidden;
+// export const Carousel = styled.div`
+//   border-radius: 10px;
+//   overflow: hidden;
 
-  .image-container {
-    border-radius: 10px;
-    overflow: hidden;
-    background-color: var(--medgrey);
-    height: 250px;
-    padding: auto 0;
-  }
-  img {
-    max-height: 250px;
-    max-width: 100%;
-    object-fit: cover;
-    margin: auto;
-  }
-`;
+//   .image-container {
+//     border-radius: 10px;
+//     overflow: hidden;
+//     background-color: var(--medgrey);
+//     height: 250px;
+//     padding: auto 0;
+//   }
+//   img {
+//     max-height: 250px;
+//     max-width: 100%;
+//     object-fit: cover;
+//     margin: auto;
+//   }
+// `;

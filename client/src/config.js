@@ -20,3 +20,5 @@ export const links = [
     text: "community",
   },
 ];
+
+export const CATEGORIES = ["Food", "Beauty", "Clothing", "Health"];

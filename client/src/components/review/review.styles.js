@@ -23,10 +23,8 @@ export const Date = styled.span`
   opacity: 0.6;
   display: block;
 `;
-export const Rating = styled.p`
-  margin: 1px 0px;
-  span {
-  }
+export const Rating = styled.div`
+  margin-top: 5px;
 `;
 
 export const Content = styled.p`

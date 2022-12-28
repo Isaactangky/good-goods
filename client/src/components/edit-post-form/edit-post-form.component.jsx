@@ -7,15 +7,13 @@ import { useNavigate, useParams } from "react-router-dom";
 import {
   updatePostStartAsync,
   fetchPostStartAsync,
-} from "../../store/posts/posts.action";
-import {
-  selectIsSucceeded,
-  selectPost,
-} from "../../store/posts/posts.selector";
+} from "../../store/post/post.action";
+import { selectPost } from "../../store/post/post.selector";
 
 const CATEGORIES = ["Food", "Beauty", "Clothing", "Health"];
 
 const EditPostForm = () => {
+  // TODO authenticate user
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
