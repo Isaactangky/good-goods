@@ -95,7 +95,7 @@ export const createReviewStartAsync =
 
 export const deleteReviewStartAsync =
   (postId, reviewId) => async (dispatch, getState) => {
-    dispatch(createAction(POST_ACTION_TYPES.POSTS_LOADING));
+    dispatch(createAction(POST_ACTION_TYPES.POST_LOADING));
     try {
       const { data } = await axios.delete(
         `http://localhost:5000/api/post/${postId}/reviews/${reviewId}`,

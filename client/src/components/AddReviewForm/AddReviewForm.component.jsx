@@ -2,10 +2,9 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Button, { BUTTON_TYPES } from "../Button/Button.component";
 import { AddReviewButton, Container, Form } from "./AddReviewForm.styles";
-import { createReviewStartAsync } from "../../store/posts/posts.action";
-import { useParams } from "react-router-dom";
+import { createReviewStartAsync } from "../../store/post/post.action";
+import { useParams, Link } from "react-router-dom";
 import FormTextarea from "../FormTextarea/FormTextarea.component";
-import FormRangeInput from "../form-range-input/form-range-input.component";
 import StarRatings from "react-star-ratings";
 
 import { selectIsAuthenticated } from "../../store/user/user.selector";
@@ -41,7 +40,11 @@ const AddReviewForm = () => {
     });
   };
   if (!isAuthenticated) {
-    return <h5>Login to comment</h5>;
+    return (
+      <Link to="/auth">
+        <h4>Sign in to add reviews</h4>
+      </Link>
+    );
   }
   return (
     <Form onSubmit={createReview}>

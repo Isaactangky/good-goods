@@ -16,5 +16,5 @@ export const Form = styled.form`
   row-gap: 10px;
   border-top: 2px solid var(--lightgrey);
   border-bottom: 2px solid var(--lightgrey);
-  padding: 10px;
+  padding: 10px 0;
 `;

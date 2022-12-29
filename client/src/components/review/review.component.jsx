@@ -12,7 +12,7 @@ import StarRatings from "react-star-ratings";
 import { formatDate } from "../../utils/format.utils";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { deleteReviewStartAsync } from "../../store/posts/posts.action";
+import { deleteReviewStartAsync } from "../../store/post/post.action";
 import {
   selectUser,
   selectIsAuthenticated,
@@ -48,7 +48,7 @@ const Review = ({ review: { _id, author, date, content, rating } }) => {
       <Content>{content}</Content>
 
       <FunctionalityContainer>
-        {isAuthenticated && author._id === user.id ? (
+        {isAuthenticated && author._id === user._id ? (
           <FunctionalityButton type="button" onClick={deleteReview}>
             Delete
           </FunctionalityButton>

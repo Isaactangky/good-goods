@@ -1,30 +1,47 @@
 import { Wrapper, Content, PostsContainer, Title } from "./posts.styles.js";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { selectIsLoading, selectPosts } from "../../store/posts/posts.selector";
 import { fetchPostsStartAsync } from "../../store/posts/posts.action";
 import PostPreview from "../../components/PostPreview/PostPreview.component";
 import Spinner from "../../components/Spinner/Spinner.component.jsx";
+import { CATEGORIES } from "../../config";
+const categories = ["latest", ...CATEGORIES];
 const Posts = () => {
-  // return <h1>This is Posts route</h1>;
   const isLoading = useSelector(selectIsLoading);
   const dispatch = useDispatch();
+  const [searchTerm, setSearchTerm] = useState("");
   useEffect(() => {
-    dispatch(fetchPostsStartAsync());
-  }, []);
+    if (searchTerm === "latest") dispatch(fetchPostsStartAsync());
+    else dispatch(fetchPostsStartAsync(searchTerm));
+  }, [searchTerm]);
   const posts = useSelector(selectPosts);
-  if (isLoading) return <Spinner />;
+  const handleOnClick = (category) => {
+    setSearchTerm(category);
+  };
+
   return (
     <Wrapper>
       <Content>
         <Title>
-          <h3>Fresh Posts</h3>
-        </Title>
-        <PostsContainer>
-          {posts.map((post) => (
-            <PostPreview key={post._id} post={post} />
+          {categories.map((category) => (
+            <button
+              onClick={() => handleOnClick(category)}
+              className={searchTerm === category ? "category-active" : ""}
+            >
+              {category}
+            </button>
           ))}
-        </PostsContainer>
+        </Title>
+        {isLoading ? (
+          <Spinner />
+        ) : (
+          <PostsContainer>
+            {posts.map((post) => (
+              <PostPreview key={post._id} post={post} />
+            ))}
+          </PostsContainer>
+        )}
       </Content>
     </Wrapper>
   );

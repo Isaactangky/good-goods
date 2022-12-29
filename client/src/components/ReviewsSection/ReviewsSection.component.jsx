@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { selectReviews } from "../../store/posts/posts.selector";
+import { selectReviews } from "../../store/post/post.selector";
 import AddReviewForm from "../AddReviewForm/AddReviewForm.component";
 import Review from "../Review/Review.component";
 import { ReviewsContainer, Container, Title } from "./ReviewsSection.styles";

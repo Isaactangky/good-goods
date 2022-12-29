@@ -6,7 +6,7 @@ import FormInput from "../form-input/form-input.component";
 import FormSelect from "../form-select/form-select.component";
 import styles from "./new-post-form.module.scss";
 import { useNavigate, Navigate } from "react-router-dom";
-import { createPostStartAsync } from "../../store/posts/posts.action";
+import { createPostStartAsync } from "../../store/post/post.action";
 import { selectIsAuthenticated } from "../../store/user/user.selector";
 
 const defaultFormFields = {

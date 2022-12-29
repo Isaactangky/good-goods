@@ -4,12 +4,11 @@ import {
   selectUser,
   selectIsAuthenticated,
 } from "../../store/user/user.selector";
-import { deletePostStartAsync } from "../../store/posts/posts.action";
-import { Content, Wrapper, Text } from "./ProductInfo.styles";
+import { deletePostStartAsync } from "../../store/post/post.action";
+import { Content, Wrapper, Text, ButtonContainer } from "./ProductInfo.styles";
 import Carousel from "../Carousel/Carousel.component";
 import Button from "../Button/Button.component";
 import { BUTTON_TYPES } from "../Button/Button.component";
-import NoImage from "../../images/no_image.jpg";
 import { useNavigate, useParams } from "react-router-dom";
 import { selectPost } from "../../store/post/post.selector";
 const ProductInfo = ({ title, description, category, images }) => {
@@ -35,12 +34,12 @@ const ProductInfo = ({ title, description, category, images }) => {
           <span>{category}</span>
           <p>{description}</p>
           {isAuthenticated && post.author && user._id === post.author._id ? (
-            <div className={""}>
+            <ButtonContainer>
               <Button onClick={onEditHandler} buttonType={BUTTON_TYPES.OUTLINE}>
                 Edit
               </Button>
               <Button onClick={onDeleteHandler}>Delete</Button>
-            </div>
+            </ButtonContainer>
           ) : null}
         </Text>
 

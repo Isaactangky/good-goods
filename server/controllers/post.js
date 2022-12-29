@@ -5,7 +5,12 @@ const Post = require("../models/post");
  * @access  Public
  */
 module.exports.index = async (req, res) => {
-  const posts = await Post.find().sort({ date: -1 }).limit(30);
+  const category = req.query.category || "";
+  const posts = await Post.find({
+    category: { $regex: category, $options: "i" },
+  })
+    .sort({ date: -1 })
+    .limit(30);
   // if (!posts) throw new Error("No Posts!");
   res.json(posts);
 };
