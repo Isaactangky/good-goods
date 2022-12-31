@@ -1,15 +1,11 @@
 import styled from "styled-components";
 
-export const UserErrorMessage = styled.p`
-  text-align: center;
-  ${"" /* background-color: pink; */}
-  color: red;
-  font-weight: 700;
-`;
-export const AuthenticationContainer = styled.div`
-  padding-top: 120px;
-  width: 900px;
+export const Wrapper = styled.div`
+  padding: 100px 20px 0;
+  width: 100%;
+  max-width: 1000px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 5rem;
   margin: 30px auto;
 `;

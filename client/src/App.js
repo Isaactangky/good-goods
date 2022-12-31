@@ -4,7 +4,7 @@ import { GlobalStyle } from "./GlobalStyle";
 import { Routes, Route } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { fetchAuthStatusAsync } from "./store/user/user.action";
+import { fetchAuthStatusStartAsync } from "./store/user/user.action";
 import Navigation from "./routes/navigation/navigation.component";
 import NewPost from "./routes/new-post/new-post.component";
 import Home from "./routes/home/home.component";
@@ -16,8 +16,8 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchAuthStatusAsync());
-  }, []);
+    dispatch(fetchAuthStatusStartAsync());
+  }, [dispatch]);
   return (
     <Fragment>
       <Routes>

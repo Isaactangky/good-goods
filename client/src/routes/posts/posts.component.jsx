@@ -1,23 +1,32 @@
-import { Wrapper, Content, PostsContainer, Title } from "./posts.styles.js";
+import {
+  Wrapper,
+  Content,
+  PostsContainer,
+  Title,
+  CategoryButton,
+} from "./posts.styles.js";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { selectIsLoading, selectPosts } from "../../store/posts/posts.selector";
+import {
+  selectIsLoadingPosts,
+  selectPosts,
+} from "../../store/posts/posts.selector";
 import { fetchPostsStartAsync } from "../../store/posts/posts.action";
 import PostPreview from "../../components/PostPreview/PostPreview.component";
 import Spinner from "../../components/Spinner/Spinner.component.jsx";
 import { CATEGORIES } from "../../config";
 const categories = ["latest", ...CATEGORIES];
 const Posts = () => {
-  const isLoading = useSelector(selectIsLoading);
+  const isLoadingPosts = useSelector(selectIsLoadingPosts);
   const dispatch = useDispatch();
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchCategory, setSearchCategory] = useState("latest");
   useEffect(() => {
-    if (searchTerm === "latest") dispatch(fetchPostsStartAsync());
-    else dispatch(fetchPostsStartAsync(searchTerm));
-  }, [searchTerm]);
+    if (searchCategory === "latest") dispatch(fetchPostsStartAsync());
+    else dispatch(fetchPostsStartAsync(searchCategory));
+  }, [searchCategory, dispatch]);
   const posts = useSelector(selectPosts);
   const handleOnClick = (category) => {
-    setSearchTerm(category);
+    setSearchCategory(category);
   };
 
   return (
@@ -25,15 +34,15 @@ const Posts = () => {
       <Content>
         <Title>
           {categories.map((category) => (
-            <button
+            <CategoryButton
               onClick={() => handleOnClick(category)}
-              className={searchTerm === category ? "category-active" : ""}
+              className={searchCategory === category ? "category-active" : ""}
             >
               {category}
-            </button>
+            </CategoryButton>
           ))}
         </Title>
-        {isLoading ? (
+        {isLoadingPosts ? (
           <Spinner />
         ) : (
           <PostsContainer>

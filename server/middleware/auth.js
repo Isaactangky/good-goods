@@ -5,7 +5,7 @@ const Review = require("../models/review");
 const JWT_SECRET = process.env.JWT_SECRET || "notagoodsecret";
 // protecting post routes
 module.exports.isLoggedIn = function (req, res, next) {
-  const token = req.header("x-auth-token");
+  const token = req.headers["x-auth-token"];
   if (!token)
     return res.status(401).json({ message: "No valid token, access denied" });
   try {

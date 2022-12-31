@@ -1,26 +1,26 @@
-import RegisterForm from "../../components/register-form/register-form.component";
-import SignInForm from "../../components/sign-in-form/sign-in-form.component";
-import { AuthenticationContainer } from "./authentication.styles.jsx";
+import { useState } from "react";
+import { Wrapper } from "./authentication.styles.jsx";
 import { Navigate } from "react-router-dom";
-// import { selectUserError } from "../../store/user/user.selector";
 import { useSelector } from "react-redux";
 import { selectIsAuthenticated } from "../../store/user/user.selector";
-import { Fragment } from "react";
+import SignInForm from "../../components/SignInForm/SignInForm.component";
+import SignUpForm from "../../components/SignUpForm/SignUpForm.component";
+
 const Authentication = () => {
-  // const userError = useSelector(selectUserError);
+  const [isSignUp, setIsSignUp] = useState(false);
   const isAuthenticated = useSelector(selectIsAuthenticated);
+
   if (isAuthenticated) {
     return <Navigate to="/" />;
   }
   return (
-    <Fragment>
-      {/* {userError && <p className="user-error-message">{userError.message}</p>} */}
-
-      <AuthenticationContainer>
-        <SignInForm />
-        <RegisterForm />
-      </AuthenticationContainer>
-    </Fragment>
+    <Wrapper>
+      {isSignUp ? (
+        <SignUpForm setIsSignUp={setIsSignUp} />
+      ) : (
+        <SignInForm setIsSignUp={setIsSignUp} />
+      )}
+    </Wrapper>
   );
 };
 export default Authentication;

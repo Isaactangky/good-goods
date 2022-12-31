@@ -16,14 +16,7 @@ export const userReducer = (state = USER_INITIAL_STATE, action) => {
         isLoading: true,
       };
     case USER_ACTION_TYPES.FETCH_AUTH_STATUS:
-      return {
-        ...state,
-        isAuthenticated: true,
-        isLoading: false,
-        user: action.payload,
-      };
-
-    case USER_ACTION_TYPES.USER_REGISTER_SUCCEEDED:
+    case USER_ACTION_TYPES.USER_SIGN_UP_SUCCEEDED:
     case USER_ACTION_TYPES.USER_SIGN_IN_SUCCEEDED:
       localStorage.setItem("token", action.payload.token);
       return {
@@ -32,16 +25,10 @@ export const userReducer = (state = USER_INITIAL_STATE, action) => {
         isAuthenticated: true,
         isLoading: false,
       };
-    case USER_ACTION_TYPES.USER_SIGN_OUT_SUCCEEDED:
-      return {
-        ...state,
-        user: null,
-        isLoading: false,
-      };
-    case USER_ACTION_TYPES.USER_REGISTER_FAILED:
+    case USER_ACTION_TYPES.USER_SIGN_UP_FAILED:
     case USER_ACTION_TYPES.USER_SIGN_IN_FAILED:
-    case USER_ACTION_TYPES.USER_LOGOUT:
     case USER_ACTION_TYPES.FETCH_AUTH_ERROR:
+    case USER_ACTION_TYPES.USER_SIGN_OUT:
       localStorage.removeItem("token");
       return {
         ...state,

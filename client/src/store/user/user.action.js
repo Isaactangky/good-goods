@@ -17,7 +17,7 @@ export const tokenConfig = (getState) => {
   if (token) config.headers["x-auth-token"] = token;
   return config;
 };
-export const userRegisterStartAsync = (info) => async (dispatch) => {
+export const userSignUpStartAsync = (info) => async (dispatch) => {
   dispatch(createAction(USER_ACTION_TYPES.USER_LOADING));
   try {
     const { data } = await axios.post(
@@ -25,11 +25,12 @@ export const userRegisterStartAsync = (info) => async (dispatch) => {
       info
     );
 
-    dispatch(createAction(USER_ACTION_TYPES.USER_REGISTER_SUCCEEDED, data));
+    dispatch(createAction(USER_ACTION_TYPES.USER_SIGN_UP_SUCCEEDED, data));
+    dispatch(setSucessAlert(`Successfully signed up as ${data.user.username}`));
     return data;
   } catch (error) {
     dispatch(setError(error.response.data, error.response.status));
-    dispatch(createAction(USER_ACTION_TYPES.USER_REGISTER_FAILED));
+    dispatch(createAction(USER_ACTION_TYPES.USER_SIGN_UP_FAILED));
   }
 };
 
@@ -49,20 +50,19 @@ export const signInStartAsync = (info) => async (dispatch) => {
     );
     dispatch(setSucessAlert(`Wellcome back! ${data.user.username}`));
     dispatch(createAction(USER_ACTION_TYPES.USER_SIGN_IN_SUCCEEDED, data));
-    return data;
   } catch (error) {
     dispatch(setError(error.response.data.message, error.response.status));
     dispatch(createAction(USER_ACTION_TYPES.USER_SIGN_IN_FAILED, error));
   }
 };
 
-export const fetchAuthStatusAsync = () => async (dispatch, getState) => {
+export const fetchAuthStatusStartAsync = () => async (dispatch, getState) => {
   dispatch(createAction(USER_ACTION_TYPES.USER_LOADING));
   try {
-    const { data } = await axios.get(
-      `http://localhost:5000/auth/user`,
-      tokenConfig(getState)
-    );
+    const config = tokenConfig(getState);
+    const { data } = await axios.get(`http://localhost:5000/auth/user`, config);
+
+    dispatch(setSucessAlert(`Wellcome back! ${data.user.username}`));
     dispatch(createAction(USER_ACTION_TYPES.FETCH_AUTH_STATUS, data));
   } catch (error) {
     // dispatch(setError(error.response.data.message, error.response.status));
@@ -70,4 +70,4 @@ export const fetchAuthStatusAsync = () => async (dispatch, getState) => {
   }
 };
 
-export const logOut = () => createAction(USER_ACTION_TYPES.USER_LOGOUT);
+export const logOut = () => createAction(USER_ACTION_TYPES.USER_SIGN_OUT);

@@ -3,7 +3,6 @@ import styled from "styled-components";
 
 export const Wrapper = styled.div`
   width: 100%;
-
   display: flex;
   justify-content: center;
   align-items: center;
@@ -15,14 +14,6 @@ export const Wrapper = styled.div`
     max-width: 25rem;
   }
   :hover {
-    ${
-      "" /* background-image: linear-gradient(
-      to bottom right,
-      white,
-      white,
-      rgb(254, 229, 221)
-    ); */
-    }
     box-shadow: var(--dark-shadow);
   }
 `;
@@ -61,27 +52,26 @@ export const Info = styled.div`
 `;
 
 export const ImageContainer = styled.div`
-  width: 225px;
+  width: 250px;
   height: 175px;
 
   display: flex;
   justify-content: center;
   align-items: center;
   @media screen and (max-width: 800px) {
-    height: 200px;
+    height: 225px;
     width: 100%;
   }
 `;
 export const Image = styled.img`
-  width: 225px;
+  width: 250px;
   height: 175px;
   transition: all 0.3s;
   object-fit: cover;
   border-radius: var(--radius);
   animation: animateThumb 0.5s;
   @media screen and (max-width: 800px) {
-    height: 200px;
-
+    height: 225px;
     width: 100%;
   }
 

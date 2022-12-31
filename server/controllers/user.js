@@ -5,9 +5,17 @@ const JWT_SECRET = process.env.JWT_SECRET || "notagoodsecret";
 const { JWT_TOKEN_EXPIRATION } = require("../config");
 module.exports.index = async (req, res) => {
   const { user } = req;
+  console.log(user);
   const foundUser = await User.findById(user.id).select("-password");
   if (!foundUser) throw new Error("User dose not exist");
-  res.json(foundUser);
+  console.log(foundUser);
+  res.status(200).json({
+    user: {
+      id: foundUser._id,
+      username: foundUser.username,
+      email: foundUser.email,
+    },
+  });
 };
 module.exports.register = async (req, res) => {
   const { username, password, email } = req.body;
