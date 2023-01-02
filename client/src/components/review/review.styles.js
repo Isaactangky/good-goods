@@ -2,39 +2,49 @@ import styled from "styled-components";
 
 export const ReviewContainer = styled.div`
   margin: 5px 0rem;
+  font-size: 14px;
 
   padding: 10px;
   display: flex;
   flex-direction: column;
 `;
-export const InfoContainer = styled.div`
-  display: flex;
-  align-itmes: center;
-  jusitify-content: center;
-  gap: 2rem;
-`;
+// export const InfoContainer = styled.div`
+//   display: flex;
+//   align-itmes: center;
+//   jusitify-content: center;
+//   gap: 2rem;
+// `;
 
 export const Username = styled.span`
-  font-weight: 700;
+  font-weight: 600;
   opacity: 1;
   display: block;
 `;
-export const Date = styled.span`
+export const ReviewTime = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: cneter;
+
   opacity: 0.6;
-  display: block;
+  span {
+    margin-left: 5px;
+  }
 `;
 export const Rating = styled.div`
-  margin-top: 5px;
+  display: flex;
+  align-items: cneter;
+  ${"" /* margin-top: 5px; */}
 `;
 
 export const Content = styled.p`
+  font-size: var(--fontS);
   margin: 5px 0px;
 `;
 
-export const FunctionalityContainer = styled.div`
+export const ButtonContainer = styled.div`
   display: flex;
   align-itmes: center;
-  jusitify-content: flex-start;
+  justify-content: flex-start;
   font-size: 0.8rem;
   opacity: 1;
 `;

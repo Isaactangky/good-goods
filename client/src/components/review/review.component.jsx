@@ -2,11 +2,10 @@ import {
   Username,
   ReviewContainer,
   Content,
-  Date,
+  ReviewTime,
   Rating,
-  FunctionalityContainer,
+  ButtonContainer,
   FunctionalityButton,
-  InfoContainer,
 } from "./Review.styles";
 import StarRatings from "react-star-ratings";
 import { formatDate } from "../../utils/format.utils";
@@ -17,7 +16,7 @@ import {
   selectUser,
   selectIsAuthenticated,
 } from "../../store/user/user.selector";
-
+import { BiTimeFive } from "react-icons/bi";
 const Review = ({ review: { _id, author, date, content, rating } }) => {
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -29,10 +28,11 @@ const Review = ({ review: { _id, author, date, content, rating } }) => {
   };
   return (
     <ReviewContainer>
-      <InfoContainer>
-        <Username>{author.username}</Username>
-        <Date>{formatDate(date)}</Date>
-      </InfoContainer>
+      <Username>{author.username}</Username>
+      <ReviewTime>
+        <BiTimeFive />
+        <span>{formatDate(date)}</span>
+      </ReviewTime>
 
       <Rating>
         <StarRatings
@@ -41,19 +41,19 @@ const Review = ({ review: { _id, author, date, content, rating } }) => {
           starHoverColor="orange"
           numberOfStars={5}
           name="rating"
-          starDimension="25px"
-          starSpacing="3px"
+          starDimension="16px"
+          starSpacing="1px"
         />
       </Rating>
       <Content>{content}</Content>
 
-      <FunctionalityContainer>
+      <ButtonContainer>
         {isAuthenticated && author._id === user._id ? (
           <FunctionalityButton type="button" onClick={deleteReview}>
             Delete
           </FunctionalityButton>
         ) : null}
-      </FunctionalityContainer>
+      </ButtonContainer>
     </ReviewContainer>
   );
 };

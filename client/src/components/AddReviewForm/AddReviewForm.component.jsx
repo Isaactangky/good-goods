@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Button, { BUTTON_TYPES } from "../Button/Button.component";
-import { AddReviewButton, Container, Form } from "./AddReviewForm.styles";
+import { Container, Form } from "./AddReviewForm.styles";
 import { createReviewStartAsync } from "../../store/post/post.action";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useLocation } from "react-router-dom";
 import FormTextarea from "../FormTextarea/FormTextarea.component";
 import StarRatings from "react-star-ratings";
 
@@ -14,6 +14,7 @@ const defaultFormFields = {
 };
 const AddReviewForm = () => {
   const { id } = useParams();
+  const location = useLocation();
   const dispatch = useDispatch();
   const isAuthenticated = useSelector(selectIsAuthenticated);
   const [formFields, setFormFields] = useState(defaultFormFields);
@@ -41,7 +42,7 @@ const AddReviewForm = () => {
   };
   if (!isAuthenticated) {
     return (
-      <Link to="/auth">
+      <Link to="/auth" state={{ prev: location }}>
         <h4>Sign in to add reviews</h4>
       </Link>
     );
@@ -66,7 +67,7 @@ const AddReviewForm = () => {
           numberOfStars={5}
           name="rating"
           starDimension="25px"
-          starSpacing="3px"
+          starSpacing="2px"
         />
         <Button buttonType={BUTTON_TYPES.OUTLINE}>Comment</Button>
       </Container>

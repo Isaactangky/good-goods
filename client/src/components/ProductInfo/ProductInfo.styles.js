@@ -12,14 +12,14 @@ export const Content = styled.div`
 
   display: grid;
   grid-template-columns: 1fr 1fr;
-  border-bottom: 1px solid var(--lightgrey);
-
+  border-bottom: 2px solid var(--lightgrey);
+  ${"" /* box-shadow: var(--dark-shadow); */}
   @media screen and (max-width: 800px) {
     grid-template-columns: 1fr;
   }
   span {
     font-size: var(--fontXS);
-    color: orangered;
+    color: var(--medgrey);
   }
   p {
     margin-top: 1rem;

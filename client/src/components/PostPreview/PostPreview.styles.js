@@ -40,6 +40,9 @@ export const Info = styled.div`
   }
   h4 {
     text-transform: capitalize;
+    line-height: 2;
+    border-bottom: 1px dotted var(--medgrey);
+    margin-bottom: 10px;
   }
   .description {
     font-size: var(--fontS);
@@ -70,6 +73,7 @@ export const Image = styled.img`
   object-fit: cover;
   border-radius: var(--radius);
   animation: animateThumb 0.5s;
+
   @media screen and (max-width: 800px) {
     height: 225px;
     width: 100%;

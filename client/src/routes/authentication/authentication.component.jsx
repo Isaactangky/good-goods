@@ -9,7 +9,6 @@ import SignUpForm from "../../components/SignUpForm/SignUpForm.component";
 const Authentication = () => {
   const [isSignUp, setIsSignUp] = useState(false);
   const isAuthenticated = useSelector(selectIsAuthenticated);
-
   if (isAuthenticated) {
     return <Navigate to="/" />;
   }

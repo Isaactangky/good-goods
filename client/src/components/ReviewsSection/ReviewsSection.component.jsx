@@ -8,8 +8,9 @@ const ReviewsSection = () => {
   const reviews = useSelector(selectReviews);
   return (
     <Container>
-      <AddReviewForm />
       <Title>Reviews</Title>
+
+      <AddReviewForm />
 
       <ReviewsContainer>
         {reviews && reviews.length

@@ -1,3 +1,13 @@
+import TimeAgo from "javascript-time-ago";
+
+// English.
+import en from "javascript-time-ago/locale/en";
+
+TimeAgo.addDefaultLocale(en);
+
+// Create formatter (English).
+const timeAgo = new TimeAgo("en-US");
+
 const Months = [
   "Jan",
   "Feb",
@@ -14,11 +24,6 @@ const Months = [
 ];
 export const formatDate = (d) => {
   const date = new Date(d);
-  return `${date.getHours().toString().padStart(2, "0")}:${date
-    .getMinutes()
-    .toString()
-    .padStart(2, "0")} ${date.getDay().toString().padStart(2, "0")}-${
-    Months[date.getMonth()]
-  }
-`;
+
+  return timeAgo.format(date);
 };

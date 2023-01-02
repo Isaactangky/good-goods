@@ -18,6 +18,7 @@ Slider
   text-align: center;
 }
 .title h3 {
+  font-size: var(--fontM);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -58,8 +59,8 @@ Slider
   transform: translateY(-50%);
   background: var(--medgrey);
   color: var(--white);
-  width: 1.25rem;
-  height: 1.25rem;
+  width: 1.75rem;
+  height: 1.75rem;
   display: grid;
   place-items: center;
   border-color: transparent;
@@ -71,7 +72,7 @@ Slider
 .prev:hover,
 .next:hover {
   background: var(--lightgrey);
-  color: var(--white);
+  color: var(--medgrey);
 }
 .prev {
   left: 0;

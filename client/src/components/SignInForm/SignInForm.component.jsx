@@ -1,6 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
 import { signInStartAsync } from "../../store/user/user.action";
-import { selectIsLoadingUser } from "../../store/user/user.selector";
+import {
+  selectIsAuthenticated,
+  selectIsLoadingUser,
+} from "../../store/user/user.selector";
 import { Container, ButtonContainer, Title, Footer } from "./SignInForm.styles";
 import Button from "../Button/Button.component";
 import FormInput from "../form-input/form-input.component";
@@ -17,12 +21,18 @@ const SignInForm = ({ setIsSignUp }) => {
     handleChange,
   } = useAuthFormFields(defaultFormFields);
   const isLoadingUser = useSelector(selectIsLoadingUser);
+  const isAuthenticated = useSelector(selectIsAuthenticated);
   const dispatch = useDispatch();
-
+  const { state } = useLocation();
+  const navigate = useNavigate();
   const handleSubmit = (event) => {
     event.preventDefault();
     dispatch(signInStartAsync({ email, password }));
-    resetFormFields();
+    if (isAuthenticated && state) {
+      resetFormFields();
+      const redrectTo = state.prev.pathname;
+      navigate(redrectTo);
+    }
   };
   return (
     <Container>
