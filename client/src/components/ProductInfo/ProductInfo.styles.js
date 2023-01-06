@@ -12,9 +12,9 @@ export const Content = styled.div`
 
   display: grid;
   grid-template-columns: 1fr 1fr;
+  column-gap: 2rem;
   border-bottom: 2px solid var(--lightgrey);
-  ${"" /* box-shadow: var(--dark-shadow); */}
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: 1000px) {
     grid-template-columns: 1fr;
   }
   span {
@@ -22,7 +22,8 @@ export const Content = styled.div`
     color: var(--medgrey);
   }
   p {
-    margin-top: 1rem;
+    white-space: pre-wrap;
+    margin: 1rem 0;
   }
 `;
 export const Text = styled.div`

@@ -12,6 +12,7 @@ import Posts from "./routes/posts/posts.component";
 import Post from "./routes/post/post.component";
 import EditPost from "./routes/edit-post/edit-post.component";
 import Authentication from "./routes/authentication/authentication.component";
+import ContactUs from "./routes/contact-us/contact-us.component";
 function App() {
   const dispatch = useDispatch();
 
@@ -29,7 +30,7 @@ function App() {
             <Route path=":id" element={<Post />} />
             <Route path=":id/edit" element={<EditPost />} />
           </Route>
-          <Route path="community" element={<h1>Community Route</h1>} />
+          <Route path="contact-us" element={<ContactUs />} />
           <Route path="auth" element={<Authentication />} />
         </Route>
       </Routes>

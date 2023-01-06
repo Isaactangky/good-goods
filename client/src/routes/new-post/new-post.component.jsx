@@ -1,12 +1,12 @@
-import NewPostForm from "../../components/new-post-form/new-post-form.component";
-import styles from "./new-post.module.scss";
+import NewPostForm from "../../components/NewPostForm/NewPostForm.component";
+import { Container, Title } from "./new-post.styles.js";
 const NewPost = () => {
   return (
-    <div className={styles.new_post_container}>
-      <h2 className={styles.title}>Share you product</h2>
+    <Container>
+      <Title>Share you product</Title>
 
       <NewPostForm />
-    </div>
+    </Container>
   );
 };
 

@@ -4,6 +4,7 @@
 .container {
   width: 100%;
   margin: 0 auto;
+  padding: 5rem 0;
   // max-width: var(--max-width);
 }
 
@@ -33,7 +34,7 @@ Slider
   position: relative;
   display: flex;
   /* overflow: hidden; */
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: 1000px) {
     max-width: 400px;
   }
 }
@@ -80,7 +81,7 @@ Slider
 .next {
   right: 0;
 }
-@media (min-width: 800px) {
+@media (min-width: 1000px) {
   .text {
     max-width: 45em;
   }
@@ -101,7 +102,7 @@ Slider
 
   transition: var(--transition);
 
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: 1000px) {
     max-width: 400px;
   }
 }

@@ -5,14 +5,25 @@ const Post = require("../models/post");
  * @access  Public
  */
 module.exports.index = async (req, res) => {
+  // let posts;
+  // if (req.query.q) {
+  //   console.log(req.query.q);
+  //   posts = await Post.fuzzySearch(req.query.q);
+  // }
+  // }else{
+  //   filteredPosts = await Post.fuzzySearch(req.query.q);
+  // }
   const category = req.query.category || "";
   const posts = await Post.find({
     category: { $regex: category, $options: "i" },
   })
     .sort({ date: -1 })
     .limit(30);
-  // if (!posts) throw new Error("No Posts!");
-  res.json(posts);
+  if (!posts) throw new Error("No Posts!");
+  res.json({
+    category,
+    posts,
+  });
 };
 /**
  * @route   POST api/post
@@ -20,12 +31,7 @@ module.exports.index = async (req, res) => {
  * @access  Private
  */
 module.exports.createPost = async (req, res) => {
-  console.log("controller");
-  console.log(req.body);
-  console.log(req.files);
   const images = req.files.map((image) => {
-    console.log("");
-    console.log(image);
     return {
       filename: image.filename,
       url: image.path,

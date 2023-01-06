@@ -7,6 +7,7 @@ export const BaseButton = styled.button`
   font-size: 0.85rem;
   background-color: var(--clr-primary-5);
   transition: var(--transition);
+  width: max-content;
 
   color: white;
   font-weight: bold;

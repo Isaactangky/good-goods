@@ -2,12 +2,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 12px;
+  margin: var(--margin-form-ele);
 
   .category-select {
     width: 150px;
     height: 30px;
     padding-left: 5px;
+    font-size: var(--fontS);
+
     color: grey;
     border: none;
     border-bottom: 1px solid gray;
@@ -15,6 +17,6 @@
   }
   label {
     padding: 10px 10px 10px 5px;
-    font-size: 12px;
+    font-size: var(--fontS);
   }
 }

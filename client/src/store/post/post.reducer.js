@@ -1,8 +1,9 @@
 import { POST_ACTION_TYPES } from "./post.types";
 
 export const POSTS_INITIAL_STATE = {
-  post: { revies: [] },
-  isLoading: true,
+  post: { reviews: [] },
+  isLoading: false,
+  isLoadingReviews: false,
 };
 const removePostFromPosts = (posts, removedPostId) => {
   return posts.filter((post) => post._id !== removedPostId);
@@ -34,7 +35,11 @@ export const postReducer = (state = POSTS_INITIAL_STATE, action) => {
         ...state,
         isLoading: true,
       };
-
+    case POST_ACTION_TYPES.REVIEWS_LOADING:
+      return {
+        ...state,
+        isLoadingReviews: true,
+      };
     case POST_ACTION_TYPES.FETCH_POST_SUCCEEDED:
     case POST_ACTION_TYPES.CREATE_POST_SUCCEEDED:
     case POST_ACTION_TYPES.UPDATE_POST_SUCCEEDED:
@@ -53,13 +58,18 @@ export const postReducer = (state = POSTS_INITIAL_STATE, action) => {
       return {
         ...state,
         post: AddReview(state.post, action.payload),
-        isLoading: false,
+        isLoadingReviews: false,
       };
     case POST_ACTION_TYPES.DELETE_REVIEW_SUCCEEDED:
       return {
         ...state,
         post: deleteReview(state.post, action.payload),
-        isLoading: false,
+        isLoadingReviews: false,
+      };
+    case POST_ACTION_TYPES.REVIEWS_ACTION_FAILED:
+      return {
+        ...state,
+        isLoadingReviews: false,
       };
     case POST_ACTION_TYPES.POST_ACTION_FAILED:
       return {

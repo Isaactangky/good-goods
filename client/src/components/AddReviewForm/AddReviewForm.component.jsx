@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Button, { BUTTON_TYPES } from "../Button/Button.component";
-import { Container, Form } from "./AddReviewForm.styles";
+import { Container, Form, ReviewFormTextarea } from "./AddReviewForm.styles";
 import { createReviewStartAsync } from "../../store/post/post.action";
 import { useParams, Link, useLocation } from "react-router-dom";
 import FormTextarea from "../FormTextarea/FormTextarea.component";
 import StarRatings from "react-star-ratings";
 
 import { selectIsAuthenticated } from "../../store/user/user.selector";
+import { selectIsLoadingReviews } from "../../store/post/post.selector";
 const defaultFormFields = {
   rating: 1,
   content: "",
@@ -17,6 +18,7 @@ const AddReviewForm = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const isAuthenticated = useSelector(selectIsAuthenticated);
+  const isLoadingReviews = useSelector(selectIsLoadingReviews);
   const [formFields, setFormFields] = useState(defaultFormFields);
   const [isDisplay, setIsDisplay] = useState(false);
   const { rating, content } = formFields;
@@ -49,8 +51,7 @@ const AddReviewForm = () => {
   }
   return (
     <Form onSubmit={createReview}>
-      <FormTextarea
-        row="10"
+      <ReviewFormTextarea
         placeholder="What do you think"
         onChange={onChangeHandler}
         value={content}
@@ -69,7 +70,9 @@ const AddReviewForm = () => {
           starDimension="25px"
           starSpacing="2px"
         />
-        <Button buttonType={BUTTON_TYPES.OUTLINE}>Comment</Button>
+        <Button buttonType={BUTTON_TYPES.OUTLINE} disabled={isLoadingReviews}>
+          Comment
+        </Button>
       </Container>
     </Form>
   );

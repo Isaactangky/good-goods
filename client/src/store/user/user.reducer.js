@@ -16,6 +16,12 @@ export const userReducer = (state = USER_INITIAL_STATE, action) => {
         isLoading: true,
       };
     case USER_ACTION_TYPES.FETCH_AUTH_STATUS:
+      return {
+        ...state,
+        ...action.payload,
+        isAuthenticated: true,
+        isLoading: false,
+      };
     case USER_ACTION_TYPES.USER_SIGN_UP_SUCCEEDED:
     case USER_ACTION_TYPES.USER_SIGN_IN_SUCCEEDED:
       localStorage.setItem("token", action.payload.token);

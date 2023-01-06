@@ -2,6 +2,8 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const Review = require("./review");
 const User = require("./user");
+const mongooseFuzzySearching = require("mongoose-fuzzy-searching");
+
 const imageSchema = Schema({
   url: String,
   filename: String,
@@ -32,6 +34,11 @@ const postSchema = Schema({
     ref: "user",
   },
 });
+// fuzzy-search plugin
+// postSchema.plugin(mongooseFuzzySearching, {
+//   fields: ["title", "description", "category"],
+// });
+
 // delete reviews after deleting a post
 postSchema.post("findOneAndDelete", async (post) => {
   if (post) {

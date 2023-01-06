@@ -20,3 +20,8 @@ export const Wrapper = styled.div`
     color: var(--white);
   }
 `;
+
+export const ButtonContainer = styled.div`
+  display: flex;
+  gap: 1rem;
+`;

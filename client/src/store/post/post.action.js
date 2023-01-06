@@ -29,8 +29,7 @@ export const createPostStartAsync = (newPost) => async (dispatch, getState) => {
     );
 
     dispatch(createAction(POST_ACTION_TYPES.CREATE_POST_SUCCEEDED, data));
-    // history.push(`post/${id}`);
-    // return data;
+    return data;
   } catch (error) {
     console.log(error);
     dispatch(setError(error.response.data, error.response.status));
@@ -77,7 +76,7 @@ export const updatePostStartAsync =
 
 export const createReviewStartAsync =
   (postId, review) => async (dispatch, getState) => {
-    dispatch(createAction(POST_ACTION_TYPES.POST_LOADING));
+    dispatch(createAction(POST_ACTION_TYPES.REVIEWS_LOADING));
     try {
       const body = review;
       const { data } = await axios.post(
@@ -89,13 +88,13 @@ export const createReviewStartAsync =
       return data;
     } catch (error) {
       dispatch(setError(error.response.data, error.response.status));
-      dispatch(createAction(POST_ACTION_TYPES.POST_ACTION_FAILED));
+      dispatch(createAction(POST_ACTION_TYPES.REVIEWS_ACTION_FAILED));
     }
   };
 
 export const deleteReviewStartAsync =
   (postId, reviewId) => async (dispatch, getState) => {
-    dispatch(createAction(POST_ACTION_TYPES.POST_LOADING));
+    dispatch(createAction(POST_ACTION_TYPES.REVIEWS_LOADING));
     try {
       const { data } = await axios.delete(
         `http://localhost:5000/api/post/${postId}/reviews/${reviewId}`,
@@ -107,6 +106,6 @@ export const deleteReviewStartAsync =
       return data;
     } catch (error) {
       dispatch(setError(error.response.data, error.response.status));
-      dispatch(createAction(POST_ACTION_TYPES.DELETE_REVIEW_FAILED, error));
+      dispatch(createAction(POST_ACTION_TYPES.REVIEWS_ACTION_FAILED));
     }
   };

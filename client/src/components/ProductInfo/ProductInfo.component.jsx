@@ -33,7 +33,7 @@ const ProductInfo = ({ title, description, category, images }) => {
           <h1>{title}</h1>
           <span>{category}</span>
           <p>{description}</p>
-          {isAuthenticated && post.author && user._id === post.author._id ? (
+          {isAuthenticated && post.author && user.id === post.author._id ? (
             <ButtonContainer>
               <Button onClick={onEditHandler} buttonType={BUTTON_TYPES.OUTLINE}>
                 Edit

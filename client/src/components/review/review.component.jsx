@@ -38,7 +38,6 @@ const Review = ({ review: { _id, author, date, content, rating } }) => {
         <StarRatings
           rating={rating}
           starRatedColor="orangered"
-          starHoverColor="orange"
           numberOfStars={5}
           name="rating"
           starDimension="16px"
@@ -48,7 +47,7 @@ const Review = ({ review: { _id, author, date, content, rating } }) => {
       <Content>{content}</Content>
 
       <ButtonContainer>
-        {isAuthenticated && author._id === user._id ? (
+        {isAuthenticated && author._id === user.id ? (
           <FunctionalityButton type="button" onClick={deleteReview}>
             Delete
           </FunctionalityButton>

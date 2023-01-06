@@ -18,7 +18,6 @@ const secret = process.env.SECRET || "thisisnotagoodsecret";
 
 mongoose.connect(dbUrl, {
   useNewUrlParser: true,
-
   useUnifiedTopology: true,
 });
 const db = mongoose.connection;
@@ -74,6 +73,8 @@ passport.deserializeUser(User.deserializeUser());
 
 app.use("/api/post", require("./routes/api/post"));
 app.use("/api/post/:id/reviews", require("./routes/api/review"));
+app.use("/api/contactus", require("./routes/api/contactus"));
+
 app.use("/auth/user", require("./routes/auth/user"));
 
 // app.use((err, req, res, next) => {

@@ -4,11 +4,11 @@ import Button, { BUTTON_TYPES } from "../Button/Button.component";
 import { CATEGORIES } from "../../config";
 import FormInput from "../form-input/form-input.component";
 import FormSelect from "../form-select/form-select.component";
-import styles from "./new-post-form.module.scss";
+import { FileInputGroup, Form, Textarea } from "./NewPostForm.styles.js";
 import { useNavigate, Navigate } from "react-router-dom";
 import { createPostStartAsync } from "../../store/post/post.action";
 import { selectIsAuthenticated } from "../../store/user/user.selector";
-
+import { selectIsLoadingPost } from "../../store/post/post.selector";
 const defaultFormFields = {
   title: "",
   category: "Food",
@@ -16,14 +16,14 @@ const defaultFormFields = {
 };
 
 const NewPostForm = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [formFields, setFormFields] = useState(defaultFormFields);
   const [images, setImages] = useState(null);
   const { title, category, description } = formFields;
   const clearFormField = () => setFormFields(defaultFormFields);
   const isAuthenticated = useSelector(selectIsAuthenticated);
-
+  const isLoadingPost = useSelector(selectIsLoadingPost);
   const onChangeHandler = (event) => {
     const { name, value } = event.target;
     setFormFields((prev) => {
@@ -37,8 +37,6 @@ const NewPostForm = () => {
   const addNewPost = async (e) => {
     e.preventDefault();
     const formData = new FormData();
-    console.log("images");
-    console.log(images);
     for (let i = 0; i < images.length; i++) {
       console.log(images[i]);
       formData.append("images", images[i], images[i].name);
@@ -48,18 +46,14 @@ const NewPostForm = () => {
     formData.append("description", description);
 
     // const newPost = { title, category, description };
-    const newPost = { ...formFields, images };
-    dispatch(createPostStartAsync(formData));
+    const data = await dispatch(createPostStartAsync(formData));
+    navigate(`/post/${data._id}`);
   };
   if (!isAuthenticated) {
     return <Navigate to="/auth" />;
   }
   return (
-    <form
-      className={styles["new-post-form"]}
-      onSubmit={addNewPost}
-      // encType="multipart/form-data"
-    >
+    <Form onSubmit={addNewPost}>
       <FormInput
         label="title"
         type="text"
@@ -75,12 +69,12 @@ const NewPostForm = () => {
         value={category}
         onChange={onChangeHandler}
       />
-      <div className={styles.file_input_group}>
-        <label htmlFor="formFile" className={`form-label ${styles.file_label}`}>
+      <FileInputGroup>
+        <label htmlFor="formFile" className={`file_label`}>
           Upload Images
         </label>
         <input
-          className={`form-control ${styles.file_input}`}
+          className={`file_input`}
           type="file"
           id="formFile"
           name="images"
@@ -88,18 +82,21 @@ const NewPostForm = () => {
           required
           multiple
         />
-      </div>
+      </FileInputGroup>
 
-      <FormInput
+      <Textarea
         label="description"
         type="text"
         name="description"
         value={description}
         onChange={onChangeHandler}
+        rows="10"
         required
       />
-      <Button buttonType={BUTTON_TYPES.OUTLINE}>Submit</Button>
-    </form>
+      <Button buttonType={BUTTON_TYPES.OUTLINE} disabled={isLoadingPost}>
+        Submit
+      </Button>
+    </Form>
   );
 };
 

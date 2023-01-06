@@ -16,8 +16,8 @@ export const links = [
   },
   {
     id: 4,
-    url: "/community",
-    text: "community",
+    url: "/contact-us",
+    text: "contact",
   },
 ];
 

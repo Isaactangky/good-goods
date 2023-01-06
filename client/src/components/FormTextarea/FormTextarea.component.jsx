@@ -1,11 +1,11 @@
-import { Textarea, Container, Label } from "./FormTextarea.styles";
+import { Textarea, Group, Label } from "./FormTextarea.styles";
 
 const FormTextarea = ({ label, name, ...otherProps }) => {
   return (
-    <Container>
-      {label ? <Label for={name}>{label}</Label> : null}
+    <Group>
+      {label ? <Label htmlFor={name}>{label}</Label> : null}
       <Textarea name={name} {...otherProps}></Textarea>
-    </Container>
+    </Group>
   );
 };
 export default FormTextarea;
