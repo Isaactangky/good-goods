@@ -5,9 +5,8 @@ import { CATEGORIES } from "../../config";
 import FormInput from "../form-input/form-input.component";
 import FormSelect from "../form-select/form-select.component";
 import { FileInputGroup, Form, Textarea } from "./NewPostForm.styles.js";
-import { useNavigate, Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { createPostStartAsync } from "../../store/post/post.action";
-import { selectIsAuthenticated } from "../../store/user/user.selector";
 import { selectIsLoadingPost } from "../../store/post/post.selector";
 const defaultFormFields = {
   title: "",
@@ -22,7 +21,6 @@ const NewPostForm = () => {
   const [images, setImages] = useState(null);
   const { title, category, description } = formFields;
   const clearFormField = () => setFormFields(defaultFormFields);
-  const isAuthenticated = useSelector(selectIsAuthenticated);
   const isLoadingPost = useSelector(selectIsLoadingPost);
   const onChangeHandler = (event) => {
     const { name, value } = event.target;
@@ -47,11 +45,10 @@ const NewPostForm = () => {
 
     // const newPost = { title, category, description };
     const data = await dispatch(createPostStartAsync(formData));
+    clearFormField();
     navigate(`/post/${data._id}`);
   };
-  if (!isAuthenticated) {
-    return <Navigate to="/auth" />;
-  }
+
   return (
     <Form onSubmit={addNewPost}>
       <FormInput

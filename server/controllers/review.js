@@ -3,6 +3,11 @@ const Post = require("../models/post");
 module.exports.createReview = async (req, res) => {
   const { id } = req.params;
   const post = await Post.findById(id);
+  if (!post) {
+    res.status(404);
+    throw new Error("No post found");
+  }
+
   const newReview = new Review(req.body);
   newReview.author = req.user.id;
   const savedReview = await newReview.save();

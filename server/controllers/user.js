@@ -7,8 +7,10 @@ module.exports.index = async (req, res) => {
   const { user } = req;
   console.log(user);
   const foundUser = await User.findById(user.id).select("-password");
-  if (!foundUser) throw new Error("User dose not exist");
-  console.log(foundUser);
+  if (!foundUser) {
+    res.status(404);
+    throw new Error("User dose not exist");
+  }
   res.status(200).json({
     user: {
       id: foundUser._id,

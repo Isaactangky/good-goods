@@ -1,17 +1,14 @@
+import axios from "axios";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { selectToken } from "../../store/user/user.selector";
+import useFormFields from "../../hooks/useFormFields";
+import { setSucessAlert, setError } from "../../store/alert/alert.action";
 import Button, { BUTTON_TYPES } from "../Button/Button.component";
 import FormInput from "../form-input/form-input.component";
 import { Form } from "../NewPostForm/NewPostForm.styles";
 import FormTextarea from "../FormTextarea/FormTextarea.component";
-import { useNavigate, Navigate } from "react-router-dom";
-import {
-  selectIsAuthenticated,
-  selectToken,
-} from "../../store/user/user.selector";
-import useAuthFormFields from "../../hooks/useAuthFormFields";
-import axios from "axios";
-import { setSucessAlert, setError } from "../../store/alert/alert.action";
+
 const defaultFormFields = {
   subject: "",
   message: "",
@@ -22,9 +19,8 @@ const ContactUsForm = () => {
     formFields: { subject, message },
     resetFormFields,
     handleChange,
-  } = useAuthFormFields(defaultFormFields);
+  } = useFormFields(defaultFormFields);
   const dispatch = useDispatch();
-  const isAuthenticated = useSelector(selectIsAuthenticated);
   const token = useSelector(selectToken);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -56,9 +52,6 @@ const ContactUsForm = () => {
       setIsLoading(false);
     }
   };
-  if (!isAuthenticated) {
-    return <Navigate to="/auth" />;
-  }
   return (
     <Form onSubmit={sendEmail}>
       <FormInput

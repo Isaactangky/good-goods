@@ -8,7 +8,7 @@ import {
 import { Container, ButtonContainer, Title, Footer } from "./SignInForm.styles";
 import Button from "../Button/Button.component";
 import FormInput from "../form-input/form-input.component";
-import useAuthFormFields from "../../hooks/useAuthFormFields";
+import useFormFields from "../../hooks/useFormFields";
 
 const defaultFormFields = {
   email: "",
@@ -19,7 +19,7 @@ const SignInForm = ({ setIsSignUp }) => {
     formFields: { email, password },
     resetFormFields,
     handleChange,
-  } = useAuthFormFields(defaultFormFields);
+  } = useFormFields(defaultFormFields);
   const isLoadingUser = useSelector(selectIsLoadingUser);
   const isAuthenticated = useSelector(selectIsAuthenticated);
   const dispatch = useDispatch();

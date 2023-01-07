@@ -5,7 +5,7 @@ import { selectIsLoadingUser } from "../../store/user/user.selector";
 import { userSignUpStartAsync } from "../../store/user/user.action";
 import { setError } from "../../store/alert/alert.action";
 import { Container, Title, Footer } from "../SignInForm/SignInForm.styles";
-import useAuthFormFields from "../../hooks/useAuthFormFields";
+import useFormFields from "../../hooks/useFormFields";
 const defaultFormFields = {
   username: "",
   email: "",
@@ -18,7 +18,7 @@ const SignUpForm = ({ setIsSignUp }) => {
     formFields: { username, email, password, confirmPassword },
     resetFormFields,
     handleChange,
-  } = useAuthFormFields(defaultFormFields);
+  } = useFormFields(defaultFormFields);
   const isLoadingUser = useSelector(selectIsLoadingUser);
 
   const handleSubmit = (event) => {

@@ -60,3 +60,10 @@ export const PostsContainer = styled.div`
 export const OtherInfoContainer = styled.div`
   padding: 0 20px;
 `;
+
+export const ButtonContainer = styled.div`
+  grid-column: 1/3;
+  padding: 2rem 20px;
+  display: flex;
+  justify-content: center;
+`;

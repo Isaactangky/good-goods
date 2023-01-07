@@ -14,13 +14,26 @@ module.exports.index = async (req, res) => {
   //   filteredPosts = await Post.fuzzySearch(req.query.q);
   // }
   const category = req.query.category || "";
-  const posts = await Post.find({
+  const page = req.query.page || 1;
+  const query = {
     category: { $regex: category, $options: "i" },
-  })
+  };
+  const batchSize = require("../config").POST_NUM_PER_PAGE;
+  const posts = await Post.find(query)
     .sort({ date: -1 })
-    .limit(30);
-  if (!posts) throw new Error("No Posts!");
+    .skip((page - 1) * batchSize)
+    .limit(batchSize);
+  if (!posts) {
+    res.status(404);
+    throw new Error("No posts found!");
+  }
+  // Find total pages
+  const totalFilteredPosts = await Post.countDocuments(query);
+  const totalPages = Math.ceil(totalFilteredPosts / batchSize);
+
   res.json({
+    page,
+    totalPages,
     category,
     posts,
   });
@@ -56,7 +69,6 @@ module.exports.createPost = async (req, res) => {
  */
 module.exports.getPost = async (req, res) => {
   const id = req.params.id;
-  console.log(id);
   const post = await Post.findById(id)
     .populate({
       path: "reviews",
@@ -70,7 +82,10 @@ module.exports.getPost = async (req, res) => {
       select: "username",
     });
 
-  if (!post) throw new Error("No post found");
+  if (!post) {
+    res.status(404);
+    throw new Error("No post found");
+  }
   res.status(200).json(post);
 };
 /**
@@ -81,7 +96,11 @@ module.exports.getPost = async (req, res) => {
 module.exports.deletePost = async (req, res) => {
   const id = req.params.id;
   const post = await Post.findByIdAndDelete(id);
-  if (!post) throw new Error("No post found");
+
+  if (!post) {
+    res.status(404);
+    throw new Error("No post found");
+  }
   res.status(200).json(post);
 };
 /**
@@ -91,11 +110,8 @@ module.exports.deletePost = async (req, res) => {
  */
 module.exports.updatePost = async (req, res) => {
   const { id } = req.params;
-  console.log(id, req.body);
   const post = await Post.findByIdAndUpdate(id, { ...req.body }, { new: true });
 
   await post.save();
-  console.log("post");
-  console.log(post);
   res.status(200).json(post);
 };

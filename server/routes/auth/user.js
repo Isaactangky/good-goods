@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const user = require("../../controllers/user");
 const { isLoggedIn } = require("../../middleware/auth");
-const catchAsync = require("../../utils/catch-async.utils");
+const catchAsync = require("../../utils/catchAsync.utils");
 /**
  * @route   get auth/user
  * @desc    get current logged in user data

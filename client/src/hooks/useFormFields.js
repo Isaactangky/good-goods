@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const useAuthFormFields = (defaultFormFields) => {
+const useFormFields = (defaultFormFields) => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const resetFormFields = () => setFormFields(defaultFormFields);
 
@@ -14,4 +14,4 @@ const useAuthFormFields = (defaultFormFields) => {
     handleChange,
   };
 };
-export default useAuthFormFields;
+export default useFormFields;
