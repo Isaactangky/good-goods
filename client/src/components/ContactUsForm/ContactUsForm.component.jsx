@@ -1,48 +1,44 @@
 import axios from "axios";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectToken } from "../../store/user/user.selector";
 import useFormFields from "../../hooks/useFormFields";
 import { setSucessAlert, setError } from "../../store/alert/alert.action";
 import Button, { BUTTON_TYPES } from "../Button/Button.component";
-import FormInput from "../form-input/form-input.component";
+import FormInput from "../FormInput/FormInput.component";
 import { Form } from "../NewPostForm/NewPostForm.styles";
 import FormTextarea from "../FormTextarea/FormTextarea.component";
 
 const defaultFormFields = {
   subject: "",
+  email: "",
   message: "",
 };
 
 const ContactUsForm = () => {
   const {
-    formFields: { subject, message },
+    formFields: { subject, email, message },
     resetFormFields,
     handleChange,
   } = useFormFields(defaultFormFields);
   const dispatch = useDispatch();
-  const token = useSelector(selectToken);
   const [isLoading, setIsLoading] = useState(false);
 
   const sendEmail = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
+      // const config = {
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      // };
 
-      if (token) config.headers["x-auth-token"] = token;
+      // if (token) config.headers["x-auth-token"] = token;
 
       const { data } = await axios.post(
         `http://localhost:5000/api/contactus`,
-        {
-          subject,
-          message,
-        },
-        config
+        { subject, email, message }
+        // config
       );
       if (data.success) dispatch(setSucessAlert(data.message));
       resetFormFields();
@@ -59,6 +55,14 @@ const ContactUsForm = () => {
         type="text"
         name="subject"
         value={subject}
+        onChange={handleChange}
+        required
+      />
+      <FormInput
+        label="email"
+        type="email"
+        name="email"
+        value={email}
         onChange={handleChange}
         required
       />

@@ -7,7 +7,7 @@ import {
 } from "../../store/user/user.selector";
 import { Container, ButtonContainer, Title, Footer } from "./SignInForm.styles";
 import Button from "../Button/Button.component";
-import FormInput from "../form-input/form-input.component";
+import FormInput from "../FormInput/FormInput.component";
 import useFormFields from "../../hooks/useFormFields";
 
 const defaultFormFields = {
@@ -63,7 +63,7 @@ const SignInForm = ({ setIsSignUp }) => {
       </form>
       <Footer>
         Don't have a account?{" "}
-        <button onClick={() => setIsSignUp(true)}>Sign up</button>
+        <button onClick={() => setIsSignUp(true)}>Create One</button>
       </Footer>
     </Container>
   );

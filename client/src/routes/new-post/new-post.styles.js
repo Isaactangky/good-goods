@@ -4,7 +4,7 @@ export const Container = styled.div`
   border-radius: 20px;
   overflow: hidden;
   margin: auto;
-  margin-top: 100px;
+  margin-top: 50px;
   padding-bottom: 3rem;
   display: flex;
   flex-direction: column;
@@ -15,5 +15,4 @@ export const Container = styled.div`
 export const Title = styled.h2`
   text-align: center;
   padding: 1rem;
-  width: 100%;
 `;

@@ -1,4 +1,4 @@
-import FormInput from "../form-input/form-input.component";
+import FormInput from "../FormInput/FormInput.component";
 import Button, { BUTTON_TYPES } from "../Button/Button.component";
 import { useDispatch, useSelector } from "react-redux";
 import { selectIsLoadingUser } from "../../store/user/user.selector";

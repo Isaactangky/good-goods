@@ -4,10 +4,11 @@ export const Group = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
-  margin: var(--margin-form-ele);
+  margin-bottom: var(--margin-form-ele);
 `;
 
 export const Label = styled.label`
+  color: var(--darkgrey);
   font-size: var(--fontS);
   text-transform: capitalize;
   padding: 5px;
@@ -21,8 +22,8 @@ export const Textarea = styled.textarea`
   color: var(--medgrey);
   outline: none;
   padding: 10px 10px 10px 5px;
+  border-radius: var(--radius);
   :focus {
-    outline: none;
     border: 1px solid var(--medgrey);
   }
 `;

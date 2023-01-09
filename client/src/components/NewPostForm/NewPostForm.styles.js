@@ -5,8 +5,10 @@ export const FileInputGroup = styled.div`
   display: flex;
   align-items: center;
   position: relative;
-  margin: var(--margin-form-ele);
+  margin-bottom: var(--margin-form-ele);
   .file_input {
+    color: var(--medgrey);
+
     font-size: var(--fontS);
     position: absolute;
     left: 30px;
@@ -15,7 +17,7 @@ export const FileInputGroup = styled.div`
 
   .file_label {
     font-size: var(--fontS);
-
+    color: var(--darkgrey);
     background: var(--white);
     border: 1px solid #ccc;
     display: inline-block;
@@ -26,12 +28,12 @@ export const FileInputGroup = styled.div`
 
 export const Form = styled.form`
   width: 500px;
-  padding: 2rem 20px;
+  padding: 20px;
 
   display: flex;
   flex-direction: column;
 
   @media screen and (max-width: 500px) {
-    width: auto;
+    width: 90vw;
   }
 `;

@@ -47,11 +47,6 @@ export const Info = styled.div`
   .description {
     font-size: var(--fontS);
   }
-  .category {
-    font-size: var(--fontXS);
-    opacity: 0.8;
-    margin-top: auto;
-  }
 `;
 
 export const ImageContainer = styled.div`
@@ -86,5 +81,20 @@ export const Image = styled.img`
     to {
       opacity: 1;
     }
+  }
+`;
+
+export const OtherInfo = styled.div`
+  display: flex;
+  gap: 10px;
+  margin-top: auto;
+  font-size: var(--fontXS);
+  color: var(--medgrey);
+  opacity: 0.8;
+  .reviews-count {
+    display: flex;
+    gap: 3px;
+    align-items: center;
+    font-size: var(--fontXS);
   }
 `;

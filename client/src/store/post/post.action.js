@@ -46,8 +46,6 @@ export const deletePostStartAsync = (id) => async (dispatch, getState) => {
       tokenConfig(getState)
     );
     dispatch(createAction(POST_ACTION_TYPES.DELETE_POST_SUCCEEDED, id));
-    // history.push("/");
-    // return data.success;
   } catch (error) {
     dispatch(setError(error.response.data, error.response.status));
     dispatch(createAction(POST_ACTION_TYPES.POST_ACTION_FAILED));

@@ -28,7 +28,7 @@ export const GlobalStyle = createGlobalStyle`
     --light-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     --dark-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
     --max-width: 1280px;
-    --margin-form-ele: 20px 0px;
+    --margin-form-ele: 20px;
     
   }
   *{

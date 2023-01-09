@@ -25,7 +25,7 @@ export const Footer = styled.footer`
     cursor: pointer;
     color: blue;
     margin-left: 5px;
-    letter-spacing: 1px;
+    ${"" /* letter-spacing: 1px; */}
     font-weight: 500;
     font-size: var(--fontS);
 

@@ -20,8 +20,8 @@ const ProductInfo = ({ title, description, category, images }) => {
   const post = useSelector(selectPost);
   const isAuthenticated = useSelector(selectIsAuthenticated);
   const onDeleteHandler = async () => {
-    const res = await dispatch(deletePostStartAsync(id));
-    if (res) navigate("/");
+    await dispatch(deletePostStartAsync(id));
+    navigate("/");
   };
   const onEditHandler = () => {
     navigate(`/post/${id}/edit`);

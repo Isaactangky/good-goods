@@ -1,18 +1,10 @@
 const Post = require("../models/post");
 /**
  * @route   GET api/post
- * @desc    Get All posts
+ * @desc    Get All filtered posts
  * @access  Public
  */
 module.exports.index = async (req, res) => {
-  // let posts;
-  // if (req.query.q) {
-  //   console.log(req.query.q);
-  //   posts = await Post.fuzzySearch(req.query.q);
-  // }
-  // }else{
-  //   filteredPosts = await Post.fuzzySearch(req.query.q);
-  // }
   const category = req.query.category || "";
   const page = req.query.page || 1;
   const query = {
@@ -69,6 +61,7 @@ module.exports.createPost = async (req, res) => {
  */
 module.exports.getPost = async (req, res) => {
   const id = req.params.id;
+  console.log(id);
   const post = await Post.findById(id)
     .populate({
       path: "reviews",
@@ -81,11 +74,12 @@ module.exports.getPost = async (req, res) => {
       path: "author",
       select: "username",
     });
-
+  console.log(post);
   if (!post) {
     res.status(404);
     throw new Error("No post found");
   }
+  console.log("456");
   res.status(200).json(post);
 };
 /**

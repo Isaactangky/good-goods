@@ -13,6 +13,7 @@ import Post from "./routes/post/post.component";
 import EditPost from "./routes/edit-post/edit-post.component";
 import Authentication from "./routes/authentication/authentication.component";
 import ContactUs from "./routes/contact-us/contact-us.component";
+import PageNotFound from "./routes/page-not-found/page-not-found.component";
 function App() {
   const dispatch = useDispatch();
 
@@ -21,6 +22,7 @@ function App() {
   }, [dispatch]);
   return (
     <Fragment>
+      <GlobalStyle />
       <Routes>
         <Route path="/" element={<Navigation />}>
           <Route index element={<Home />} />
@@ -33,8 +35,8 @@ function App() {
           <Route path="contact-us" element={<ContactUs />} />
           <Route path="auth" element={<Authentication />} />
         </Route>
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
-      <GlobalStyle />
     </Fragment>
   );
 }

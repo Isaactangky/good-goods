@@ -17,13 +17,12 @@ export const Form = styled.form`
 
   border-top: 2px solid var(--lightgrey);
   border-bottom: 2px solid var(--lightgrey);
-  padding-bottom: 10px;
+  padding: 10px 0;
 `;
 
 export const ReviewFormTextarea = styled(FormTextarea)`
   font-size: var(--fontS);
   border: none;
-
   margin: 0;
   padding: 0px;
   padding-left: 5px;

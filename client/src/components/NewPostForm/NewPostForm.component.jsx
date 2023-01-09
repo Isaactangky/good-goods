@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Button, { BUTTON_TYPES } from "../Button/Button.component";
 import { CATEGORIES } from "../../config";
-import FormInput from "../form-input/form-input.component";
+import FormInput from "../FormInput/FormInput.component";
 import FormSelect from "../form-select/form-select.component";
 import { FileInputGroup, Form, Textarea } from "./NewPostForm.styles.js";
 import { useNavigate } from "react-router-dom";
