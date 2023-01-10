@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import {
   Content,
   Wrapper,
@@ -14,7 +13,6 @@ const PostPreview = ({ post }) => {
   if (!description || !title) return;
   return (
     <Wrapper>
-      {/* <div > */}
       <Content to={`/post/${_id}`}>
         <ImageContainer>
           <Image

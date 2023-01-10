@@ -8,21 +8,20 @@ import {
   AuthContainer,
   LinksAuth,
 } from "./navigation.styles.js";
-import { Outlet, Link, useNavigate } from "react-router-dom";
+import { Outlet, Link, useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logOut } from "../../store/user/user.action";
 import { selectUser } from "../../store/user/user.selector";
-import { links } from "../../config.js";
+import { links } from "../../data.js";
 import { FaBars } from "react-icons/fa";
 import Button, { BUTTON_TYPES } from "../../components/Button/Button.component";
 import Alert from "../../components/Alert/Alert.component.jsx";
-import { selectAlert } from "../../store/alert/alert.selector.js";
 
 const Navigation = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector(selectUser);
-  const alert = useSelector(selectAlert);
+  const location = useLocation();
   const [showLinks, setShowLinks] = useState(false);
   const linksAuthContainerRef = useRef(null);
   const linksAuthRef = useRef(null);
@@ -35,7 +34,7 @@ const Navigation = () => {
     }
   }, [showLinks]);
   const signIn = () => {
-    navigate("/auth");
+    navigate("/signin");
   };
 
   const signOut = () => {
@@ -72,7 +71,9 @@ const Navigation = () => {
                     Sign Out
                   </Button>
                 ) : (
-                  <Button onClick={signIn}>Sign In</Button>
+                  <Link to="/signin" state={{ prev: location }}>
+                    <Button onClick={signIn}>Sign In</Button>
+                  </Link>
                 )}
               </AuthContainer>
             </LinksAuth>

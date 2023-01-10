@@ -11,9 +11,11 @@ import Home from "./routes/home/home.component";
 import Posts from "./routes/posts/posts.component";
 import Post from "./routes/post/post.component";
 import EditPost from "./routes/edit-post/edit-post.component";
-import Authentication from "./routes/authentication/authentication.component";
 import ContactUs from "./routes/contact-us/contact-us.component";
 import PageNotFound from "./routes/page-not-found/page-not-found.component";
+import SignIn from "./routes/auth/SignIn.component";
+import SignUp from "./routes/auth/SignUp.component";
+
 function App() {
   const dispatch = useDispatch();
 
@@ -33,7 +35,8 @@ function App() {
             <Route path=":id/edit" element={<EditPost />} />
           </Route>
           <Route path="contact-us" element={<ContactUs />} />
-          <Route path="auth" element={<Authentication />} />
+          <Route path="signin" element={<SignIn />} />
+          <Route path="signup" element={<SignUp />} />
         </Route>
         <Route path="*" element={<PageNotFound />} />
       </Routes>

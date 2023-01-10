@@ -29,11 +29,11 @@ db.once("open", () => {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 // CORS Middleware
-// app.use(cors({ origin: "http://localhost:3000" }));
+// app.use(cors({ origin: ["http://localhost:3000",http ] }));
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: ["http://localhost:3000", process.env.CLIENT_BASE_URL],
   credentials: true, //access-control-allow-credentials:true
-  optionSuccessStatus: 200,
+  // optionSuccessStatus: 200,
 };
 app.use(cors(corsOptions));
 
@@ -74,21 +74,16 @@ passport.deserializeUser(User.deserializeUser());
 app.use("/api/post", require("./routes/api/post"));
 app.use("/api/post/:id/reviews", require("./routes/api/review"));
 app.use("/api/contactus", require("./routes/api/contactus"));
-
 app.use("/auth/user", require("./routes/auth/user"));
 
-// app.use((err, req, res, next) => {
-//   const { statusCode = 400 } = err;
-//   if (!err.message) err.message = "Something went wrong";
-//   res.status(statusCode).json(err);
-// });
-if (process.env.NODE_ENV === "production") {
-  // Set static folder
-  app.use(express.static("client/build"));
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-  });
-}
+// serve static asset
+// if (process.env.NODE_ENV === "production") {
+//   // Set static folder
+//   app.use(express.static("../client/build"));
+//   app.get("*", (req, res) => {
+//     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+//   });
+// }
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => {

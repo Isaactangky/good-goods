@@ -30,7 +30,7 @@ module.exports.isAuthor = async function (req, res, next) {
         .json({ message: "You do not have permission to do that" });
     next();
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    res.status(401).json({ message: error.message });
   }
 };
 
@@ -46,6 +46,6 @@ module.exports.isReviewAuthor = async function (req, res, next) {
         .json({ message: "You do not have permission to do that" });
     next();
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    res.status(401).json({ message: error.message });
   }
 };

@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Group = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 5px;
   margin-bottom: var(--margin-form-ele);
 `;
 

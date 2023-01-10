@@ -15,7 +15,7 @@ export const userReducer = (state = USER_INITIAL_STATE, action) => {
         ...state,
         isLoading: true,
       };
-    case USER_ACTION_TYPES.FETCH_AUTH_STATUS:
+    case USER_ACTION_TYPES.FETCH_AUTH_SUCCEEDED:
       return {
         ...state,
         ...action.payload,
@@ -33,7 +33,7 @@ export const userReducer = (state = USER_INITIAL_STATE, action) => {
       };
     case USER_ACTION_TYPES.USER_SIGN_UP_FAILED:
     case USER_ACTION_TYPES.USER_SIGN_IN_FAILED:
-    case USER_ACTION_TYPES.FETCH_AUTH_ERROR:
+    case USER_ACTION_TYPES.FETCH_AUTH_FAILED:
     case USER_ACTION_TYPES.USER_SIGN_OUT:
       localStorage.removeItem("token");
       return {

@@ -26,7 +26,7 @@ const Carousel = ({ images, title }) => {
       </div>
       <div className="section-center">
         {images.map((image, index) => {
-          const { url, filename, _id } = image;
+          const { url, _id } = image;
           let position = "nextSlide";
           if (index === slide) position = "activeSlide";
           if (
@@ -37,7 +37,7 @@ const Carousel = ({ images, title }) => {
 
           return (
             <div key={_id} className={`image-container ${position}`}>
-              <img src={url} alt="product image" className="product-img" />
+              <img src={url} alt="product" className="product-img" />
             </div>
           );
           //more

@@ -20,7 +20,7 @@ export const Title = styled.div`
 export const CategoryButton = styled.button`
   background: transparent;
   border-color: transparent;
-  font-size: 1.5rem;
+  font-size: var(--fontM);
   text-transform: capitalize;
   letter-spacing: 1px;
   padding: 0.375rem 0.25rem;
@@ -35,7 +35,6 @@ export const CategoryButton = styled.button`
   }
 
   @media screen and (max-width: 1200px) {
-    font-size: var(--fontM);
     padding: 0.3rem 0.2rem;
   }
   @media screen and (max-width: 800px) {

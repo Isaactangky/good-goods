@@ -3,6 +3,8 @@ module.exports = (func) => {
     func(req, res, next).catch((error) => {
       let statusCode = res.statusCode ? res.statusCode : 400;
       if (statusCode === 200) statusCode = 400;
-      return res.status(statusCode).json(error.message);
+
+      //TODO deal with diff error e.g. CastError
+      return res.status(statusCode).json({ message: error.message });
     });
 };

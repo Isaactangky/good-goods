@@ -2,16 +2,19 @@ import { createAction } from "../../utils/createAction.utils";
 import { POST_ACTION_TYPES } from "./post.types";
 import { setError } from "../alert/alert.action";
 import axios from "axios";
-import history from "../../history";
 import { tokenConfig } from "../user/user.action";
+
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+const API_URL = `${BACKEND_URL}/api/post`;
 
 export const fetchPostStartAsync = (id) => async (dispatch) => {
   dispatch(createAction(POST_ACTION_TYPES.POST_LOADING));
   try {
-    const res = await axios.get(`http://localhost:5000/api/post/${id}`);
+    const res = await axios.get(`${API_URL}/${id}`);
     dispatch(createAction(POST_ACTION_TYPES.FETCH_POST_SUCCEEDED, res.data));
   } catch (error) {
-    dispatch(setError(error.response.data, error.response.status));
+    const message = error.response.data?.message || error.toString();
+    dispatch(setError(message, error.response.status));
     dispatch(createAction(POST_ACTION_TYPES.POST_ACTION_FAILED));
   }
 };
@@ -22,17 +25,14 @@ export const createPostStartAsync = (newPost) => async (dispatch, getState) => {
     const config = tokenConfig(getState);
     config.headers["Content-Type"] = "multipart/form-data";
 
-    const { data } = await axios.post(
-      `http://localhost:5000/api/post`,
-      newPost,
-      config
-    );
+    const { data } = await axios.post(`${API_URL}`, newPost, config);
 
     dispatch(createAction(POST_ACTION_TYPES.CREATE_POST_SUCCEEDED, data));
     return data;
   } catch (error) {
     console.log(error);
-    dispatch(setError(error.response.data, error.response.status));
+    const message = error.response.data?.message || error.toString();
+    dispatch(setError(message, error.response.status));
     dispatch(createAction(POST_ACTION_TYPES.POST_ACTION_FAILED));
   }
 };
@@ -41,13 +41,11 @@ export const createPostStartAsync = (newPost) => async (dispatch, getState) => {
 export const deletePostStartAsync = (id) => async (dispatch, getState) => {
   dispatch(createAction(POST_ACTION_TYPES.POST_LOADING));
   try {
-    const { data } = await axios.delete(
-      `http://localhost:5000/api/post/${id}`,
-      tokenConfig(getState)
-    );
+    await axios.delete(`${API_URL}/${id}`, tokenConfig(getState));
     dispatch(createAction(POST_ACTION_TYPES.DELETE_POST_SUCCEEDED, id));
   } catch (error) {
-    dispatch(setError(error.response.data, error.response.status));
+    const message = error.response.data?.message || error.toString();
+    dispatch(setError(message, error.response.status));
     dispatch(createAction(POST_ACTION_TYPES.POST_ACTION_FAILED));
   }
 };
@@ -58,14 +56,15 @@ export const updatePostStartAsync =
     try {
       const body = formFields;
       const { data } = await axios.put(
-        `http://localhost:5000/api/post/${id}`,
+        `${API_URL}/${id}`,
         body,
         tokenConfig(getState)
       );
       dispatch(createAction(POST_ACTION_TYPES.UPDATE_POST_SUCCEEDED, data));
       return data;
     } catch (error) {
-      dispatch(setError(error.response.data, error.response.status));
+      const message = error.response.data?.message || error.toString();
+      dispatch(setError(message, error.response.status));
       dispatch(createAction(POST_ACTION_TYPES.POST_ACTION_FAILED));
     }
   };
@@ -78,14 +77,15 @@ export const createReviewStartAsync =
     try {
       const body = review;
       const { data } = await axios.post(
-        `http://localhost:5000/api/post/${postId}/reviews`,
+        `${API_URL}/${postId}/reviews`,
         body,
         tokenConfig(getState)
       );
       dispatch(createAction(POST_ACTION_TYPES.CREATE_REVIEW_SUCCEEDED, data));
       return data;
     } catch (error) {
-      dispatch(setError(error.response.data, error.response.status));
+      const message = error.response.data?.message || error.toString();
+      dispatch(setError(message, error.response.status));
       dispatch(createAction(POST_ACTION_TYPES.REVIEWS_ACTION_FAILED));
     }
   };
@@ -95,7 +95,7 @@ export const deleteReviewStartAsync =
     dispatch(createAction(POST_ACTION_TYPES.REVIEWS_LOADING));
     try {
       const { data } = await axios.delete(
-        `http://localhost:5000/api/post/${postId}/reviews/${reviewId}`,
+        `${API_URL}/${postId}/reviews/${reviewId}`,
         tokenConfig(getState)
       );
       dispatch(
@@ -103,7 +103,8 @@ export const deleteReviewStartAsync =
       );
       return data;
     } catch (error) {
-      dispatch(setError(error.response.data, error.response.status));
+      const message = error.response.data?.message || error.toString();
+      dispatch(setError(message, error.response.status));
       dispatch(createAction(POST_ACTION_TYPES.REVIEWS_ACTION_FAILED));
     }
   };

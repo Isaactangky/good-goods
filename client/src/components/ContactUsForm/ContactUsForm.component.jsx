@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import useFormFields from "../../hooks/useFormFields";
 import { setSucessAlert, setError } from "../../store/alert/alert.action";
 import Button, { BUTTON_TYPES } from "../Button/Button.component";
@@ -27,19 +27,11 @@ const ContactUsForm = () => {
     e.preventDefault();
     setIsLoading(true);
     try {
-      // const config = {
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      // };
-
-      // if (token) config.headers["x-auth-token"] = token;
-
-      const { data } = await axios.post(
-        `http://localhost:5000/api/contactus`,
-        { subject, email, message }
-        // config
-      );
+      const { data } = await axios.post(`http://localhost:5000/api/contactus`, {
+        subject,
+        email,
+        message,
+      });
       if (data.success) dispatch(setSucessAlert(data.message));
       resetFormFields();
       setIsLoading(false);

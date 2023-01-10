@@ -13,7 +13,7 @@ export const Group = styled.div`
   margin-bottom: var(--margin-form-ele);
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 5px;
   input[type="password"] {
     letter-spacing: 0.3em;
   }

@@ -25,30 +25,30 @@ import Spinner from "../../components/Spinner/Spinner.component.jsx";
 import Button, {
   BUTTON_TYPES,
 } from "../../components/Button/Button.component.jsx";
-import { CATEGORIES } from "../../config";
+import { CATEGORIES } from "../../data";
 const categories = ["latest", ...CATEGORIES];
+
 const Posts = () => {
   const dispatch = useDispatch();
   const [searchCategory, setSearchCategory] = useState("latest");
   const isLoadingPosts = useSelector(selectIsLoadingPosts);
   const isLoadingMore = useSelector(selectIsLoadingMore);
-
   const posts = useSelector(selectPosts);
   const page = useSelector(selectPage);
   const totalPages = useSelector(selectTotalPages);
+
   const changeCategory = (category) => {
-    console.log(category);
     if (category === searchCategory) return;
     dispatch(postsReset());
     setSearchCategory(category);
   };
   const onLoadMorePosts = () => dispatch(loadMorePosts());
-
+  // Inital Render
   useEffect(() => {
     if (searchCategory === "latest") dispatch(fetchPostsStartAsync());
     else dispatch(fetchPostsStartAsync(searchCategory));
   }, [searchCategory, dispatch]);
-
+  // Loading More Posts
   useEffect(() => {
     if (!isLoadingMore) return;
     if (searchCategory === "latest")
@@ -60,8 +60,9 @@ const Posts = () => {
     <Wrapper>
       <Content>
         <Title>
-          {categories.map((category) => (
+          {categories.map((category, index) => (
             <CategoryButton
+              key={index}
               onClick={() => changeCategory(category)}
               className={searchCategory === category ? "category-active" : ""}
             >

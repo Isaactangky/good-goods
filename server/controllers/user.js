@@ -5,7 +5,6 @@ const JWT_SECRET = process.env.JWT_SECRET || "notagoodsecret";
 const { JWT_TOKEN_EXPIRATION } = require("../config");
 module.exports.index = async (req, res) => {
   const { user } = req;
-  console.log(user);
   const foundUser = await User.findById(user.id).select("-password");
   if (!foundUser) {
     res.status(404);

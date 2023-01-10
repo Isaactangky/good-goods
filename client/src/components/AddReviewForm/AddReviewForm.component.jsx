@@ -4,7 +4,6 @@ import Button, { BUTTON_TYPES } from "../Button/Button.component";
 import { Container, Form, ReviewFormTextarea } from "./AddReviewForm.styles";
 import { createReviewStartAsync } from "../../store/post/post.action";
 import { useParams, Link, useLocation } from "react-router-dom";
-import FormTextarea from "../FormTextarea/FormTextarea.component";
 import StarRatings from "react-star-ratings";
 
 import { selectIsAuthenticated } from "../../store/user/user.selector";
@@ -44,7 +43,7 @@ const AddReviewForm = () => {
   };
   if (!isAuthenticated) {
     return (
-      <Link to="/auth" state={{ prev: location }}>
+      <Link to="/signin" state={{ prev: location }}>
         <h4>Sign in to add reviews</h4>
       </Link>
     );

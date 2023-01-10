@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Button, { BUTTON_TYPES } from "../Button/Button.component";
 import FormInput from "../FormInput/FormInput.component";
@@ -30,7 +30,7 @@ const EditPostForm = () => {
         console.log("2");
       }
     })();
-  }, []);
+  }, [post, id, dispatch]);
 
   const onChangeHandler = (event) => {
     const { name, value } = event.target;

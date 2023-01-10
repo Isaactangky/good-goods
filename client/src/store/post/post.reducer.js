@@ -5,15 +5,7 @@ export const POSTS_INITIAL_STATE = {
   isLoading: false,
   isLoadingReviews: false,
 };
-const removePostFromPosts = (posts, removedPostId) => {
-  return posts.filter((post) => post._id !== removedPostId);
-};
-const updatePostsAfterUpdatePost = (posts, newPost) => {
-  return posts.reduce((acc, cur) => {
-    if (cur._id === newPost._id) return [...acc, newPost];
-    return [...acc, cur];
-  }, []);
-};
+
 const AddReview = (post, newReview) => {
   return {
     ...post,
@@ -51,7 +43,7 @@ export const postReducer = (state = POSTS_INITIAL_STATE, action) => {
     case POST_ACTION_TYPES.DELETE_POST_SUCCEEDED:
       return {
         ...state,
-        post: null,
+        post: POSTS_INITIAL_STATE.post,
         isLoading: false,
       };
     case POST_ACTION_TYPES.CREATE_REVIEW_SUCCEEDED:
