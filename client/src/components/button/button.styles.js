@@ -3,7 +3,7 @@ import { Spinner } from "../Spinner/Spinner.styles";
 export const BaseButton = styled.button`
   letter-spacing: 0.5px;
   line-height: 2rem;
-  padding: 0 0.5rem;
+  padding: 0 0.8rem;
   font-size: 0.85rem;
   background-color: var(--clr-primary-5);
   transition: var(--transition);
@@ -28,8 +28,9 @@ export const OutlineButton = styled(BaseButton)`
   color: var(--clr-primary-6);
 
   :hover {
-    background-color: var(--clr-primary-6);
-    color: white;
+    background-color: var(--clr-primary-5);
+    border: 1px var(--clr-primary-5) solid;
+    color: var(--clr-primary-10);
   }
 `;
 
@@ -40,52 +41,3 @@ export const ButtonSpinner = styled(Spinner)`
   border: 2px solid var(--clr-primary-8);
   border-top: 2px solid var(--clr-primary-2);
 `;
-
-/*
-$orange-red-light: rgb(244, 92, 37);
-
-.base {
-  padding: 1rem;
-  width: auto;
-  letter-spacing: 0.5px;
-  line-height: 2rem;
-  padding: 0 20px 0 20px;
-  font-size: 1rem;
-  background-color: orangered;
-  color: white;
-  font-family: "Popins";
-  font-weight: bolder;
-  border: none;
-  border-radius: var(--radius);
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-
-  &:hover {
-    background-color: $orange-red-light;
-  }
-  &.outline {
-    background-color: white;
-    border: 1px $orange-red-light solid;
-    color: $orange-red-light;
-
-    &:hover {
-      background-color: $orange-red-light;
-      color: white;
-      // border: none;
-    }
-  }
-
-  // &.inverted {
-  //   background-color: white;
-  //   color: black;
-  //   border: 1px solid black;
-
-  //   &:hover {
-  //     background-color: black;
-  //     color: white;
-  //     border: none;
-  //   }
-  // }
-}
-*/

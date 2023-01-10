@@ -16,7 +16,7 @@ export const Label = styled.label`
 export const Textarea = styled.textarea`
   width: 100%;
   resize: none;
-  border: 1px solid var(--medgrey);
+  border: 1px solid var(--lightgrey);
   overflow: auto;
   font-size: var(--fontM);
   color: var(--medgrey);
@@ -24,6 +24,5 @@ export const Textarea = styled.textarea`
   padding: 10px 10px 10px 5px;
   border-radius: var(--radius);
   :focus {
-    border: 1px solid var(--medgrey);
   }
 `;

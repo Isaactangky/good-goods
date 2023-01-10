@@ -25,11 +25,11 @@ export const Input = styled.input`
   padding: 10px 10px 10px 5px;
   display: block;
   width: 100%;
-  border: 1px solid var(--medgrey);
+  border: 1px solid var(--lightgrey);
   border-radius: var(--radius);
 
   :focus {
-    background-color: white;
+    ${"" /* background-color: white; */}
   }
 `;
 

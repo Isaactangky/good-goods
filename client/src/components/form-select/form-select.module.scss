@@ -5,15 +5,14 @@
   margin-bottom: var(--margin-form-ele);
 
   .category-select {
-    width: 150px;
-    height: 30px;
-    padding-left: 5px;
+    padding: 5px;
     font-size: var(--fontS);
 
     color: var(--medgrey);
     border: none;
-    border-bottom: 1px solid gray;
+    border: 1px solid var(--lightgrey);
     background-color: none;
+    border-radius: var(--radius);
   }
   label {
     padding: 10px 10px 10px 5px;

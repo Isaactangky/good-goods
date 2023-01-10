@@ -6,7 +6,13 @@ import {
 } from "../../store/user/user.selector";
 import { userSignUpStartAsync } from "../../store/user/user.action";
 import { setError } from "../../store/alert/alert.action";
-import { Container, Title, Footer, Wrapper } from "./auth.styles";
+import {
+  Content,
+  Title,
+  Footer,
+  Wrapper,
+  ButtonContainer,
+} from "./auth.styles";
 import useFormFields from "../../hooks/useFormFields";
 import FormInput from "../../components/FormInput/FormInput.component";
 import Button, { BUTTON_TYPES } from "../../components/Button/Button.component";
@@ -29,10 +35,12 @@ const SignUp = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (password !== confirmPassword) {
-      dispatch(setError("Passwords do not match.", 400, "REGISTER_ERROR"));
-      return;
-    }
+    if (!username || !email || !password || !confirmPassword)
+      return dispatch(setError("Please fill in all the fields.", 400));
+
+    if (password !== confirmPassword)
+      return dispatch(setError("Passwords do not match.", 400));
+
     dispatch(userSignUpStartAsync({ username, email, password }));
     resetFormFields();
   };
@@ -41,7 +49,7 @@ const SignUp = () => {
   }
   return (
     <Wrapper>
-      <Container>
+      <Content>
         <Title>Sign Up on GG</Title>
 
         <form onSubmit={handleSubmit}>
@@ -77,21 +85,23 @@ const SignUp = () => {
             value={confirmPassword}
             onChange={handleChange}
           />
-          <Button
-            type="submit"
-            buttonType={BUTTON_TYPES.OUTLINE}
-            disabled={isLoadingUser}
-          >
-            Sign Up
-          </Button>
+          <ButtonContainer>
+            <Button
+              type="submit"
+              buttonType={BUTTON_TYPES.OUTLINE}
+              disabled={isLoadingUser}
+            >
+              Sign Up
+            </Button>
+          </ButtonContainer>
         </form>
         <Footer>
           Already have an account?{" "}
-          <Link to="signin">
+          <Link to="/signin">
             <button>sign in</button>
           </Link>
         </Footer>
-      </Container>
+      </Content>
     </Wrapper>
   );
 };

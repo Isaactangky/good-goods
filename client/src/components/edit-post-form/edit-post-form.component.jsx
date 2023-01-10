@@ -1,17 +1,19 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Button, { BUTTON_TYPES } from "../Button/Button.component";
-import FormInput from "../FormInput/FormInput.component";
-import FormSelect from "../form-select/form-select.component";
+
 import { useNavigate, useParams } from "react-router-dom";
 import {
   updatePostStartAsync,
   fetchPostStartAsync,
 } from "../../store/post/post.action";
 import { selectPost } from "../../store/post/post.selector";
+import { CATEGORIES } from "../../data";
 
-const CATEGORIES = ["Food", "Beauty", "Clothing", "Health"];
-
+import Button, { BUTTON_TYPES } from "../Button/Button.component";
+import FormInput from "../FormInput/FormInput.component";
+import FormSelect from "../form-select/form-select.component";
+import FormTextarea from "../FormTextarea/FormTextarea.component";
+import FormFileInput from "../FormFileInput/FormFileInput.component";
 const EditPostForm = () => {
   // TODO authenticate user
   const { id } = useParams();
@@ -20,8 +22,12 @@ const EditPostForm = () => {
   const post = useSelector(selectPost);
   console.log("post", post);
   const [formFields, setFormFields] = useState(post);
-  const { title, category, imageUrl, description } = formFields;
+  const { title, category, description } = formFields;
   console.log(formFields);
+  const [images, setImages] = useState(null);
+  const onFileChangeHandler = (event) => {
+    setImages(event.target.files);
+  };
   useEffect(() => {
     (async () => {
       if (!post || post._id !== id) {
@@ -61,20 +67,23 @@ const EditPostForm = () => {
         value={category}
         onChange={onChangeHandler}
       />
-      <FormInput
-        label="image url"
-        type="text"
-        name="imageUrl"
-        value={imageUrl}
-        onChange={onChangeHandler}
+      <FormFileInput
+        label="Upload Images"
+        type="file"
+        id="formFile"
+        name="images"
+        onChange={onFileChangeHandler}
         required
+        multiple
       />
-      <FormInput
+
+      <FormTextarea
         label="description"
         type="text"
         name="description"
         value={description}
         onChange={onChangeHandler}
+        rows="10"
         required
       />
       <Button buttonType={BUTTON_TYPES.OUTLINE}>Submit</Button>

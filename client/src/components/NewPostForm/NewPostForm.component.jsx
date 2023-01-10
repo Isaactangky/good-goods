@@ -2,12 +2,15 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Button, { BUTTON_TYPES } from "../Button/Button.component";
 import { CATEGORIES } from "../../data";
-import FormInput from "../FormInput/FormInput.component";
-import FormSelect from "../form-select/form-select.component";
-import { FileInputGroup, Form, Textarea } from "./NewPostForm.styles.js";
+
+import { Form } from "./NewPostForm.styles.js";
 import { useNavigate } from "react-router-dom";
 import { createPostStartAsync } from "../../store/post/post.action";
 import { selectIsLoadingPost } from "../../store/post/post.selector";
+import FormInput from "../FormInput/FormInput.component";
+import FormSelect from "../form-select/form-select.component";
+import FormFileInput from "../FormFileInput/FormFileInput.component";
+import FormTextarea from "../FormTextarea/FormTextarea.component";
 const defaultFormFields = {
   title: "",
   category: "Food",
@@ -66,22 +69,17 @@ const NewPostForm = () => {
         value={category}
         onChange={onChangeHandler}
       />
-      <FileInputGroup>
-        <label htmlFor="formFile" className={`file_label`}>
-          Upload Images
-        </label>
-        <input
-          className={`file_input`}
-          type="file"
-          id="formFile"
-          name="images"
-          onChange={onFileChangeHandler}
-          required
-          multiple
-        />
-      </FileInputGroup>
+      <FormFileInput
+        label="Upload Images"
+        type="file"
+        id="formFile"
+        name="images"
+        onChange={onFileChangeHandler}
+        required
+        multiple
+      />
 
-      <Textarea
+      <FormTextarea
         label="description"
         type="text"
         name="description"
@@ -90,7 +88,7 @@ const NewPostForm = () => {
         rows="10"
         required
       />
-      <Button buttonType={BUTTON_TYPES.OUTLINE} disabled={isLoadingPost}>
+      <Button buttonType={BUTTON_TYPES.BASE} disabled={isLoadingPost}>
         Submit
       </Button>
     </Form>

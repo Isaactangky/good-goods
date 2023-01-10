@@ -6,7 +6,7 @@ import {
   selectIsLoadingUser,
 } from "../../store/user/user.selector";
 import {
-  Container,
+  Content,
   ButtonContainer,
   Title,
   Footer,
@@ -47,7 +47,7 @@ const SignIn = () => {
   }
   return (
     <Wrapper>
-      <Container>
+      <Content>
         <Title>Sign In</Title>
 
         <form onSubmit={handleSubmit}>
@@ -74,12 +74,12 @@ const SignIn = () => {
           </ButtonContainer>
         </form>
         <Footer>
-          Don't have a account?{" "}
+          <span>Don't have a account? </span>
           <Link to="/signup">
             <button>Create One</button>
           </Link>
         </Footer>
-      </Container>
+      </Content>
     </Wrapper>
   );
 };

@@ -10,7 +10,12 @@ export const Wrapper = styled.div`
   margin: 30px auto;
 `;
 
-export const Container = styled.div`
+export const Content = styled.div`
+  width: 400px;
+  padding: 20px;
+  background: var(--lightgrey);
+  border-radius: var(--radius);
+  box-shadow: var(--dark-shadow);
   display: flex;
   flex-direction: column;
 `;
@@ -22,12 +27,18 @@ export const Title = styled.h2`
 export const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
+  button {
+    font-size: var(--fontM);
+    padding: 5px 15px;
+  }
 `;
 
 export const Footer = styled.footer`
   ${"" /* text-align: center; */}
   padding: 20px 5px;
   font-size: var(--fontS);
+  display: flex;
+  justify-content: center;
   button {
     border: none;
     background: none;

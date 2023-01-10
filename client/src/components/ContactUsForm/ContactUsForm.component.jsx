@@ -65,10 +65,10 @@ const ContactUsForm = () => {
         name="message"
         value={message}
         onChange={handleChange}
-        rows="10"
+        rows="5"
         required
       />
-      <Button buttonType={BUTTON_TYPES.OUTLINE} disabled={isLoading}>
+      <Button buttonType={BUTTON_TYPES.BASE} disabled={isLoading}>
         Submit
       </Button>
     </Form>

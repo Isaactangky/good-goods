@@ -1,11 +1,14 @@
 import EditPostForm from "../../components/edit-post-form/edit-post-form.component";
-import styles from "./edit-post.module.scss";
+import { Wrapper, Title, Content } from "../new-post/new-post.styles";
+
 const EditPost = () => {
   return (
-    <div className={styles["edit-post-container"]}>
-      <h2>Edit product info</h2>
-      <EditPostForm />
-    </div>
+    <Wrapper>
+      <Content>
+        <Title>Edit product info</Title>
+        <EditPostForm />
+      </Content>
+    </Wrapper>
   );
 };
 
