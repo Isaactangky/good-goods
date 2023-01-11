@@ -21,7 +21,7 @@ const NewPostForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [formFields, setFormFields] = useState(defaultFormFields);
-  const [images, setImages] = useState(null);
+  const [images, setImages] = useState([]);
   const { title, category, description } = formFields;
   const clearFormField = () => setFormFields(defaultFormFields);
   const isLoadingPost = useSelector(selectIsLoadingPost);

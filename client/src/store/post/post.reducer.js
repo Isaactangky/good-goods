@@ -40,6 +40,7 @@ export const postReducer = (state = POSTS_INITIAL_STATE, action) => {
         post: action.payload,
         isLoading: false,
       };
+
     case POST_ACTION_TYPES.DELETE_POST_SUCCEEDED:
       return {
         ...state,

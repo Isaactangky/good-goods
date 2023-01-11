@@ -18,6 +18,14 @@ export const Content = styled.div`
   background: var(--lightgrey);
   border-radius: var(--radius);
   box-shadow: var(--dark-shadow);
+  ${
+    "" /* input[type="text"],
+  textarea,
+  select,
+  input[type="file"] {
+    background: var(--clr-primary-9);
+  } */
+  }
   @media screen and (max-width: 500px) {
     width: 90vw;
     min-width: 350px;

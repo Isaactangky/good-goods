@@ -83,9 +83,11 @@ const Posts = () => {
             </Button>
           </ButtonContainer>
         ) : (
-          <ButtonContainer>
-            <p>No More Posts</p>
-          </ButtonContainer>
+          !isLoadingPosts && (
+            <ButtonContainer>
+              <p>No More Posts</p>
+            </ButtonContainer>
+          )
         )}
       </Content>
     </Wrapper>

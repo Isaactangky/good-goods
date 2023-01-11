@@ -1,3 +1,4 @@
+const { cloudinary } = require("../cloudinary");
 const Post = require("../models/post");
 /**
  * @route   GET api/post
@@ -83,6 +84,42 @@ module.exports.getPost = async (req, res) => {
   res.status(200).json(post);
 };
 /**
+ * @route   PUT api/post/:id
+ * @desc    Update a post
+ * @access  Private
+ */
+module.exports.updatePost = async (req, res) => {
+  const { id } = req.params;
+  const newPost = JSON.parse(req.body.newPost);
+
+  const post = await Post.findByIdAndUpdate(id, newPost, { new: true });
+
+  if (req.files) {
+    const images = req.files.map((image) => {
+      return {
+        filename: image.filename,
+        url: image.path,
+      };
+    });
+
+    post.images.push(...images);
+  }
+  const deleteImages = JSON.parse(req.body.deleteImages);
+  if (deleteImages.length) {
+    for (let filename of deleteImages) {
+      await cloudinary.uploader.destroy(filename);
+    }
+    await post.updateOne({
+      $pull: { images: { filename: { $in: deleteImages } } },
+    });
+  }
+
+  await post.save();
+
+  res.status(200).json(post);
+};
+
+/**
  * @route   DELETE api/post/:id
  * @desc    Delete a post
  * @access  Private
@@ -95,17 +132,5 @@ module.exports.deletePost = async (req, res) => {
     res.status(404);
     throw new Error("No post found");
   }
-  res.status(200).json(post);
-};
-/**
- * @route   PUT api/post/:id
- * @desc    Update a post
- * @access  Private
- */
-module.exports.updatePost = async (req, res) => {
-  const { id } = req.params;
-  const post = await Post.findByIdAndUpdate(id, { ...req.body }, { new: true });
-
-  await post.save();
   res.status(200).json(post);
 };

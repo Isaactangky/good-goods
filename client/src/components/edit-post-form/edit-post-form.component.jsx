@@ -6,34 +6,50 @@ import {
   updatePostStartAsync,
   fetchPostStartAsync,
 } from "../../store/post/post.action";
-import { selectPost } from "../../store/post/post.selector";
+import {
+  selectIsLoadingPost,
+  selectPost,
+} from "../../store/post/post.selector";
+import useRedirectLoggedOutUser from "../../hooks/useRedirectLoggedOutUser";
 import { CATEGORIES } from "../../data";
-
+import { ImagesContainer, ImageContainer } from "./EditPostForm.styles";
 import Button, { BUTTON_TYPES } from "../Button/Button.component";
 import FormInput from "../FormInput/FormInput.component";
 import FormSelect from "../form-select/form-select.component";
 import FormTextarea from "../FormTextarea/FormTextarea.component";
 import FormFileInput from "../FormFileInput/FormFileInput.component";
+
 const EditPostForm = () => {
-  // TODO authenticate user
   const { id } = useParams();
+  useRedirectLoggedOutUser("/signin");
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const post = useSelector(selectPost);
-  console.log("post", post);
-  const [formFields, setFormFields] = useState(post);
+  const isLoadingPost = useSelector(selectIsLoadingPost);
+  const [formFields, setFormFields] = useState({
+    title: post.title || "",
+    category: post.category || "",
+    description: post.description || "food",
+  });
+  const [deleteImages, setDeleteImages] = useState([]);
+  const [images, setImages] = useState([]);
+
   const { title, category, description } = formFields;
-  console.log(formFields);
-  const [images, setImages] = useState(null);
   const onFileChangeHandler = (event) => {
     setImages(event.target.files);
   };
+  console.log(formFields);
+
   useEffect(() => {
     (async () => {
       if (!post || post._id !== id) {
-        await dispatch(fetchPostStartAsync(id));
-        setFormFields((prev) => post);
-        console.log("2");
+        const data = await dispatch(fetchPostStartAsync(id));
+        setFormFields({
+          title: data.title,
+          category: data.category,
+          description: data.description,
+        });
       }
     })();
   }, [post, id, dispatch]);
@@ -45,9 +61,28 @@ const EditPostForm = () => {
 
   const updatePost = async (e) => {
     e.preventDefault();
-    const newPost = { ...formFields };
-    const data = await dispatch(updatePostStartAsync(id, newPost));
+    const formData = new FormData();
+    for (let i = 0; i < images.length; i++) {
+      console.log(images[i]);
+      formData.append("images", images[i], images[i].name);
+    }
+    formData.append(
+      "newPost",
+      JSON.stringify({ title, category, description })
+    );
+
+    formData.append("deleteImages", JSON.stringify(deleteImages));
+    const data = await dispatch(updatePostStartAsync(id, formData));
     navigate(`/post/${data._id}`);
+  };
+
+  const onCheckHandler = (event) => {
+    const filename = event.target.name;
+    if (!event.target.checked) {
+      setDeleteImages(deleteImages.filter((img) => img !== filename));
+      return;
+    }
+    setDeleteImages([...deleteImages, filename]);
   };
 
   return (
@@ -73,9 +108,28 @@ const EditPostForm = () => {
         id="formFile"
         name="images"
         onChange={onFileChangeHandler}
-        required
         multiple
       />
+      {post.images && post.images.length && (
+        <ImagesContainer>
+          {post.images.map((img, index) => {
+            return (
+              <ImageContainer key={index}>
+                <img src={img.thumbnail} alt="thumbnail" />
+                <div>
+                  <input
+                    type="checkbox"
+                    name={img.filename}
+                    id={`img-${index}`}
+                    onChange={onCheckHandler}
+                  />
+                  <label htmlFor={`img-${index}`}>Delete</label>
+                </div>
+              </ImageContainer>
+            );
+          })}
+        </ImagesContainer>
+      )}
 
       <FormTextarea
         label="description"
@@ -86,7 +140,9 @@ const EditPostForm = () => {
         rows="10"
         required
       />
-      <Button buttonType={BUTTON_TYPES.OUTLINE}>Submit</Button>
+      <Button buttonType={BUTTON_TYPES.OUTLINE} disabled={isLoadingPost}>
+        Submit
+      </Button>
     </form>
   );
 };

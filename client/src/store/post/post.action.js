@@ -10,8 +10,9 @@ const API_URL = `${BACKEND_URL}/api/post`;
 export const fetchPostStartAsync = (id) => async (dispatch) => {
   dispatch(createAction(POST_ACTION_TYPES.POST_LOADING));
   try {
-    const res = await axios.get(`${API_URL}/${id}`);
-    dispatch(createAction(POST_ACTION_TYPES.FETCH_POST_SUCCEEDED, res.data));
+    const { data } = await axios.get(`${API_URL}/${id}`);
+    dispatch(createAction(POST_ACTION_TYPES.FETCH_POST_SUCCEEDED, data));
+    return data;
   } catch (error) {
     const message = error.response.data?.message || error.toString();
     dispatch(setError(message, error.response.status));
@@ -51,15 +52,14 @@ export const deletePostStartAsync = (id) => async (dispatch, getState) => {
 };
 
 export const updatePostStartAsync =
-  (id, formFields) => async (dispatch, getState) => {
+  (id, formData) => async (dispatch, getState) => {
     dispatch(createAction(POST_ACTION_TYPES.POST_LOADING));
     try {
-      const body = formFields;
-      const { data } = await axios.put(
-        `${API_URL}/${id}`,
-        body,
-        tokenConfig(getState)
-      );
+      const body = formData;
+      const config = tokenConfig(getState);
+      config.headers["Content-Type"] = "multipart/form-data";
+
+      const { data } = await axios.put(`${API_URL}/${id}`, body, config);
       dispatch(createAction(POST_ACTION_TYPES.UPDATE_POST_SUCCEEDED, data));
       return data;
     } catch (error) {

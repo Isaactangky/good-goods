@@ -38,11 +38,15 @@ const SignIn = () => {
     await dispatch(signInStartAsync({ email, password }));
     if (state?.prev.pathname) {
       resetFormFields();
-      const redrectTo = state.prev.pathname;
-      navigate(redrectTo);
+      const redirectTo = state.prev.pathname;
+      navigate(redirectTo);
     }
   };
   if (isAuthenticated) {
+    if (state?.prev.pathname) {
+      const redirectTo = state.prev.pathname;
+      return <Navigate to={redirectTo} />;
+    }
     return <Navigate to="/" />;
   }
   return (

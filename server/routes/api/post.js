@@ -23,6 +23,11 @@ router
   .route("/:id")
   .get(catchAsync(post.getPost))
   .delete(isLoggedIn, isAuthor, catchAsync(post.deletePost))
-  .put(isLoggedIn, isAuthor, catchAsync(post.updatePost));
+  .put(
+    isLoggedIn,
+    isAuthor,
+    upload.array("images"),
+    catchAsync(post.updatePost)
+  );
 
 module.exports = router;
