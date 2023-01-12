@@ -19,7 +19,8 @@ export const fetchPostsStartAsync =
         createAction(POSTS_ACTION_TYPES.FETCH_POSTS_SUCCEEDED, res.data)
       );
     } catch (error) {
-      const message = error.response?.data?.message || error.toString();
+      console.log(error);
+      const message = error.stack || error.toString();
       dispatch(setError(message, error.response?.status));
       dispatch(createAction(POSTS_ACTION_TYPES.FETCH_POSTS_FAILED));
     }
