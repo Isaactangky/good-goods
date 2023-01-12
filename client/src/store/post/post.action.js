@@ -14,7 +14,7 @@ export const fetchPostStartAsync = (id) => async (dispatch) => {
     dispatch(createAction(POST_ACTION_TYPES.FETCH_POST_SUCCEEDED, data));
     return data;
   } catch (error) {
-    const message = error.response.data?.message || error.toString();
+    const message = error.response?.data?.message || error.toString();
     dispatch(setError(message, error.response.status));
     dispatch(createAction(POST_ACTION_TYPES.POST_ACTION_FAILED));
   }
@@ -32,7 +32,7 @@ export const createPostStartAsync = (newPost) => async (dispatch, getState) => {
     return data;
   } catch (error) {
     console.log(error);
-    const message = error.response.data?.message || error.toString();
+    const message = error.response?.data?.message || error.toString();
     dispatch(setError(message, error.response.status));
     dispatch(createAction(POST_ACTION_TYPES.POST_ACTION_FAILED));
   }
@@ -45,7 +45,7 @@ export const deletePostStartAsync = (id) => async (dispatch, getState) => {
     await axios.delete(`${API_URL}/${id}`, tokenConfig(getState));
     dispatch(createAction(POST_ACTION_TYPES.DELETE_POST_SUCCEEDED, id));
   } catch (error) {
-    const message = error.response.data?.message || error.toString();
+    const message = error.response?.data?.message || error.toString();
     dispatch(setError(message, error.response.status));
     dispatch(createAction(POST_ACTION_TYPES.POST_ACTION_FAILED));
   }
@@ -63,7 +63,7 @@ export const updatePostStartAsync =
       dispatch(createAction(POST_ACTION_TYPES.UPDATE_POST_SUCCEEDED, data));
       return data;
     } catch (error) {
-      const message = error.response.data?.message || error.toString();
+      const message = error.response?.data?.message || error.toString();
       dispatch(setError(message, error.response.status));
       dispatch(createAction(POST_ACTION_TYPES.POST_ACTION_FAILED));
     }
@@ -84,7 +84,7 @@ export const createReviewStartAsync =
       dispatch(createAction(POST_ACTION_TYPES.CREATE_REVIEW_SUCCEEDED, data));
       return data;
     } catch (error) {
-      const message = error.response.data?.message || error.toString();
+      const message = error.response?.data?.message || error.toString();
       dispatch(setError(message, error.response.status));
       dispatch(createAction(POST_ACTION_TYPES.REVIEWS_ACTION_FAILED));
     }
@@ -103,7 +103,7 @@ export const deleteReviewStartAsync =
       );
       return data;
     } catch (error) {
-      const message = error.response.data?.message || error.toString();
+      const message = error.response?.data?.message || error.toString();
       dispatch(setError(message, error.response.status));
       dispatch(createAction(POST_ACTION_TYPES.REVIEWS_ACTION_FAILED));
     }

@@ -29,7 +29,7 @@ export const userSignUpStartAsync = (info) => async (dispatch) => {
     dispatch(setSucessAlert(`Successfully signed up as ${data.user.username}`));
     return data;
   } catch (error) {
-    const message = error.response.data?.message || error.toString();
+    const message = error.response?.data?.message || error.toString();
     dispatch(setError(message, error.response.status));
     dispatch(createAction(USER_ACTION_TYPES.USER_SIGN_UP_FAILED));
   }
@@ -48,7 +48,7 @@ export const signInStartAsync = (info) => async (dispatch) => {
     dispatch(setSucessAlert(`Wellcome back! ${data.user.username}`));
     dispatch(createAction(USER_ACTION_TYPES.USER_SIGN_IN_SUCCEEDED, data));
   } catch (error) {
-    const message = error.response.data?.message || error.toString();
+    const message = error.response?.data?.message || error.toString();
     dispatch(setError(message, error.response.status));
     dispatch(createAction(USER_ACTION_TYPES.USER_SIGN_IN_FAILED, error));
   }
