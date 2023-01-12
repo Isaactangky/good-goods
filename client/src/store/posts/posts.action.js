@@ -20,7 +20,7 @@ export const fetchPostsStartAsync =
       );
     } catch (error) {
       const message = error.response?.data?.message || error.toString();
-      dispatch(setError(message, error.response.status));
+      dispatch(setError(message, error.response?.status));
       dispatch(createAction(POSTS_ACTION_TYPES.FETCH_POSTS_FAILED));
     }
   };

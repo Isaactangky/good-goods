@@ -15,7 +15,7 @@ export const fetchPostStartAsync = (id) => async (dispatch) => {
     return data;
   } catch (error) {
     const message = error.response?.data?.message || error.toString();
-    dispatch(setError(message, error.response.status));
+    dispatch(setError(message, error.response?.status));
     dispatch(createAction(POST_ACTION_TYPES.POST_ACTION_FAILED));
   }
 };
@@ -33,7 +33,7 @@ export const createPostStartAsync = (newPost) => async (dispatch, getState) => {
   } catch (error) {
     console.log(error);
     const message = error.response?.data?.message || error.toString();
-    dispatch(setError(message, error.response.status));
+    dispatch(setError(message, error.response?.status));
     dispatch(createAction(POST_ACTION_TYPES.POST_ACTION_FAILED));
   }
 };
@@ -46,7 +46,7 @@ export const deletePostStartAsync = (id) => async (dispatch, getState) => {
     dispatch(createAction(POST_ACTION_TYPES.DELETE_POST_SUCCEEDED, id));
   } catch (error) {
     const message = error.response?.data?.message || error.toString();
-    dispatch(setError(message, error.response.status));
+    dispatch(setError(message, error.response?.status));
     dispatch(createAction(POST_ACTION_TYPES.POST_ACTION_FAILED));
   }
 };
@@ -64,7 +64,7 @@ export const updatePostStartAsync =
       return data;
     } catch (error) {
       const message = error.response?.data?.message || error.toString();
-      dispatch(setError(message, error.response.status));
+      dispatch(setError(message, error.response?.status));
       dispatch(createAction(POST_ACTION_TYPES.POST_ACTION_FAILED));
     }
   };
@@ -85,7 +85,7 @@ export const createReviewStartAsync =
       return data;
     } catch (error) {
       const message = error.response?.data?.message || error.toString();
-      dispatch(setError(message, error.response.status));
+      dispatch(setError(message, error.response?.status));
       dispatch(createAction(POST_ACTION_TYPES.REVIEWS_ACTION_FAILED));
     }
   };
@@ -104,7 +104,7 @@ export const deleteReviewStartAsync =
       return data;
     } catch (error) {
       const message = error.response?.data?.message || error.toString();
-      dispatch(setError(message, error.response.status));
+      dispatch(setError(message, error.response?.status));
       dispatch(createAction(POST_ACTION_TYPES.REVIEWS_ACTION_FAILED));
     }
   };
