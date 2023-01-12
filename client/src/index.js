@@ -13,7 +13,7 @@ root.render(
     <Provider store={store}>
       {/* <BrowserRouter> */}
       {/* <BrowserRouter location={history.location} navigator={history}> */}
-      <BrowserRouter history={history}>
+      <BrowserRouter history={history} basename={process.env.PUBLIC_URL}>
         <App />
         {/* </BrowserRouter> */}
       </BrowserRouter>
