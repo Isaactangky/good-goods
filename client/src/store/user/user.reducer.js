@@ -2,7 +2,7 @@ import { USER_ACTION_TYPES } from "./user.types";
 
 export const USER_INITIAL_STATE = {
   token: localStorage.getItem("token") || null,
-  user: null,
+  user: {},
   isLoading: false,
   isAuthenticated: false,
 };
@@ -39,7 +39,7 @@ export const userReducer = (state = USER_INITIAL_STATE, action) => {
       return {
         ...state,
         token: null,
-        user: null,
+        user: {},
         isAuthenticated: false,
         isLoading: false,
       };

@@ -15,6 +15,8 @@ export const fetchPostsStartAsync =
         ? `${API_URL}?category=${category}&page=${page}`
         : `${API_URL}?page=${page}`;
       const res = await axios.get(endpoint);
+      console.log("res");
+      console.log(res);
       dispatch(
         createAction(POSTS_ACTION_TYPES.FETCH_POSTS_SUCCEEDED, res.data)
       );
