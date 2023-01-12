@@ -31,10 +31,11 @@ export const postsReducer = (state = POSTS_INITIAL_STATE, action) => {
     case POSTS_ACTION_TYPES.FETCH_POSTS_SUCCEEDED:
       return {
         ...state,
-        posts:
-          parseInt(action.payload.page) > 1
-            ? [...state.posts, ...action.payload.posts]
-            : [...action.payload.posts],
+        posts: !action.payload.posts
+          ? []
+          : parseInt(action.payload.page) > 1
+          ? [...state.posts, ...action.payload.posts]
+          : [...action.payload.posts],
         page: parseInt(action.payload.page),
         totalPages: parseInt(action.payload.totalPages),
         isLoadingMore: false,

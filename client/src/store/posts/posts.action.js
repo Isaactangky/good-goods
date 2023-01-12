@@ -14,6 +14,7 @@ export const fetchPostsStartAsync =
       const endpoint = category
         ? `${API_URL}?category=${category}&page=${page}`
         : `${API_URL}?page=${page}`;
+      console.log(endpoint);
       const res = await axios.get(endpoint);
       console.log("res");
       console.log(res);
