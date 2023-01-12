@@ -17,7 +17,7 @@ export const Form = styled.form`
 
   border-top: 2px solid var(--lightgrey);
   border-bottom: 2px solid var(--lightgrey);
-  padding: 10px 0;
+  padding: 20px;
 `;
 
 export const ReviewFormTextarea = styled(FormTextarea)`

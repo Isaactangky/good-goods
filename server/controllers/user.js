@@ -3,6 +3,11 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const JWT_SECRET = process.env.JWT_SECRET || "notagoodsecret";
 const { JWT_TOKEN_EXPIRATION } = require("../config");
+/**
+ * @route   get auth/user
+ * @desc    get current logged in user data
+ * @access  Private
+ */
 module.exports.index = async (req, res) => {
   const { user } = req;
   const foundUser = await User.findById(user.id).select("-password");
@@ -18,6 +23,11 @@ module.exports.index = async (req, res) => {
     },
   });
 };
+/**
+ * @route   POST auth/user/regiseter
+ * @desc    create a new user account
+ * @access  Public
+ */
 module.exports.register = async (req, res) => {
   const { username, password, email } = req.body;
   if (!username || !password || !email)
@@ -47,7 +57,11 @@ module.exports.register = async (req, res) => {
     },
   });
 };
-
+/**
+ * @route   POST auth/user/login
+ * @desc    login an user
+ * @access  Public
+ */
 module.exports.login = async (req, res) => {
   const { password, email } = req.body;
   if (!password || !email) throw new Error("Please fill in all fields");
@@ -74,11 +88,16 @@ module.exports.login = async (req, res) => {
 };
 
 // TODO
+/**
+ * @route   GET auth/user/logout
+ * @desc    logout an user
+ * @access  Public
+ */
 module.exports.logout = async (req, res) => {
-  req.logout(function (error) {
-    if (error) {
-      res.status(400).json({ success: false, error });
-    }
-    res.status(200).json({ success: true });
-  });
+  // req.logout(function (error) {
+  //   if (error) {
+  //     res.status(400).json({ success: false, error });
+  //   }
+  //   res.status(200).json({ success: true });
+  // });
 };

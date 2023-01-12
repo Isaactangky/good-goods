@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
 import styled from "styled-components";
+import Button from "../Button/Button.component";
 
 export const Wrapper = styled.div`
   width: 100%;
@@ -13,11 +13,8 @@ export const Wrapper = styled.div`
   @media screen and (max-width: 800px) {
     max-width: 25rem;
   }
-  :hover {
-    box-shadow: var(--dark-shadow);
-  }
 `;
-export const Content = styled(Link)`
+export const Content = styled.div`
   width: 100%;
   display: flex;
   justify-content: flex-start;
@@ -86,11 +83,13 @@ export const Image = styled.img`
 
 export const OtherInfo = styled.div`
   display: flex;
+  align-items: center;
   gap: 10px;
   margin-top: auto;
   font-size: var(--fontXS);
   color: var(--medgrey);
   opacity: 0.8;
+
   .reviews-count {
     display: flex;
     gap: 3px;

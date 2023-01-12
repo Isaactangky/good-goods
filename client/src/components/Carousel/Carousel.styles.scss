@@ -4,7 +4,7 @@
 .container {
   width: 100%;
   margin: 0 auto;
-  padding: 5rem 0;
+
   // max-width: var(--max-width);
 }
 
@@ -29,18 +29,19 @@ Slider
 .section-center {
   margin: 0 auto;
   /* have to have a height */
-  height: 250px;
+  height: 400px;
   text-align: center;
   position: relative;
   display: flex;
-  /* overflow: hidden; */
+  overflow: hidden;
   @media screen and (max-width: 1000px) {
-    max-width: 400px;
+    // max-width: 400px;
+    height: 300px;
   }
 }
 .product-img {
   width: 100%;
-  height: 250px;
+  height: 100%;
   object-fit: cover;
   border-radius: var(--radius);
   border: 4px solid var(--clr-grey-8);
@@ -56,24 +57,28 @@ Slider
 .prev,
 .next {
   position: absolute;
-  top: 125px;
+  top: 150px;
   transform: translateY(-50%);
-  background: var(--medgrey);
-  color: var(--white);
-  width: 1.75rem;
-  height: 1.75rem;
+  background: transparent;
+  background: rgba(255, 255, 255, 0.25);
+
+  color: var(--lightgrey);
+  font-weight: bold;
+  width: 2.5rem;
+  height: 100%;
   display: grid;
   place-items: center;
   border-color: transparent;
   font-size: 1rem;
-  border-radius: var(--radius);
+  // border-radius: var(--radius);
   cursor: pointer;
   transition: var(--transition);
 }
 .prev:hover,
 .next:hover {
-  background: var(--lightgrey);
   color: var(--medgrey);
+
+  background: rgba(255, 255, 255, 0.75);
 }
 .prev {
   left: 0;
@@ -87,8 +92,10 @@ Slider
   }
   .prev,
   .next {
-    width: 2rem;
-    height: 2rem;
+    top: 200px;
+
+    width: 4rem;
+    height: 100%;
     font-size: 1.5rem;
   }
 }
@@ -103,7 +110,7 @@ Slider
   transition: var(--transition);
 
   @media screen and (max-width: 1000px) {
-    max-width: 400px;
+    height: 300px;
   }
 }
 .image-container.activeSlide {

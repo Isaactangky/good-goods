@@ -1,10 +1,13 @@
 import styled from "styled-components";
 
 export const ReviewContainer = styled.div`
-  margin: 5px 0rem;
-  font-size: 14px;
+  border: 1px solid var(--lightgrey);
+  border-left: 3px solid var(--medgrey);
 
-  padding: 10px;
+  border-radius: 10px;
+  margin: 10px 0rem;
+  font-size: 14px;
+  padding: 10px 10px 10px 20px;
   display: flex;
   flex-direction: column;
 `;

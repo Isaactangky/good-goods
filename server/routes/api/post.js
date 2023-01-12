@@ -8,16 +8,7 @@ const { upload } = require("../../middleware/multer");
 router
   .route("/")
   .get(catchAsync(post.index))
-  .post(
-    isLoggedIn,
-    (req, res, next) => {
-      console.log(req.body);
-      console.log(req.files);
-      next();
-    },
-    upload.array("images"),
-    catchAsync(post.createPost)
-  );
+  .post(isLoggedIn, upload.array("images"), catchAsync(post.createPost));
 
 router
   .route("/:id")

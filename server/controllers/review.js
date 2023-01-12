@@ -1,5 +1,10 @@
 const Review = require("../models/review");
 const Post = require("../models/post");
+/**
+ * @route   POST api/post/:id/reviews
+ * @desc    create a review to a post
+ * @access  Private
+ */
 module.exports.createReview = async (req, res) => {
   const { id } = req.params;
   const post = await Post.findById(id);
@@ -21,7 +26,11 @@ module.exports.createReview = async (req, res) => {
   });
   res.status(200).json(populatedReview);
 };
-
+/**
+ * @route   DELETE api/post/:id/reviews/:reviewId
+ * @desc    delete a review from a post
+ * @access  Private
+ */
 module.exports.deleteReview = async (req, res) => {
   const { id, reviewId } = req.params;
   const review = await Review.findByIdAndDelete(reviewId);

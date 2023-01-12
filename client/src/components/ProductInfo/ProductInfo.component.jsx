@@ -22,6 +22,7 @@ const ProductInfo = ({
   return (
     <Wrapper>
       <Content>
+        {images?.length > 0 && <Carousel images={images} />}
         <Text>
           <h1>{title}</h1>
           <span>{category}</span>
@@ -35,10 +36,6 @@ const ProductInfo = ({
             </ButtonContainer>
           ) : null}
         </Text>
-
-        {images?.length > 0 && (
-          <Carousel images={images} title="product preview" />
-        )}
       </Content>
     </Wrapper>
   );

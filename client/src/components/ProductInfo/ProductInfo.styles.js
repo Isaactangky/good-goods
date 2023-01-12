@@ -1,21 +1,34 @@
 import styled from "styled-components";
-
 export const Wrapper = styled.div`
   width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 20px;
 `;
 
 export const Content = styled.div`
   width: 100%;
   max-width: var(--max-width);
-  padding: 0 20px 20px;
+  padding: 20px 20px;
   margin: 0 auto;
 
-  display: grid;
+  ${
+    "" /* display: grid;
   grid-template-columns: 1fr 1fr;
-  column-gap: 2rem;
-  border-bottom: 2px solid var(--lightgrey);
-  @media screen and (max-width: 1000px) {
+  column-gap: 2rem; */
+  }
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  border: 2px solid var(--lightgrey);
+  border-radius: var(--radius);
+  ${
+    "" /* @media screen and (max-width: 1000px) {
     grid-template-columns: 1fr;
+  } */
   }
   span {
     font-size: var(--fontXS);
@@ -40,6 +53,7 @@ export const Text = styled.div`
 
 export const ButtonContainer = styled.div`
   margin-top: auto;
+  padding-top: 20px;
   display: flex;
   gap: 1rem;
 `;

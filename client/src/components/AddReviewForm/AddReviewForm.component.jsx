@@ -56,6 +56,7 @@ const AddReviewForm = () => {
         value={content}
         name="content"
         id="content"
+        rows={isDisplay ? "2" : "1"}
         onFocus={() => setIsDisplay(true)}
       />
       <Container isDisplay={isDisplay}>

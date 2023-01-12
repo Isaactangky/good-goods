@@ -34,10 +34,14 @@ export const postReducer = (state = POSTS_INITIAL_STATE, action) => {
       };
     case POST_ACTION_TYPES.FETCH_POST_SUCCEEDED:
     case POST_ACTION_TYPES.CREATE_POST_SUCCEEDED:
-    case POST_ACTION_TYPES.UPDATE_POST_SUCCEEDED:
       return {
         ...state,
         post: action.payload,
+        isLoading: false,
+      };
+    case POST_ACTION_TYPES.UPDATE_POST_SUCCEEDED:
+      return {
+        ...state,
         isLoading: false,
       };
 

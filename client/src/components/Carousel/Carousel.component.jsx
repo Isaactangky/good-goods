@@ -21,9 +21,9 @@ const Carousel = ({ images, title }) => {
   }, [slide]);
   return (
     <section className="container">
-      <div className="title">
+      {/* <div className="title">
         <h3>{title}</h3>
-      </div>
+      </div> */}
       <div className="section-center">
         {images.map((image, index) => {
           const { url, _id } = image;
