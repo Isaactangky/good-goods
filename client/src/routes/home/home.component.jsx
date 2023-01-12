@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import Button from "../../components/Button/Button.component";
-
 import { Wrapper, ButtonContainer } from "./home.styles.js";
 import BackgroundImage from "../../images/background.jpg";
 const Home = () => {
