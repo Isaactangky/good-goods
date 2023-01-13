@@ -27,6 +27,8 @@ export const GlobalStyle = createGlobalStyle`
     --radius: 5px;
     --light-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     --dark-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
+    --dark-shadow-2: 0 5px 15px rgba(255, 255, 255, 0.5);
+
     --max-width: 1280px;
     --margin-form-ele: 20px;
     

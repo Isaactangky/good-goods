@@ -7,6 +7,8 @@ import Button, { BUTTON_TYPES } from "../Button/Button.component";
 import FormInput from "../FormInput/FormInput.component";
 import { Form } from "../NewPostForm/NewPostForm.styles";
 import FormTextarea from "../FormTextarea/FormTextarea.component";
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+const API_URL = `${BACKEND_URL}/api/contactus`;
 
 const defaultFormFields = {
   subject: "",
@@ -27,7 +29,7 @@ const ContactUsForm = () => {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const { data } = await axios.post(`http://localhost:5000/api/contactus`, {
+      const { data } = await axios.post(`${API_URL}`, {
         subject,
         email,
         message,

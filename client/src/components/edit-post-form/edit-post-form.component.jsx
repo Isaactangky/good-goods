@@ -15,7 +15,7 @@ import { CATEGORIES } from "../../data";
 import { ImagesContainer, ImageContainer } from "./EditPostForm.styles";
 import Button, { BUTTON_TYPES } from "../Button/Button.component";
 import FormInput from "../FormInput/FormInput.component";
-import FormSelect from "../form-select/form-select.component";
+import FormSelect from "../FormSelect/FormSelect.component";
 import FormTextarea from "../FormTextarea/FormTextarea.component";
 import FormFileInput from "../FormFileInput/FormFileInput.component";
 
@@ -39,7 +39,6 @@ const EditPostForm = () => {
   const onFileChangeHandler = (event) => {
     setImages(event.target.files);
   };
-  console.log(formFields);
 
   useEffect(() => {
     (async () => {
@@ -63,7 +62,6 @@ const EditPostForm = () => {
     e.preventDefault();
     const formData = new FormData();
     for (let i = 0; i < images.length; i++) {
-      console.log(images[i]);
       formData.append("images", images[i], images[i].name);
     }
     formData.append(

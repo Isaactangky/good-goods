@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { createPostStartAsync } from "../../store/post/post.action";
 import { selectIsLoadingPost } from "../../store/post/post.selector";
 import FormInput from "../FormInput/FormInput.component";
-import FormSelect from "../form-select/form-select.component";
+import FormSelect from "../FormSelect/FormSelect.component";
 import FormFileInput from "../FormFileInput/FormFileInput.component";
 import FormTextarea from "../FormTextarea/FormTextarea.component";
 const defaultFormFields = {
@@ -39,7 +39,6 @@ const NewPostForm = () => {
     e.preventDefault();
     const formData = new FormData();
     for (let i = 0; i < images.length; i++) {
-      console.log(images[i]);
       formData.append("images", images[i], images[i].name);
     }
     formData.append("title", title);

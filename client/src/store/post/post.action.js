@@ -31,7 +31,6 @@ export const createPostStartAsync = (newPost) => async (dispatch, getState) => {
     dispatch(createAction(POST_ACTION_TYPES.CREATE_POST_SUCCEEDED, data));
     return data;
   } catch (error) {
-    console.log(error);
     const message = error.response?.data?.message || error.toString();
     dispatch(setError(message, error.response?.status));
     dispatch(createAction(POST_ACTION_TYPES.POST_ACTION_FAILED));

@@ -12,6 +12,13 @@ export const Container = styled.div`
 `;
 
 export const NavBar = styled.nav`
+  ${
+    "" /* width: 100%;
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  z-index: 100; */
+  }
   background: var(--white);
   box-shadow: var(--light-shadow);
 `;

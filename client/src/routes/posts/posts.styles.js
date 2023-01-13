@@ -16,6 +16,9 @@ export const Title = styled.div`
   justify-content: center;
   gap: 1.5rem;
   margin-bottom: 2rem;
+  @media screen and (max-width: 800px) {
+    gap: 1rem;
+  }
 `;
 export const CategoryButton = styled.button`
   background: transparent;
@@ -39,6 +42,10 @@ export const CategoryButton = styled.button`
   }
   @media screen and (max-width: 800px) {
     font-size: var(--fontS);
+  }
+  @media screen and (max-width: 500px) {
+    font-size: var(--fontXS);
+    padding: 0.1rem;
   }
 `;
 export const PostsContainer = styled.div`

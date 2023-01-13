@@ -24,7 +24,7 @@ export const Content = styled.div`
   }
 `;
 export const Info = styled.div`
-  height: 175px;
+  ${"" /* height: 175px; */}
 
   padding: 10px 20px;
   flex-grow: 1;
@@ -32,7 +32,7 @@ export const Info = styled.div`
   flex-direction: column;
   ${"" /* justify-content: space-between; */}
   @media screen and (max-width: 800px) {
-    height: 150px;
+    ${"" /* height: 150px; */}
     width: 100%;
   }
   h4 {
@@ -86,6 +86,7 @@ export const OtherInfo = styled.div`
   align-items: center;
   gap: 10px;
   margin-top: auto;
+  padding-top: 10px;
   font-size: var(--fontXS);
   color: var(--medgrey);
   opacity: 0.8;

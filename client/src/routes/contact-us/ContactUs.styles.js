@@ -13,7 +13,9 @@ export const Wrapper = styled.div`
   }
 `;
 export const Content = styled.div`
+  width: 100%;
   max-width: var(--max-width);
+  padding: 20px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   @media screen and (max-width: 1000px) {
@@ -36,5 +38,8 @@ export const ContactInfo = styled.div`
     color: var(--medgrey);
     font-weight: bold;
     color: white;
+  }
+  @media screen and (max-width: 1000px) {
+    width: 100%;
   }
 `;

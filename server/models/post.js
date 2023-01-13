@@ -12,7 +12,6 @@ const imageSchema = Schema(
 );
 
 imageSchema.virtual("thumbnail").get(function () {
-  console.log(this.url);
   return this.url.replace("/upload", "/upload/w_50");
 });
 

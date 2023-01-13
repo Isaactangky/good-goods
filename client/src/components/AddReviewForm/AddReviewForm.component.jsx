@@ -24,7 +24,6 @@ const AddReviewForm = () => {
   const resetFormFields = () => setFormFields(defaultFormFields);
   const createReview = (e) => {
     e.preventDefault();
-    // console.log(formFields);
     dispatch(createReviewStartAsync(id, formFields));
     resetFormFields();
   };

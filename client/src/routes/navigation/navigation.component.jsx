@@ -11,7 +11,7 @@ import {
 import { Outlet, Link, useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logOut } from "../../store/user/user.action";
-import { selectUser } from "../../store/user/user.selector";
+import { selectIsAuthenticated } from "../../store/user/user.selector";
 import { links } from "../../data.js";
 import { FaBars } from "react-icons/fa";
 import Button, { BUTTON_TYPES } from "../../components/Button/Button.component";
@@ -20,7 +20,7 @@ import Alert from "../../components/Alert/Alert.component.jsx";
 const Navigation = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const user = useSelector(selectUser);
+  const isAuthenticated = useSelector(selectIsAuthenticated);
   const location = useLocation();
   const [showLinks, setShowLinks] = useState(false);
   const linksAuthContainerRef = useRef(null);
@@ -66,7 +66,7 @@ const Navigation = () => {
                 ))}
               </Links>
               <AuthContainer>
-                {user ? (
+                {isAuthenticated ? (
                   <Button onClick={signOut} buttonType={BUTTON_TYPES.OUTLINE}>
                     Sign Out
                   </Button>

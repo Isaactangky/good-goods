@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 const Post = require("../models/post");
 const Review = require("../models/review");
 
-const JWT_SECRET = process.env.JWT_SECRET || "notagoodsecret";
+const JWT_SECRET = process.env.JWT_SECRET;
 // protecting post routes
 module.exports.isLoggedIn = function (req, res, next) {
   const token = req.headers["x-auth-token"];

@@ -39,7 +39,6 @@ const Posts = () => {
 
   const changeCategory = (category) => {
     if (category === searchCategory) return;
-    dispatch(postsReset());
     setSearchCategory(category);
   };
   const onLoadMorePosts = () => dispatch(loadMorePosts());
@@ -47,6 +46,7 @@ const Posts = () => {
   useEffect(() => {
     if (searchCategory === "latest") dispatch(fetchPostsStartAsync());
     else dispatch(fetchPostsStartAsync(searchCategory));
+    return () => dispatch(postsReset());
   }, [searchCategory, dispatch]);
   // Loading More Posts
   useEffect(() => {

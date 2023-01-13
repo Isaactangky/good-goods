@@ -7,7 +7,7 @@ import {
   OtherInfo,
 } from "./PostPreview.styles.js";
 import { useNavigate } from "react-router-dom";
-import NoImage from "../../images/no_image.jpg";
+import NoImage from "../../images/no-image.png";
 import { FaCommentAlt } from "react-icons/fa";
 import Button, { BUTTON_TYPES } from "../Button/Button.component";
 const PostPreview = ({ post }) => {
