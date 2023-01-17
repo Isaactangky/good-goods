@@ -40,12 +40,14 @@ const ProductInfo = ({
         <Text>
           {isAuthenticated && (
             <LikeButton onClick={onLike}>
-              {post.likes.indexOf(user.id) > -1 ? (
+              {post.likes && post.likes.indexOf(user.id) > -1 ? (
                 <AiFillHeart />
               ) : (
                 <AiOutlineHeart />
               )}
-              <span style={{ fontWeight: "bold" }}>{post.likes.length}</span>
+              <span style={{ fontWeight: "bold" }}>
+                {post.likes && post.likes.length ? post.likes.length : 0}
+              </span>
             </LikeButton>
           )}
           <h1>{title}</h1>
