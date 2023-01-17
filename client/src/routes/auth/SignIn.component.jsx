@@ -36,17 +36,12 @@ const SignIn = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     await dispatch(signInStartAsync({ email, password }));
-    if (state?.prev.pathname) {
+    if (state && state?.prev.pathname) {
       resetFormFields();
-      const redirectTo = state.prev.pathname;
-      navigate(redirectTo);
+      navigate(state.prev.pathname);
     }
   };
   if (isAuthenticated) {
-    if (state?.prev.pathname) {
-      const redirectTo = state.prev.pathname;
-      return <Navigate to={redirectTo} />;
-    }
     return <Navigate to="/" />;
   }
   return (

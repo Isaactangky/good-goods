@@ -37,6 +37,12 @@ const postSchema = Schema(
         ref: "Review",
       },
     ],
+    likes: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "user",
+      },
+    ],
     author: {
       type: Schema.Types.ObjectId,
       ref: "user",

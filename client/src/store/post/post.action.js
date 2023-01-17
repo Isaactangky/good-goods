@@ -107,3 +107,21 @@ export const deleteReviewStartAsync =
       dispatch(createAction(POST_ACTION_TYPES.REVIEWS_ACTION_FAILED));
     }
   };
+
+// Toggle like button
+export const toggleLikeStartAsync = (postId) => async (dispatch, getState) => {
+  try {
+    const { data } = await axios.post(
+      `${API_URL}/${postId}/like`,
+      {},
+      tokenConfig(getState)
+    );
+    console.log(data);
+    dispatch(createAction(POST_ACTION_TYPES.TOGGLE_LIKE_SUCCEDED, data));
+    return data;
+  } catch (error) {
+    const message = error.response?.data?.message || error.toString();
+    dispatch(setError(message, error.response?.status));
+    // dispatch(createAction(POST_ACTION_TYPES.REVIEWS_ACTION_FAILED));
+  }
+};

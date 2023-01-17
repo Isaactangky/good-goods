@@ -20,5 +20,6 @@ router
     upload.array("images"),
     catchAsync(post.updatePost)
   );
+router.post("/:id/like", isLoggedIn, catchAsync(post.toggleLike));
 
 module.exports = router;

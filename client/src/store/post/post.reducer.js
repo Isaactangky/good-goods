@@ -63,6 +63,14 @@ export const postReducer = (state = POSTS_INITIAL_STATE, action) => {
         post: deleteReview(state.post, action.payload),
         isLoadingReviews: false,
       };
+    case POST_ACTION_TYPES.TOGGLE_LIKE_SUCCEDED:
+      return {
+        ...state,
+        post: {
+          ...state.post,
+          likes: [...action.payload.post.likes],
+        },
+      };
     case POST_ACTION_TYPES.REVIEWS_ACTION_FAILED:
       return {
         ...state,

@@ -64,6 +64,7 @@ module.exports.register = async (req, res) => {
  */
 module.exports.login = async (req, res) => {
   const { password, email } = req.body;
+  console.log(req.body);
   if (!password || !email) throw new Error("Please fill in all fields");
 
   // Check existing user

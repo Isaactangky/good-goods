@@ -40,6 +40,7 @@ export const Content = styled.div`
   }
 `;
 export const Text = styled.div`
+  position: relative;
   min-height: 300px;
   width: 100%;
   display: flex;
@@ -56,4 +57,28 @@ export const ButtonContainer = styled.div`
   padding-top: 20px;
   display: flex;
   gap: 1rem;
+`;
+
+export const LikeButton = styled.div`
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  border: 1px solid var(--lightgrey);
+  border-radius: var(--radius);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 2rem;
+  color: var(--clr-primary-5);
+  @media screen and (max-width: 800px) {
+    padding: 5px;
+    font-size: 1.8rem;
+  }
+  @media screen and (max-width: 400px) {
+    padding: 5px;
+    font-size: 1.5rem;
+  }
 `;

@@ -26,6 +26,7 @@ const defaultFormFields = {
 const SignUp = () => {
   const dispatch = useDispatch();
   const isAuthenticated = useSelector(selectIsAuthenticated);
+
   const {
     formFields: { username, email, password, confirmPassword },
     resetFormFields,
@@ -33,7 +34,7 @@ const SignUp = () => {
   } = useFormFields(defaultFormFields);
   const isLoadingUser = useSelector(selectIsLoadingUser);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     if (!username || !email || !password || !confirmPassword)
       return dispatch(setError("Please fill in all the fields.", 400));
@@ -41,7 +42,8 @@ const SignUp = () => {
     if (password !== confirmPassword)
       return dispatch(setError("Passwords do not match.", 400));
 
-    dispatch(userSignUpStartAsync({ username, email, password }));
+    await dispatch(userSignUpStartAsync({ username, email, password }));
+
     resetFormFields();
   };
   if (isAuthenticated) {

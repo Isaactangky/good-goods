@@ -1,5 +1,6 @@
 const { cloudinary } = require("../cloudinary");
 const Post = require("../models/post");
+const User = require("../models/user");
 /**
  * @route   GET api/post
  * @desc    Get All filtered posts
@@ -106,9 +107,12 @@ module.exports.updatePost = async (req, res) => {
     for (let filename of deleteImages) {
       await cloudinary.uploader.destroy(filename);
     }
-    await post.updateOne({
-      $pull: { images: { filename: { $in: deleteImages } } },
-    });
+    await Post.updateOne(
+      { _id: id },
+      {
+        $pull: { images: { filename: { $in: deleteImages } } },
+      }
+    );
   }
 
   await post.save();
@@ -130,4 +134,26 @@ module.exports.deletePost = async (req, res) => {
     throw new Error("No post found");
   }
   res.status(200).json(post);
+};
+
+/**
+ * @route   DELETE api/post/:id/like
+ * @desc    Like/Unlike a post
+ * @access  Private
+ */
+module.exports.toggleLike = async (req, res) => {
+  const user = await User.findById(req.user.id);
+  const postId = req.params.id;
+  const post = await Post.findById(postId);
+
+  const isLiked = post.likes.some((like) => like.equals(user._id));
+  if (isLiked) {
+    await Post.updateOne({ _id: postId }, { $pull: { likes: user._id } });
+  } else {
+    post.likes.push(user._id);
+    await post.save();
+  }
+  const updatedPost = await Post.findById(postId);
+
+  res.status(200).json({ post: updatedPost });
 };

@@ -108,7 +108,7 @@ const EditPostForm = () => {
         onChange={onFileChangeHandler}
         multiple
       />
-      {post.images && post.images.length && (
+      {post.images && post.images.length ? (
         <ImagesContainer>
           {post.images.map((img, index) => {
             return (
@@ -127,7 +127,7 @@ const EditPostForm = () => {
             );
           })}
         </ImagesContainer>
-      )}
+      ) : null}
 
       <FormTextarea
         label="description"

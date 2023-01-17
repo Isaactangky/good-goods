@@ -1,4 +1,4 @@
-import EditPostForm from "../../components/edit-post-form/edit-post-form.component";
+import EditPostForm from "../../components/EditPostForm/EditPostForm.component";
 import { Wrapper, Title, Content } from "../new-post/new-post.styles";
 
 const EditPost = () => {

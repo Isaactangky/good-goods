@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import Button from "../Button/Button.component";
 
 export const Wrapper = styled.div`
   width: 100%;
@@ -91,7 +90,8 @@ export const OtherInfo = styled.div`
   color: var(--medgrey);
   opacity: 0.8;
 
-  .reviews-count {
+  .reviews-count,
+  .likes-count {
     display: flex;
     gap: 3px;
     align-items: center;

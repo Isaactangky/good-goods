@@ -9,9 +9,10 @@ import {
 import { useNavigate } from "react-router-dom";
 import NoImage from "../../images/no-image.png";
 import { FaCommentAlt } from "react-icons/fa";
+import { AiFillHeart } from "react-icons/ai";
 import Button, { BUTTON_TYPES } from "../Button/Button.component";
 const PostPreview = ({ post }) => {
-  const { _id, title, images, description, category, reviews } = post;
+  const { _id, title, images, description, category, reviews, likes } = post;
   const navigate = useNavigate();
   if (!description || !title) return;
 
@@ -33,6 +34,10 @@ const PostPreview = ({ post }) => {
             <span className="reviews-count">
               <FaCommentAlt />
               {reviews.length}
+            </span>
+            <span className="likes-count">
+              <AiFillHeart />
+              {likes.length}
             </span>
             <Button
               onClick={() => navigate(`/post/${_id}`)}
