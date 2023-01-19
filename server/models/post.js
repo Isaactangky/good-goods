@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const Review = require("./review");
 const options = { toJSON: { virtuals: true } };
-
+const { CATEGORIES } = require("../config");
 const imageSchema = Schema(
   {
     url: String,
@@ -26,6 +26,7 @@ const postSchema = Schema(
     },
     category: {
       type: String,
+      enum: CATEGORIES,
     },
     date: {
       type: Date,

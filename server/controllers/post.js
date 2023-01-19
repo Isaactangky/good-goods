@@ -38,6 +38,9 @@ module.exports.index = async (req, res) => {
  * @access  Private
  */
 module.exports.createPost = async (req, res) => {
+  // validate images array
+  if (!req.files) throw new Error("Images for post is required");
+
   const images = req.files.map((image) => {
     return {
       filename: image.filename,
@@ -48,7 +51,6 @@ module.exports.createPost = async (req, res) => {
   newPost.author = req.user.id;
   newPost.images = images;
   const post = await newPost.save();
-  if (!post) throw new Error("Something went wrong saving the post");
   const populatedPost = await Post.populate(post, {
     path: "author",
     select: "-password",
@@ -91,7 +93,7 @@ module.exports.updatePost = async (req, res) => {
   const newPost = JSON.parse(req.body.newPost);
 
   const post = await Post.findByIdAndUpdate(id, newPost, { new: true });
-
+  // Add images, not required
   if (req.files) {
     const images = req.files.map((image) => {
       return {

@@ -116,7 +116,6 @@ export const toggleLikeStartAsync = (postId) => async (dispatch, getState) => {
       {},
       tokenConfig(getState)
     );
-    console.log(data);
     dispatch(createAction(POST_ACTION_TYPES.TOGGLE_LIKE_SUCCEDED, data));
     return data;
   } catch (error) {

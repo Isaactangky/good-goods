@@ -3,3 +3,5 @@ module.exports.dbUrl =
 module.exports.JWT_TOKEN_EXPIRATION = 3600 * 24;
 
 module.exports.POST_NUM_PER_PAGE = 10;
+
+module.exports.CATEGORIES = ["Food", "Beauty", "Clothing", "Health"];
