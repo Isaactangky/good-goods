@@ -25,7 +25,6 @@ export const createPostStartAsync = (newPost) => async (dispatch, getState) => {
   try {
     const config = tokenConfig(getState);
     config.headers["Content-Type"] = "multipart/form-data";
-
     const { data } = await axios.post(`${API_URL}`, newPost, config);
 
     dispatch(createAction(POST_ACTION_TYPES.CREATE_POST_SUCCEEDED, data));

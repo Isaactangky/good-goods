@@ -44,11 +44,11 @@ const NewPostForm = () => {
     formData.append("title", title);
     formData.append("category", category);
     formData.append("description", description);
-
-    // const newPost = { title, category, description };
     const data = await dispatch(createPostStartAsync(formData));
-    clearFormField();
-    navigate(`/post/${data._id}`);
+    if (data._id) {
+      clearFormField();
+      navigate(`/post/${data._id}`);
+    }
   };
 
   return (
