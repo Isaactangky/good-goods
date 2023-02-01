@@ -7,7 +7,7 @@ module.exports.postSchema = Joi.object({
     .required()
     .valid(...CATEGORIES),
   description: Joi.string().required(),
-  deleteImages: Joi.array(),
+  deleteImages: Joi.optional(),
 });
 
 module.exports.reviewSchema = Joi.object({

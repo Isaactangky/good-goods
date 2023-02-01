@@ -53,11 +53,16 @@ export const updatePostStartAsync =
   (id, formData) => async (dispatch, getState) => {
     dispatch(createAction(POST_ACTION_TYPES.POST_LOADING));
     try {
+      // console.log(formData);
       let body = formData;
       const config = tokenConfig(getState);
-      if (formData.has("deleteImages") && formData["deleteImages"].length > 0)
-        config.headers["Content-Type"] = "multipart/form-data";
-      else body = JSON.stringify(formData);
+      config.headers["Content-Type"] = "multipart/form-data";
+      // if (formData.has("images") && formData["images"].length > 0) {
+      //   ;
+      // } else {
+      //   body = Object.fromEntries(formData.entries());
+      // }
+      console.log(body);
       const { data } = await axios.put(`${API_URL}/${id}`, body, config);
       dispatch(createAction(POST_ACTION_TYPES.UPDATE_POST_SUCCEEDED, data));
       return data;

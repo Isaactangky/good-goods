@@ -90,10 +90,15 @@ module.exports.getPost = async (req, res) => {
  */
 module.exports.updatePost = async (req, res) => {
   const { id } = req.params;
-  const newPost = JSON.parse(req.body.newPost);
+  const newPost = Object.keys(req.body)
+    .filter((key) => key !== "deleteImages")
+    .reduce((post, key) => {
+      post[key] = req.body[key];
+      return post;
+    }, {});
 
   const post = await Post.findByIdAndUpdate(id, newPost, { new: true });
-  // Add images, not required
+  // Add images, optional
   if (req.files) {
     const images = req.files.map((image) => {
       return {
@@ -104,8 +109,8 @@ module.exports.updatePost = async (req, res) => {
 
     post.images.push(...images);
   }
-  const deleteImages = JSON.parse(req.body.deleteImages);
-  if (deleteImages.length) {
+  if (req.body.deleteImages) {
+    const deleteImages = req.body.deleteImages.split(",");
     for (let filename of deleteImages) {
       await cloudinary.uploader.destroy(filename);
     }

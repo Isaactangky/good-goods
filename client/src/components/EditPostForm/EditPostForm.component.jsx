@@ -64,14 +64,15 @@ const EditPostForm = () => {
     for (let i = 0; i < images.length; i++) {
       formData.append("images", images[i], images[i].name);
     }
-    formData.append(
-      "newPost",
-      JSON.stringify({ title, category, description })
-    );
 
-    formData.append("deleteImages", JSON.stringify(deleteImages));
+    formData.append("deleteImages", deleteImages);
+
+    formData.append("title", title);
+    formData.append("category", category);
+    formData.append("description", description);
+
     const data = await dispatch(updatePostStartAsync(id, formData));
-    navigate(`/post/${data._id}`);
+    if (data._id) navigate(`/post/${data._id}`);
   };
 
   const onCheckHandler = (event) => {

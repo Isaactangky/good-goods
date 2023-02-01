@@ -39,18 +39,27 @@ const Carousel = ({ images }) => {
             position = "nextSlide";
 
           return (
-            <div key={_id} className={`image-container ${position}`}>
+            <div
+              key={_id}
+              className={`image-container ${
+                images.length > 1 ? position : "activeSlide"
+              }`}
+            >
               <img src={url} alt="product" className="product-img" />
             </div>
           );
           //more
         })}
-        <button className="prev" onClick={() => setSlide(slide - 1)}>
-          <FiChevronLeft />
-        </button>
-        <button className="next" onClick={() => setSlide(slide + 1)}>
-          <FiChevronRight />
-        </button>
+        {images.length > 1 && (
+          <>
+            <button className="prev" onClick={() => setSlide(slide - 1)}>
+              <FiChevronLeft />
+            </button>
+            <button className="next" onClick={() => setSlide(slide + 1)}>
+              <FiChevronRight />
+            </button>
+          </>
+        )}
       </div>
     </section>
   );

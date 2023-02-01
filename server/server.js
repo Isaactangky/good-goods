@@ -41,7 +41,7 @@ app.use((err, req, res, next) => {
   const { statusCode = 400 } = err;
   console.log(err);
   if (!err.message) err.message = "Something went wrong";
-  res.status(statusCode).json(err);
+  res.status(statusCode).json({ message: err.message });
 });
 
 const port = process.env.PORT || 5000;
