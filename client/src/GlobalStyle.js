@@ -23,6 +23,8 @@ export const GlobalStyle = createGlobalStyle`
     --clr-primary-9: #ffc7b3;
     --clr-primary-10: #ffece6;
     --transition: all 0.3s linear;
+    --transition-slow: all 0.5s linear;
+
     --spacing: 0.1rem;
     --radius: 5px;
     --light-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);

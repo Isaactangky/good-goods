@@ -35,17 +35,15 @@ Slider
   display: flex;
   overflow: hidden;
   @media screen and (max-width: 1000px) {
-    // max-width: 400px;
     height: 300px;
   }
 }
 .product-img {
-  width: 100%;
+  // width: 100%;
   height: 100%;
-  object-fit: cover;
+  // object-fit: cover;
   border-radius: var(--radius);
   border: 4px solid var(--clr-grey-8);
-  box-shadow: var(--dark-shadow);
 }
 
 .title {
@@ -60,12 +58,12 @@ Slider
   top: 150px;
   transform: translateY(-50%);
   background: transparent;
-  background: rgba(255, 255, 255, 0.25);
 
-  color: var(--lightgrey);
+  color: var(--medgrey);
   font-weight: bold;
-  width: 2.5rem;
-  height: 100%;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
   display: grid;
   place-items: center;
   border-color: transparent;
@@ -78,7 +76,7 @@ Slider
 .next:hover {
   color: var(--medgrey);
 
-  background: rgba(255, 255, 255, 0.75);
+  background: rgba(0, 0, 0, 0.035);
 }
 .prev {
   left: 0;
@@ -95,7 +93,9 @@ Slider
     top: 200px;
 
     width: 4rem;
-    height: 100%;
+    height: 4rem;
+
+    // height: 100%;
     font-size: 1.5rem;
   }
 }
@@ -106,8 +106,9 @@ Slider
   width: 100%;
   height: 100%;
   opacity: 0;
+  box-shadow: var(--dark-shadow);
 
-  transition: var(--transition);
+  transition: var(--transition-slow);
 
   @media screen and (max-width: 1000px) {
     height: 300px;

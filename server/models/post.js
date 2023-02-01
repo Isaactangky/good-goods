@@ -10,9 +10,13 @@ const imageSchema = Schema(
   },
   options
 );
-
+// small image with width 50 for edit form preview
 imageSchema.virtual("thumbnail").get(function () {
   return this.url.replace("/upload", "/upload/w_50");
+});
+// preview image with width 300
+imageSchema.virtual("preview").get(function () {
+  return this.url.replace("/upload", "/upload/w_300");
 });
 
 const postSchema = Schema(

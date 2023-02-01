@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import Button from "../../components/Button/Button.component";
 import { Wrapper, Content, ButtonContainer } from "./home.styles.js";
-import BackgroundImage from "../../images/background.jpg";
+import BackgroundImage from "../../images/background-min.jpg";
 const Home = () => {
   return (
     <Wrapper background={BackgroundImage}>

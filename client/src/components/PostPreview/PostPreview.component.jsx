@@ -21,7 +21,7 @@ const PostPreview = ({ post }) => {
       <Content>
         <ImageContainer>
           <Image
-            src={images.length > 0 ? images[0].url : NoImage}
+            src={images.length > 0 ? images[0].preview : NoImage}
             alt="preview-image"
           />
         </ImageContainer>

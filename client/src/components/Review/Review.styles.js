@@ -2,7 +2,8 @@ import styled from "styled-components";
 
 export const ReviewContainer = styled.div`
   border: 1px solid var(--lightgrey);
-  border-left: 3px solid var(--medgrey);
+  border-left: 2px solid var(--medgrey);
+  border-right: 2px solid var(--medgrey);
 
   border-radius: 10px;
   margin: 10px 0rem;

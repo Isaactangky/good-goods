@@ -36,7 +36,6 @@ const ProductInfo = ({
   return (
     <Wrapper>
       <Content>
-        {images?.length > 0 && <Carousel images={images} />}
         <Text>
           {isAuthenticated && (
             <LikeButton onClick={onLike}>
@@ -62,6 +61,7 @@ const ProductInfo = ({
             </ButtonContainer>
           ) : null}
         </Text>
+        {images?.length > 0 && <Carousel images={images} />}
       </Content>
     </Wrapper>
   );

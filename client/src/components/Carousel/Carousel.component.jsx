@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { FiChevronRight, FiChevronLeft } from "react-icons/fi";
 import "./Carousel.styles.scss";
-const Carousel = ({ images, title }) => {
+const Carousel = ({ images }) => {
   const [slide, setSlide] = useState(0);
+  // reset slide index when exceeding index range
   useEffect(() => {
     const lastIndex = images.length - 1;
     if (slide < 0) {
@@ -13,10 +14,11 @@ const Carousel = ({ images, title }) => {
       setSlide(0);
     }
   }, [slide, images]);
+  // auto sliding
   useEffect(() => {
-    let interval = setInterval(() => {
+    const interval = setInterval(() => {
       setSlide(slide + 1);
-    }, 5000);
+    }, 3000);
     return () => clearInterval(interval);
   }, [slide]);
   return (
@@ -27,13 +29,14 @@ const Carousel = ({ images, title }) => {
       <div className="section-center">
         {images.map((image, index) => {
           const { url, _id } = image;
-          let position = "nextSlide";
+          // set class name base on index and current slide value
+          let position = "lastSlide";
           if (index === slide) position = "activeSlide";
           if (
-            index === slide - 1 ||
+            index === slide + 1 ||
             (index === 0 && slide === images.length - 1)
           )
-            position = "lastSlide";
+            position = "nextSlide";
 
           return (
             <div key={_id} className={`image-container ${position}`}>

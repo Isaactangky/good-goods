@@ -21,6 +21,7 @@ router
     isLoggedIn,
     isAuthor,
     upload.array("images"),
+
     validatePost,
     catchAsync(post.updatePost)
   );
